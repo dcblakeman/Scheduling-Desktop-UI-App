@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
+
 
 namespace Scheduling_Desktop_UI_App
 {
@@ -15,11 +17,13 @@ namespace Scheduling_Desktop_UI_App
         public LoginForm()
         {
             InitializeComponent();
+            string userLanguage = CultureInfo.CurrentCulture.Name;
+            Console.WriteLine(userLanguage); // e.g., "en-US"
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
-
+            
         }
     }
 }
