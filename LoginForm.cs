@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
+using System.Device.Location;
 
 
 namespace Scheduling_Desktop_UI_App
@@ -17,8 +18,16 @@ namespace Scheduling_Desktop_UI_App
         public LoginForm()
         {
             InitializeComponent();
-            string userLanguage = CultureInfo.CurrentCulture.Name;
-            Console.WriteLine(userLanguage); // e.g., "en-US"
+            Console.WriteLine(CityCoordinates.CityCoordinatesList["New York"].Coordinates.Latitude);
+            Console.WriteLine(CityCoordinates.CityCoordinatesList["New York"].Coordinates.Longitude);
+            Console.WriteLine(CityCoordinates.CityCoordinatesList["Phoenix"].Coordinates.Latitude);
+            Console.WriteLine(CityCoordinates.CityCoordinatesList["Phoenix"].Coordinates.Longitude);
+            Console.WriteLine(CityCoordinates.CityCoordinatesList["London"].Coordinates.Latitude);
+            Console.WriteLine(CityCoordinates.CityCoordinatesList["London"].Coordinates.Longitude);
+            PrintDialog printDialog = new PrintDialog();
+            printDialog.ShowDialog();
+
+
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
