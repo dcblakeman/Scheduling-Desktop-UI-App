@@ -24,8 +24,6 @@ namespace Scheduling_Desktop_UI_App
             Console.WriteLine(CityCoordinates.CityCoordinatesList["Phoenix"].Coordinates.Longitude);
             Console.WriteLine(CityCoordinates.CityCoordinatesList["London"].Coordinates.Latitude);
             Console.WriteLine(CityCoordinates.CityCoordinatesList["London"].Coordinates.Longitude);
-            PrintDialog printDialog = new PrintDialog();
-            printDialog.ShowDialog();
 
 
         }
