@@ -16,6 +16,7 @@ namespace Scheduling_Desktop_UI_App
         [STAThread]
         static void Main()
         {
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new LoginForm());
