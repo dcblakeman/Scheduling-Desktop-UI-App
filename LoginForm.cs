@@ -42,6 +42,7 @@ namespace Scheduling_Desktop_UI_App
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
+
         {
             // Optional: Check if location data is available immediately after loading the form
             GeoCoordinate coordinate = _watcher.Position.Location;
@@ -106,6 +107,10 @@ namespace Scheduling_Desktop_UI_App
                         // Output the translated message
                         MessageBox.Show(translatedMessage);
                         // Navigate to the next form or main application window.
+                        MainNavigationPage navigation_page = new MainNavigationPage();
+                        navigation_page.Show();
+                        this.Hide();
+
 
                     }
                     else
@@ -125,6 +130,11 @@ namespace Scheduling_Desktop_UI_App
         }
 
         private void PasswordTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UsernameTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }
