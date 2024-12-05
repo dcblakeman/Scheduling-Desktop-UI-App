@@ -88,6 +88,9 @@ namespace Scheduling_Desktop_UI_App
             // Get the user's UI culture
             CultureInfo uiCulture = CultureInfo.CurrentUICulture;
 
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("es-ES");
+
+
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connectionString))
