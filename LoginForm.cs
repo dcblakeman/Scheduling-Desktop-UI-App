@@ -13,6 +13,7 @@ using BundlerMinifier;
 using MySql.Data.MySqlClient;
 using System.Resources;
 using System.Reflection;
+using System.Threading;
 
 
 namespace Scheduling_Desktop_UI_App
