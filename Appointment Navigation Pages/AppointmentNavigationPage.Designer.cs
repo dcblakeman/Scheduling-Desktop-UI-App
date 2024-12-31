@@ -1,6 +1,6 @@
 ﻿namespace Scheduling_Desktop_UI_App
 {
-    partial class AppointmentsNavigationPage
+    partial class AppointmentNavigationPage
     {
         /// <summary>
         /// Required designer variable.
@@ -28,25 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ToNavigationFormButton = new System.Windows.Forms.Button();
+            this.ToNavigationPageButton = new System.Windows.Forms.Button();
             this.DeleteAppointmentButton = new System.Windows.Forms.Button();
             this.UpdateAppointmentButton = new System.Windows.Forms.Button();
             this.AddAppointmentButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.AppointmentNavigationLabel = new System.Windows.Forms.Label();
+            this.appointmentsDataGridView = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.appointmentsDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // ToNavigationFormButton
+            // ToNavigationPageButton
             // 
-            this.ToNavigationFormButton.Location = new System.Drawing.Point(603, 341);
-            this.ToNavigationFormButton.Name = "ToNavigationFormButton";
-            this.ToNavigationFormButton.Size = new System.Drawing.Size(115, 23);
-            this.ToNavigationFormButton.TabIndex = 1;
-            this.ToNavigationFormButton.Text = "Navigation Page";
-            this.ToNavigationFormButton.UseVisualStyleBackColor = true;
+            this.ToNavigationPageButton.Location = new System.Drawing.Point(531, 341);
+            this.ToNavigationPageButton.Name = "ToNavigationPageButton";
+            this.ToNavigationPageButton.Size = new System.Drawing.Size(187, 23);
+            this.ToNavigationPageButton.TabIndex = 1;
+            this.ToNavigationPageButton.Text = "Main Navigation";
+            this.ToNavigationPageButton.UseVisualStyleBackColor = true;
+            this.ToNavigationPageButton.Click += new System.EventHandler(this.ToNavigationPageButton_Click);
             // 
             // DeleteAppointmentButton
             // 
-            this.DeleteAppointmentButton.Location = new System.Drawing.Point(353, 273);
+            this.DeleteAppointmentButton.Location = new System.Drawing.Point(77, 278);
             this.DeleteAppointmentButton.Name = "DeleteAppointmentButton";
             this.DeleteAppointmentButton.Size = new System.Drawing.Size(115, 23);
             this.DeleteAppointmentButton.TabIndex = 2;
@@ -55,7 +58,7 @@
             // 
             // UpdateAppointmentButton
             // 
-            this.UpdateAppointmentButton.Location = new System.Drawing.Point(353, 203);
+            this.UpdateAppointmentButton.Location = new System.Drawing.Point(77, 208);
             this.UpdateAppointmentButton.Name = "UpdateAppointmentButton";
             this.UpdateAppointmentButton.Size = new System.Drawing.Size(115, 23);
             this.UpdateAppointmentButton.TabIndex = 3;
@@ -64,34 +67,44 @@
             // 
             // AddAppointmentButton
             // 
-            this.AddAppointmentButton.Location = new System.Drawing.Point(353, 133);
+            this.AddAppointmentButton.Location = new System.Drawing.Point(77, 138);
             this.AddAppointmentButton.Name = "AddAppointmentButton";
             this.AddAppointmentButton.Size = new System.Drawing.Size(115, 23);
             this.AddAppointmentButton.TabIndex = 4;
             this.AddAppointmentButton.Text = "Add Appointment";
             this.AddAppointmentButton.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // AppointmentNavigationLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(334, 73);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(153, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Appointments Navigation Page";
+            this.AppointmentNavigationLabel.AutoSize = true;
+            this.AppointmentNavigationLabel.Location = new System.Drawing.Point(339, 62);
+            this.AppointmentNavigationLabel.Name = "AppointmentNavigationLabel";
+            this.AppointmentNavigationLabel.Size = new System.Drawing.Size(120, 13);
+            this.AppointmentNavigationLabel.TabIndex = 5;
+            this.AppointmentNavigationLabel.Text = "Appointment Navigation";
+            // 
+            // appointmentsDataGridView
+            // 
+            this.appointmentsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.appointmentsDataGridView.Location = new System.Drawing.Point(292, 138);
+            this.appointmentsDataGridView.Name = "appointmentsDataGridView";
+            this.appointmentsDataGridView.Size = new System.Drawing.Size(377, 163);
+            this.appointmentsDataGridView.TabIndex = 6;
             // 
             // AppointmentsNavigationPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.ToNavigationFormButton);
+            this.Controls.Add(this.appointmentsDataGridView);
+            this.Controls.Add(this.AppointmentNavigationLabel);
+            this.Controls.Add(this.ToNavigationPageButton);
             this.Controls.Add(this.DeleteAppointmentButton);
             this.Controls.Add(this.UpdateAppointmentButton);
             this.Controls.Add(this.AddAppointmentButton);
             this.Name = "AppointmentsNavigationPage";
             this.Text = "Appointments Navigation Page";
+            ((System.ComponentModel.ISupportInitialize)(this.appointmentsDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -99,10 +112,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Button ToNavigationFormButton;
+        private System.Windows.Forms.Button ToNavigationPageButton;
         private System.Windows.Forms.Button DeleteAppointmentButton;
         private System.Windows.Forms.Button UpdateAppointmentButton;
         private System.Windows.Forms.Button AddAppointmentButton;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label AppointmentNavigationLabel;
+        private System.Windows.Forms.DataGridView appointmentsDataGridView;
     }
 }

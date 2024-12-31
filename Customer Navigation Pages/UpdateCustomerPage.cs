@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Scheduling_Desktop_UI_App.Customer_Navigation_Pages
+namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
 {
     public partial class UpdateCustomerPage : Form
     {

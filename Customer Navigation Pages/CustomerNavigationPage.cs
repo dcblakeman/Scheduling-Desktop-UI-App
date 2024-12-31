@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Scheduling_Desktop_UI_App.Customer_mainNavigationPages;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,10 +20,22 @@ namespace Scheduling_Desktop_UI_App
 
         private void ToNavigationFormButton_Click(object sender, EventArgs e)
         {
-            MainNavigationPage navigation_Page = new MainNavigationPage();
-            navigation_Page.Show();
+            MainNavigationPage mainNavigationPage = new MainNavigationPage();
+            mainNavigationPage.Show();
             this.Hide();
 
+        }
+
+        private void CustomerNavigationPage_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddCustomerButton_Click(object sender, EventArgs e)
+        {
+            AddCustomerPage addCustomerPage = new AddCustomerPage();
+            addCustomerPage.Show();
+            this.Hide();
         }
     }
 }

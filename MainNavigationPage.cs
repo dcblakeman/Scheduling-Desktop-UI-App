@@ -28,12 +28,12 @@ namespace Scheduling_Desktop_UI_App
         private void AppointmentsButton_Click(object sender, EventArgs e)
         {
             //Navigate to Appointments Form
-            AppointmentsNavigationPage appointmentsForm = new AppointmentsNavigationPage();
+            AppointmentNavigationPage appointmentsForm = new AppointmentNavigationPage();
             appointmentsForm.Show();
             this.Hide();
         }
 
-        private void Navigation_Page_Load(object sender, EventArgs e)
+        private void mainNavigationPage_Load(object sender, EventArgs e)
         {
 
         }

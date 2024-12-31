@@ -14,7 +14,6 @@ namespace Scheduling_Desktop_UI_App.Classes
         public string Address2 { get; set; }
         public int CityId { get; set; }
         public string PostalCode { get; set; }
-        public string Country { get; set; }
         public string Phone { get; set; }
         public DateTime CreateDate { get; set; }
         public string CreatedBy { get; set; }

@@ -111,8 +111,8 @@ namespace Scheduling_Desktop_UI_App
                         // Output the translated message
                         MessageBox.Show(translatedMessage);
                         // Navigate to the next form or main application window.
-                        MainNavigationPage navigation_page = new MainNavigationPage();
-                        navigation_page.Show();
+                        MainNavigationPage mainNavigationPage = new MainNavigationPage();
+                        mainNavigationPage.Show();
                         this.Hide();
 
 

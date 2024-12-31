@@ -1,4 +1,4 @@
-﻿namespace Scheduling_Desktop_UI_App.Customer_Navigation_Pages
+﻿namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
 {
     partial class UpdateCustomerPage
     {
@@ -34,7 +34,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(936, 589);
             this.Name = "UpdateCustomerPage";
             this.Text = "Update Customer";
             this.ResumeLayout(false);

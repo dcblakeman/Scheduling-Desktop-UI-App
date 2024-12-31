@@ -80,6 +80,7 @@
     <Reference Include="System.Configuration.ConfigurationManager, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Configuration.ConfigurationManager.8.0.0\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Device" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=8.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -133,23 +134,11 @@
     <Compile Include="Appointment Navigation Pages\AddAppointmentPage.Designer.cs">
       <DependentUpon>AddAppointmentPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Appointment Navigation Pages\DeleteAppointmentPage.cs">
+    <Compile Include="Appointment Navigation Pages\AppointmentNavigationPage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Appointment Navigation Pages\DeleteAppointmentPage.Designer.cs">
-      <DependentUpon>DeleteAppointmentPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Appointment Navigation Pages\UpdateAppointmentPage.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Appointment Navigation Pages\UpdateAppointmentPage.Designer.cs">
-      <DependentUpon>UpdateAppointmentPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Appointment Navigation Pages\AppointmentsNavigationPage.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Appointment Navigation Pages\AppointmentsNavigationPage.Designer.cs">
-      <DependentUpon>AppointmentsNavigationPage.cs</DependentUpon>
+    <Compile Include="Appointment Navigation Pages\AppointmentNavigationPage.Designer.cs">
+      <DependentUpon>AppointmentNavigationPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Address.cs" />
     <Compile Include="Classes\Appointment.cs" />
@@ -162,12 +151,6 @@
     </Compile>
     <Compile Include="Customer Navigation Pages\AddCustomerPage.Designer.cs">
       <DependentUpon>AddCustomerPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Customer Navigation Pages\DeleteCustomerPage.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Customer Navigation Pages\DeleteCustomerPage.Designer.cs">
-      <DependentUpon>DeleteCustomerPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Customer Navigation Pages\UpdateCustomerPage.cs">
       <SubType>Form</SubType>
@@ -198,23 +181,14 @@
     <EmbeddedResource Include="Appointment Navigation Pages\AddAppointmentPage.resx">
       <DependentUpon>AddAppointmentPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Appointment Navigation Pages\AppointmentsNavigationPage.resx">
-      <DependentUpon>AppointmentsNavigationPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Appointment Navigation Pages\DeleteAppointmentPage.resx">
-      <DependentUpon>DeleteAppointmentPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Appointment Navigation Pages\UpdateAppointmentPage.resx">
-      <DependentUpon>UpdateAppointmentPage.cs</DependentUpon>
+    <EmbeddedResource Include="Appointment Navigation Pages\AppointmentNavigationPage.resx">
+      <DependentUpon>AppointmentNavigationPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Customer Navigation Pages\AddCustomerPage.resx">
       <DependentUpon>AddCustomerPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Customer Navigation Pages\CustomerNavigationPage.resx">
       <DependentUpon>CustomerNavigationPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Customer Navigation Pages\DeleteCustomerPage.resx">
-      <DependentUpon>DeleteCustomerPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Customer Navigation Pages\UpdateCustomerPage.resx">
       <DependentUpon>UpdateCustomerPage.cs</DependentUpon>

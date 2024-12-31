@@ -85,7 +85,7 @@
             this.Controls.Add(this.CustomersButton);
             this.Name = "MainNavigationPage";
             this.Text = "Main Navigation";
-            this.Load += new System.EventHandler(this.Navigation_Page_Load);
+            this.Load += new System.EventHandler(this.mainNavigationPage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
