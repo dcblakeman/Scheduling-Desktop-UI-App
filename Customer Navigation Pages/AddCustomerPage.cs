@@ -9,11 +9,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Configuration;
+using MySql.Data.MySqlClient;
+using System.Drawing.Text;
 
 namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
 {
     public partial class AddCustomerPage : Form
     {
+        private readonly Customer Customer = new Customer();
+        private readonly Address Address = new Address();
+        private readonly City City = new City();
+        private readonly Country Country = new Country();
+        private readonly string connString = ConfigurationManager.ConnectionStrings["SchedulingUIConnection"].ConnectionString;
+        private readonly string query = "SELECT * FROM customer";
+        private readonly MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["SchedulingUIConnection"].ConnectionString);
+
         public AddCustomerPage()
         {
             InitializeComponent();
@@ -24,7 +35,7 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
 
         }
 
-        private void phoneNumberTextBox_Enter(object sender, EventArgs e)
+        private void PhoneNumberTextBox_Enter(object sender, EventArgs e)
         {
             if (phoneNumberTextBox.Text == "999-999-9999")
             {
@@ -33,75 +44,70 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
             }
         }
 
-        private void phoneNumberTextBox_Leave(object sender, EventArgs e)
+        private void PhoneNumberTextBox_Leave(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(phoneNumberTextBox.Text))
             {
                 phoneNumberTextBox.Text = "999-999-9999";
                 phoneNumberTextBox.ForeColor = Color.Gray;
-            }else if (!string.Equals(phoneNumberTextBox.Text, "999-999-9999"))
+            } else if (!string.Equals(phoneNumberTextBox.Text, "999-999-9999"))
             {
                 phoneNumberTextBox.ForeColor = Color.Black;
             }
         }
 
-        private void submitButton_Click(object sender, EventArgs e)
+        private void ZipCodeTextBox_Enter(object sender, EventArgs e)
         {
-            //Create Regex for phone number
-            string phoneNumber = phoneNumberTextBox.Text;
-            string pattern = @"^\d{3}-\d{3}-\d{4}$";
-
-            //Add Customer to Database
-            //Check if all fields are filled
-            if (string.IsNullOrEmpty(firstNameTextBox.Text) || 
-                string.IsNullOrEmpty(lastNameTextBox.Text) || 
-                string.IsNullOrEmpty(cityTextBox.Text) || 
-                string.IsNullOrEmpty(stateTextBox.Text) ||
-                string.IsNullOrEmpty(zipCodeTextBox.Text) ||
-                string.IsNullOrEmpty(phoneNumberTextBox.Text))
+            if (postalCodeTextBox.Text == "99999")
             {
-                MessageBox.Show("Please fill all fields");
+                postalCodeTextBox.Text = "";
+                postalCodeTextBox.ForeColor = Color.Black;
             }
-            else if (!System.Text.RegularExpressions.Regex.IsMatch(phoneNumber, pattern))
+        }
+
+        private void ZipCodeTextBox_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(postalCodeTextBox.Text))
             {
-                MessageBox.Show("Please enter a valid phone number");
+                postalCodeTextBox.Text = "99999";
+                postalCodeTextBox.ForeColor = Color.Gray;
             }
-            else
+            else if (!string.Equals(postalCodeTextBox.Text, "99999"))
             {
-                //Create Customer Object
-                Customer customer = new Customer();
-                customer.CustomerName = firstNameTextBox.Text + " " + lastNameTextBox.Text;
-                customer.CreatedBy = { placeholder };
-                customer.LastUpdateBy = { placeholder };
-                //Create Address Object
-                //Add Address to Database
-                phoneNumberTextBox.ForeColor = Color.Black;
-                Address address = new Address();
-                address.Address1 = address1TextBox.Text;
-                address.Address2 = address2TextBox.Text;
-                address.City = cityTextBox.Text;
-                address.State = stateTextBox.Text;
-                address.PostalCode = zipCodeTextBox.Text;
-                address.Phone = phoneNumberTextBox.Text;
-                address.CreatedBy = { placeholder };
-                address.LastUpdateBy = { placeholder };
-                address.FirstName = firstNameTextBox.Text;
-                address.LastName = lastNameTextBox.Text;
-                address.Active = 1;
-                address.CreateDate = DateTime.Now;
-                address.LastUpdate = DateTime.Now;
-
-
-                //Add Customer to Database
-
-                //Check if customer already exists
-                //If customer does not exist, add customer to database
-                //If customer exists, update customer information
-                MessageBox.Show("Customer Added Successfully");
+                postalCodeTextBox.ForeColor = Color.Black;
             }
+        }
 
+        private void InsertCustomer(Customer customer, Address address, City city, Country country)
+        {
+            using (MySqlConnection conn = new MySqlConnection(connString))
+            {
+                conn.Open();
+                
+                string insertCustomerQuery = "INSERT INTO customer (customerId, customerName, addressId, active, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES (@customerId, @customerName, @addressId, @active, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
+                MySqlCommand cmd = new MySqlCommand(insertCustomerQuery, conn);
+                cmd.Parameters.AddWithValue("@customerId", customer.CustomerId);
+                cmd.Parameters.AddWithValue("@customerName", customer.CustomerName);
+                cmd.Parameters.AddWithValue("@addressId", customer.AddressId);
+                cmd.Parameters.AddWithValue("@active", customer.Active);
+                cmd.Parameters.AddWithValue("@createDate", customer.CreateDate);
+                cmd.Parameters.AddWithValue("@createdBy", customer.CreatedBy);
+                cmd.Parameters.AddWithValue("@lastUpdate", customer.LastUpdate);
+                cmd.Parameters.AddWithValue("@lastUpdateBy", customer.LastUpdateBy);
+                customer.CustomerId = (int)cmd.LastInsertedId;
+                conn.Open();
+                conn.Close();
+            }
+        }
 
+        private void SubmitButton_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

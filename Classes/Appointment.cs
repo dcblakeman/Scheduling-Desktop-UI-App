@@ -25,6 +25,56 @@ namespace Scheduling_Desktop_UI_App.Classes
         public string CreatedBy { get; set; }
         public Timestamp LastUpdate { get; set; }
         public string LastUpdateBy { get; set; }
+        public Appointment InsertAppointment(int customerId, string userId, string title, string description, string location, string contact, string type, string url, DateTime start, DateTime end)
+        {
+            this.CustomerId = customerId;
+            this.UserId = userId;
+            this.Title = title;
+            this.Description = description;
+            this.Location = location;
+            this.Contact = contact;
+            this.Type = type;
+            this.Url = url;
+            this.Start = start;
+            this.End = end;
+            this.CreateDate = DateTime.Now;
+            this.CreatedBy = User.UserName;
+            this.LastUpdate = Timestamp.FromDateTime(DateTime.Now);
+            this.LastUpdateBy = User.UserName;
+            return new Appointment();
+        }
+        public Appointment UpdateAppointment(int appointmentId, int customerId, string userId, string title, string description, string location, string contact, string type, string url, DateTime start, DateTime end)
+        {
+            this.AppointmentId = appointmentId;
+            this.CustomerId = customerId;
+            this.UserId = userId;
+            this.Title = title;
+            this.Description = description;
+            this.Location = location;
+            this.Contact = contact;
+            this.Type = type;
+            this.Url = url;
+            this.Start = start;
+            this.End = end;
+            this.LastUpdate = Timestamp.FromDateTime(DateTime.Now);
+            this.LastUpdateBy = User.UserName;
+            return new Appointment();
+        }
+        public Appointment DeleteAppointment(int appointmentId)
+        {
+            this.AppointmentId = appointmentId;
+            return new Appointment();
+        }
+        public Appointment GetAppointment(int appointmentId)
+        {
+            this.AppointmentId = appointmentId;
+            return new Appointment();
+        }
+        public List<Appointment> GetAll()
+        {
+            List<Appointment> appointmentList = new List<Appointment>();
+            return appointmentList;
+        }
 
     }
 }

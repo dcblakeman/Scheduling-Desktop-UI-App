@@ -10,15 +10,11 @@ using System.Windows.Forms;
 
 namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
 {
-    public partial class AddAppointmentPage : Form
+    public partial class UpdateAppointmentPage : Form
     {
-        public AddAppointmentPage()
+        public UpdateAppointmentPage()
         {
             InitializeComponent();
-        }
-
-        private void AddAppointmentPage_Load(object sender, EventArgs e)
-        {
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
@@ -27,6 +23,7 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
             AppointmentNavigationPage appointmentNavigationPage = new AppointmentNavigationPage();
             appointmentNavigationPage.Show();
             this.Hide();
+
         }
 
         private void SubmitButton_Click(object sender, EventArgs e)

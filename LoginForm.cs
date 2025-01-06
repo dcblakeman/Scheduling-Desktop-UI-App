@@ -14,6 +14,10 @@ using MySql.Data.MySqlClient;
 using System.Resources;
 using System.Reflection;
 using System.Threading;
+using System.Configuration;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using Scheduling_Desktop_UI_App.Classes;
+using System.IO;
 
 
 namespace Scheduling_Desktop_UI_App
@@ -21,6 +25,19 @@ namespace Scheduling_Desktop_UI_App
     public partial class LoginForm : Form
     {
         private readonly GeoCoordinateWatcher _watcher;
+        private static readonly string logFilePath = "Login_History.txt";
+
+        // Retrieve the connection string from the App.config file
+        private readonly string connectionString = ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString;
+
+        // Set up the resource manager to access resource files
+        private readonly ResourceManager resourceManager = new ResourceManager("Scheduling_Desktop_UI_App.Properties.Resources", typeof(Program).Assembly);
+
+        //Get current UI Culture
+        private readonly CultureInfo uiCulture = Thread.CurrentThread.CurrentUICulture;
+
+        // Get the current culture (language/region) of the system.
+        private readonly CultureInfo currentCulture = CultureInfo.CurrentCulture;
         public LoginForm()
         {
             InitializeComponent();
@@ -30,6 +47,12 @@ namespace Scheduling_Desktop_UI_App
             _watcher.StatusChanged += Watcher_StatusChanged;
             _watcher.PositionChanged += Watcher_PositionChanged;
             _watcher.Start();
+
+            // Print out the name of the current UI culture.
+            Console.WriteLine($"Current UI language: {uiCulture.DisplayName}");
+
+            // Print out a user-friendly name for the locale.
+            Console.WriteLine($"Current system language: {currentCulture.DisplayName}");
         }
 
         private static void Watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
@@ -57,22 +80,10 @@ namespace Scheduling_Desktop_UI_App
                 MessageBox.Show($"Initial Location: Latitude {coordinate.Latitude}, Longitude {coordinate.Longitude}");
             }
         }
-
         private void Username_Click(object sender, EventArgs e)
         {
 
         }
-
-        private void Password_Label_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void SchedulingAppLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void QuitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -80,17 +91,6 @@ namespace Scheduling_Desktop_UI_App
 
         private void Login_Click(object sender, EventArgs e)
         {
-            string connectionString = "Server=localhost;Database=schedulingdb;User ID=root;Password=password;Pooling=true;";
-
-            // Set up the resource manager to access resource files
-            ResourceManager resourceManager = new ResourceManager("Scheduling_Desktop_UI_App.Properties.Resources", typeof(Program).Assembly);
-
-            // Get the user's UI culture
-            CultureInfo uiCulture = CultureInfo.CurrentUICulture;
-
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("es-ES");
-
-
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -106,21 +106,29 @@ namespace Scheduling_Desktop_UI_App
                     if (count > 0)
                     {
                         // Retrieve the translation for the key "Greeting"
-                        string translatedMessage = resourceManager.GetString("LoginSuccessfulMessage", uiCulture);
+                        string translatedMessage = resourceManager.GetString("LoginSuccessfulMessage", currentCulture);
 
                         // Output the translated message
                         MessageBox.Show(translatedMessage);
-                        // Navigate to the next form or main application window.
+
+                        // Navigate to the next form or main application window and hide login window
                         MainNavigationPage mainNavigationPage = new MainNavigationPage();
                         mainNavigationPage.Show();
                         this.Hide();
+
+                        // Log the login time
+                        DateTime loginTime = DateTime.Now;
+                        // Create a log entry
+                        string logEntry = $"{loginTime:yyyy-MM-dd HH:mm:ss} - {User.UserName}";
+                        // Write the log entry to the log file
+                        File.AppendAllText(logFilePath, logEntry + Environment.NewLine);
 
 
                     }
                     else
                     {
                         // Retrieve the translation for the key "Greeting"
-                        string translatedMessage = resourceManager.GetString("LoginErrorMessage", uiCulture);
+                        string translatedMessage = resourceManager.GetString("LoginErrorMessage", currentCulture);
 
                         // Output the translated message
                         MessageBox.Show(translatedMessage);
@@ -131,16 +139,6 @@ namespace Scheduling_Desktop_UI_App
             {
                 MessageBox.Show($"Error: {ex.Message}");
             }
-        }
-
-        private void PasswordTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void UsernameTextBox_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

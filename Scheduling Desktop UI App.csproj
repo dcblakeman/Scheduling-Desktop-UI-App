@@ -140,6 +140,12 @@
     <Compile Include="Appointment Navigation Pages\AppointmentNavigationPage.Designer.cs">
       <DependentUpon>AppointmentNavigationPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Appointment Navigation Pages\UpdateAppointmentPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Appointment Navigation Pages\UpdateAppointmentPage.Designer.cs">
+      <DependentUpon>UpdateAppointmentPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classes\Address.cs" />
     <Compile Include="Classes\Appointment.cs" />
     <Compile Include="Classes\City.cs" />
@@ -184,6 +190,9 @@
     <EmbeddedResource Include="Appointment Navigation Pages\AppointmentNavigationPage.resx">
       <DependentUpon>AppointmentNavigationPage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Appointment Navigation Pages\UpdateAppointmentPage.resx">
+      <DependentUpon>UpdateAppointmentPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Customer Navigation Pages\AddCustomerPage.resx">
       <DependentUpon>AddCustomerPage.cs</DependentUpon>
     </EmbeddedResource>
@@ -227,6 +236,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

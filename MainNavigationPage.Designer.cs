@@ -36,9 +36,10 @@
             // 
             // CustomersButton
             // 
-            this.CustomersButton.Location = new System.Drawing.Point(274, 176);
+            this.CustomersButton.Location = new System.Drawing.Point(101, 131);
+            this.CustomersButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CustomersButton.Name = "CustomersButton";
-            this.CustomersButton.Size = new System.Drawing.Size(227, 23);
+            this.CustomersButton.Size = new System.Drawing.Size(340, 35);
             this.CustomersButton.TabIndex = 0;
             this.CustomersButton.Text = "Customers";
             this.CustomersButton.UseVisualStyleBackColor = true;
@@ -46,9 +47,10 @@
             // 
             // AppointmentsButton
             // 
-            this.AppointmentsButton.Location = new System.Drawing.Point(274, 238);
+            this.AppointmentsButton.Location = new System.Drawing.Point(101, 176);
+            this.AppointmentsButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.AppointmentsButton.Name = "AppointmentsButton";
-            this.AppointmentsButton.Size = new System.Drawing.Size(227, 23);
+            this.AppointmentsButton.Size = new System.Drawing.Size(340, 35);
             this.AppointmentsButton.TabIndex = 0;
             this.AppointmentsButton.Text = "Appointments";
             this.AppointmentsButton.UseVisualStyleBackColor = true;
@@ -57,18 +59,20 @@
             // MainNavigationPageLabel
             // 
             this.MainNavigationPageLabel.AutoSize = true;
-            this.MainNavigationPageLabel.Location = new System.Drawing.Point(345, 124);
+            this.MainNavigationPageLabel.Location = new System.Drawing.Point(212, 94);
+            this.MainNavigationPageLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.MainNavigationPageLabel.Name = "MainNavigationPageLabel";
-            this.MainNavigationPageLabel.Size = new System.Drawing.Size(84, 13);
+            this.MainNavigationPageLabel.Size = new System.Drawing.Size(121, 20);
             this.MainNavigationPageLabel.TabIndex = 1;
             this.MainNavigationPageLabel.Text = "Main Navigation";
             this.MainNavigationPageLabel.Click += new System.EventHandler(this.NavigationPageLabel_Click);
             // 
             // LogoutButton
             // 
-            this.LogoutButton.Location = new System.Drawing.Point(609, 327);
+            this.LogoutButton.Location = new System.Drawing.Point(101, 221);
+            this.LogoutButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.LogoutButton.Name = "LogoutButton";
-            this.LogoutButton.Size = new System.Drawing.Size(75, 23);
+            this.LogoutButton.Size = new System.Drawing.Size(340, 35);
             this.LogoutButton.TabIndex = 2;
             this.LogoutButton.Text = "Log Out";
             this.LogoutButton.UseVisualStyleBackColor = true;
@@ -76,13 +80,14 @@
             // 
             // MainNavigationPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(570, 351);
             this.Controls.Add(this.LogoutButton);
             this.Controls.Add(this.MainNavigationPageLabel);
             this.Controls.Add(this.AppointmentsButton);
             this.Controls.Add(this.CustomersButton);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainNavigationPage";
             this.Text = "Main Navigation";
             this.Load += new System.EventHandler(this.mainNavigationPage_Load);

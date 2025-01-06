@@ -28,85 +28,108 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.AddCustomerButton = new System.Windows.Forms.Button();
-            this.UpdateCustomerButton = new System.Windows.Forms.Button();
-            this.DeleteCustomerButton = new System.Windows.Forms.Button();
-            this.ToMainNavigationPageButton = new System.Windows.Forms.Button();
-            this.CustomerNavigationLabel = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.addCustomerButton = new System.Windows.Forms.Button();
+            this.updateCustomerButton = new System.Windows.Forms.Button();
+            this.deleteCustomerButton = new System.Windows.Forms.Button();
+            this.mainNavigationPageButton = new System.Windows.Forms.Button();
+            this.customerNavigationLabel = new System.Windows.Forms.Label();
+            this.customerDataGridView = new System.Windows.Forms.DataGridView();
+            this.QuitButton = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.customerDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // AddCustomerButton
+            // addCustomerButton
             // 
-            this.AddCustomerButton.Location = new System.Drawing.Point(59, 130);
-            this.AddCustomerButton.Name = "AddCustomerButton";
-            this.AddCustomerButton.Size = new System.Drawing.Size(115, 23);
-            this.AddCustomerButton.TabIndex = 0;
-            this.AddCustomerButton.Text = "Add Customer";
-            this.AddCustomerButton.UseVisualStyleBackColor = true;
-            this.AddCustomerButton.Click += new System.EventHandler(this.AddCustomerButton_Click);
+            this.addCustomerButton.Location = new System.Drawing.Point(53, 160);
+            this.addCustomerButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.addCustomerButton.Name = "addCustomerButton";
+            this.addCustomerButton.Size = new System.Drawing.Size(172, 35);
+            this.addCustomerButton.TabIndex = 1;
+            this.addCustomerButton.Text = "Add Customer";
+            this.addCustomerButton.UseVisualStyleBackColor = true;
+            this.addCustomerButton.Click += new System.EventHandler(this.AddCustomerButton_Click);
             // 
-            // UpdateCustomerButton
+            // updateCustomerButton
             // 
-            this.UpdateCustomerButton.Location = new System.Drawing.Point(59, 204);
-            this.UpdateCustomerButton.Name = "UpdateCustomerButton";
-            this.UpdateCustomerButton.Size = new System.Drawing.Size(115, 23);
-            this.UpdateCustomerButton.TabIndex = 0;
-            this.UpdateCustomerButton.Text = "Update Customer";
-            this.UpdateCustomerButton.UseVisualStyleBackColor = true;
+            this.updateCustomerButton.Location = new System.Drawing.Point(53, 274);
+            this.updateCustomerButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.updateCustomerButton.Name = "updateCustomerButton";
+            this.updateCustomerButton.Size = new System.Drawing.Size(172, 35);
+            this.updateCustomerButton.TabIndex = 2;
+            this.updateCustomerButton.Text = "Update Customer";
+            this.updateCustomerButton.UseVisualStyleBackColor = true;
             // 
-            // DeleteCustomerButton
+            // deleteCustomerButton
             // 
-            this.DeleteCustomerButton.Location = new System.Drawing.Point(59, 278);
-            this.DeleteCustomerButton.Name = "DeleteCustomerButton";
-            this.DeleteCustomerButton.Size = new System.Drawing.Size(115, 23);
-            this.DeleteCustomerButton.TabIndex = 0;
-            this.DeleteCustomerButton.Text = "Delete Customer";
-            this.DeleteCustomerButton.UseVisualStyleBackColor = true;
+            this.deleteCustomerButton.Location = new System.Drawing.Point(53, 388);
+            this.deleteCustomerButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.deleteCustomerButton.Name = "deleteCustomerButton";
+            this.deleteCustomerButton.Size = new System.Drawing.Size(172, 35);
+            this.deleteCustomerButton.TabIndex = 3;
+            this.deleteCustomerButton.Text = "Delete Customer";
+            this.deleteCustomerButton.UseVisualStyleBackColor = true;
             // 
-            // ToMainNavigationPageButton
+            // mainNavigationPageButton
             // 
-            this.ToMainNavigationPageButton.Location = new System.Drawing.Point(598, 350);
-            this.ToMainNavigationPageButton.Name = "ToMainNavigationPageButton";
-            this.ToMainNavigationPageButton.Size = new System.Drawing.Size(130, 23);
-            this.ToMainNavigationPageButton.TabIndex = 0;
-            this.ToMainNavigationPageButton.Text = "Main Navigation Page";
-            this.ToMainNavigationPageButton.UseVisualStyleBackColor = true;
-            this.ToMainNavigationPageButton.Click += new System.EventHandler(this.ToNavigationFormButton_Click);
+            this.mainNavigationPageButton.Location = new System.Drawing.Point(711, 433);
+            this.mainNavigationPageButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.mainNavigationPageButton.Name = "mainNavigationPageButton";
+            this.mainNavigationPageButton.Size = new System.Drawing.Size(195, 35);
+            this.mainNavigationPageButton.TabIndex = 5;
+            this.mainNavigationPageButton.Text = "Main Navigation Page";
+            this.mainNavigationPageButton.UseVisualStyleBackColor = true;
+            this.mainNavigationPageButton.Click += new System.EventHandler(this.NavigationFormButton_Click);
             // 
-            // CustomerNavigationLabel
+            // customerNavigationLabel
             // 
-            this.CustomerNavigationLabel.AutoSize = true;
-            this.CustomerNavigationLabel.Location = new System.Drawing.Point(388, 66);
-            this.CustomerNavigationLabel.Name = "CustomerNavigationLabel";
-            this.CustomerNavigationLabel.Size = new System.Drawing.Size(105, 13);
-            this.CustomerNavigationLabel.TabIndex = 1;
-            this.CustomerNavigationLabel.Text = "Customer Navigation";
+            this.customerNavigationLabel.AutoSize = true;
+            this.customerNavigationLabel.Location = new System.Drawing.Point(511, 92);
+            this.customerNavigationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.customerNavigationLabel.Name = "customerNavigationLabel";
+            this.customerNavigationLabel.Size = new System.Drawing.Size(156, 20);
+            this.customerNavigationLabel.TabIndex = 1;
+            this.customerNavigationLabel.Text = "Customer Navigation";
+            this.customerNavigationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // dataGridView1
+            // customerDataGridView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(298, 130);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(406, 171);
-            this.dataGridView1.TabIndex = 2;
+            this.customerDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.customerDataGridView.Location = new System.Drawing.Point(297, 160);
+            this.customerDataGridView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.customerDataGridView.Name = "customerDataGridView";
+            this.customerDataGridView.RowHeadersWidth = 62;
+            this.customerDataGridView.Size = new System.Drawing.Size(609, 263);
+            this.customerDataGridView.TabIndex = 4;
+            // 
+            // QuitButton
+            // 
+            this.QuitButton.Location = new System.Drawing.Point(297, 433);
+            this.QuitButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.QuitButton.Name = "QuitButton";
+            this.QuitButton.Size = new System.Drawing.Size(195, 35);
+            this.QuitButton.TabIndex = 6;
+            this.QuitButton.Text = "Quit";
+            this.QuitButton.UseVisualStyleBackColor = true;
+            this.QuitButton.Click += new System.EventHandler(this.QuitButton_Click);
             // 
             // CustomerNavigationPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.CustomerNavigationLabel);
-            this.Controls.Add(this.ToMainNavigationPageButton);
-            this.Controls.Add(this.DeleteCustomerButton);
-            this.Controls.Add(this.UpdateCustomerButton);
-            this.Controls.Add(this.AddCustomerButton);
+            this.ClientSize = new System.Drawing.Size(1014, 593);
+            this.Controls.Add(this.QuitButton);
+            this.Controls.Add(this.customerDataGridView);
+            this.Controls.Add(this.customerNavigationLabel);
+            this.Controls.Add(this.mainNavigationPageButton);
+            this.Controls.Add(this.deleteCustomerButton);
+            this.Controls.Add(this.updateCustomerButton);
+            this.Controls.Add(this.addCustomerButton);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "CustomerNavigationPage";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Customer Navigation";
             this.Load += new System.EventHandler(this.CustomerNavigationPage_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customerDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -114,11 +137,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Button AddCustomerButton;
-        private System.Windows.Forms.Button UpdateCustomerButton;
-        private System.Windows.Forms.Button DeleteCustomerButton;
-        private System.Windows.Forms.Button ToMainNavigationPageButton;
-        private System.Windows.Forms.Label CustomerNavigationLabel;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button addCustomerButton;
+        private System.Windows.Forms.Button updateCustomerButton;
+        private System.Windows.Forms.Button deleteCustomerButton;
+        private System.Windows.Forms.Button mainNavigationPageButton;
+        private System.Windows.Forms.Label customerNavigationLabel;
+        private System.Windows.Forms.DataGridView customerDataGridView;
+        private System.Windows.Forms.Button QuitButton;
     }
 }

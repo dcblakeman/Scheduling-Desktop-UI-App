@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace Scheduling_Desktop_UI_App.Classes
 {
-    internal class User
+    internal static class User
     {
-        User() { }
-        public int UserId { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public int Active { get; set; }
-        public DateTime CreateDate { get; set; }
-        public string CreatedBy { get; set; }
-        public DateTime LastUpdate { get; set; }
-        public string LastUpdateBy { get; set; }
+        public static int UserId { get; set; }
+        public static string UserName { get; set; }
+        public static string Password { get; set; }
+        public static int Active { get; set; }
+        public static DateTime CreateDate { get; set; }
+        public static string CreatedBy { get; set; }
+        public static DateTime LastUpdate { get; set; }
+        public static string LastUpdateBy { get; set; }
     }
 }
