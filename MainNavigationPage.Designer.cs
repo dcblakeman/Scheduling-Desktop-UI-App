@@ -65,7 +65,6 @@
             this.MainNavigationPageLabel.Size = new System.Drawing.Size(121, 20);
             this.MainNavigationPageLabel.TabIndex = 1;
             this.MainNavigationPageLabel.Text = "Main Navigation";
-            this.MainNavigationPageLabel.Click += new System.EventHandler(this.NavigationPageLabel_Click);
             // 
             // LogoutButton
             // 
@@ -90,7 +89,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainNavigationPage";
             this.Text = "Main Navigation";
-            this.Load += new System.EventHandler(this.mainNavigationPage_Load);
+            this.Load += new System.EventHandler(this.MainNavigationPage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

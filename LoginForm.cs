@@ -26,6 +26,7 @@ namespace Scheduling_Desktop_UI_App
     {
         private readonly GeoCoordinateWatcher _watcher;
         private static readonly string logFilePath = "Login_History.txt";
+        string userName;
 
         // Retrieve the connection string from the App.config file
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString;
@@ -38,9 +39,11 @@ namespace Scheduling_Desktop_UI_App
 
         // Get the current culture (language/region) of the system.
         private readonly CultureInfo currentCulture = CultureInfo.CurrentCulture;
-        public LoginForm()
+
+        public LoginForm(string userName)
         {
             InitializeComponent();
+            this.userName = userName;
 
             // Set up the GeoCoordinateWatcher
             _watcher = new GeoCoordinateWatcher();
@@ -52,7 +55,7 @@ namespace Scheduling_Desktop_UI_App
             Console.WriteLine($"Current UI language: {uiCulture.DisplayName}");
 
             // Print out a user-friendly name for the locale.
-            Console.WriteLine($"Current system language: {currentCulture.DisplayName}");
+            Console.WriteLine($"Current system language: {currentCulture.DisplayName}"); 
         }
 
         private static void Watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
@@ -80,65 +83,64 @@ namespace Scheduling_Desktop_UI_App
                 MessageBox.Show($"Initial Location: Latitude {coordinate.Latitude}, Longitude {coordinate.Longitude}");
             }
         }
-        private void Username_Click(object sender, EventArgs e)
+        private void Login_Click(object sender, EventArgs e)
         {
+            //Create User object
+            User user = new User();
+            user.UserName = UsernameTextBox.Text;
+            user.Password = PasswordTextBox.Text;
 
+            bool UserAuthenticated = user.UserAuthentication(user.UserName, user.Password);
+
+            // Check if the query returned a result
+            if (UserAuthenticated == true)
+        {
+                // Retrieve the translation for the key "Greeting"
+                string translatedMessage = resourceManager.GetString("LoginSuccessfulMessage", currentCulture);
+
+                // Output the translated message
+                MessageBox.Show(translatedMessage);
+
+                // Navigate to the next form or main application window and hide login window
+                MainNavigationPage mainNavigationPage = new MainNavigationPage(user.UserName);
+                mainNavigationPage.Show();
+                this.Hide();
+
+                // Log the login time
+                DateTime loginTime = DateTime.Now;
+                // Create a log entry
+                string logEntry = $"{loginTime:yyyy-MM-dd HH:mm:ss} - {user.UserName}";
+                // Write the log entry to the log file
+                File.AppendAllText(logFilePath, logEntry + Environment.NewLine);
+            }
+            else
+            {
+                // Retrieve the translation for the key "Greeting"
+                string translatedMessage = resourceManager.GetString("LoginErrorMessage", currentCulture);
+
+                // Output the translated message
+                MessageBox.Show(translatedMessage);
+            }
         }
+        private void RegisterButton_Click(object sender, EventArgs e)
+        {
+            // Open the Register User Page
+            RegisterUserPage registerUserPage = new RegisterUserPage(userName);
+            registerUserPage.Show();
+            this.Hide();
+        }
+
         private void QuitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void Login_Click(object sender, EventArgs e)
+        private void UserList_Click(object sender, EventArgs e)
         {
-            try
-            {
-                using (MySqlConnection conn = new MySqlConnection(connectionString))
-                {
-                    conn.Open();
-                    string query = "SELECT COUNT(*) FROM user WHERE userName = @userName AND password = @password";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@userName", UsernameTextBox.Text);
-                    cmd.Parameters.AddWithValue("@password", PasswordTextBox.Text);
-
-                    int count = Convert.ToInt32(cmd.ExecuteScalar());
-
-                    if (count > 0)
-                    {
-                        // Retrieve the translation for the key "Greeting"
-                        string translatedMessage = resourceManager.GetString("LoginSuccessfulMessage", currentCulture);
-
-                        // Output the translated message
-                        MessageBox.Show(translatedMessage);
-
-                        // Navigate to the next form or main application window and hide login window
-                        MainNavigationPage mainNavigationPage = new MainNavigationPage();
-                        mainNavigationPage.Show();
-                        this.Hide();
-
-                        // Log the login time
-                        DateTime loginTime = DateTime.Now;
-                        // Create a log entry
-                        string logEntry = $"{loginTime:yyyy-MM-dd HH:mm:ss} - {User.UserName}";
-                        // Write the log entry to the log file
-                        File.AppendAllText(logFilePath, logEntry + Environment.NewLine);
-
-
-                    }
-                    else
-                    {
-                        // Retrieve the translation for the key "Greeting"
-                        string translatedMessage = resourceManager.GetString("LoginErrorMessage", currentCulture);
-
-                        // Output the translated message
-                        MessageBox.Show(translatedMessage);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error: {ex.Message}");
-            }
+            //Go to UserListPage
+            UserListPage userListPage = new UserListPage(userName);
+            userListPage.Show();
+            this.Hide();
         }
     }
 }

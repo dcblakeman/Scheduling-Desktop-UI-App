@@ -1,13 +1,15 @@
 ﻿using Google.Protobuf.WellKnownTypes;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Scheduling_Desktop_UI_App.Classes
 {
-    internal class Appointment
+    public class Appointment
     {
         Appointment() { }
         public int AppointmentId { get; set; }
@@ -25,7 +27,7 @@ namespace Scheduling_Desktop_UI_App.Classes
         public string CreatedBy { get; set; }
         public Timestamp LastUpdate { get; set; }
         public string LastUpdateBy { get; set; }
-        public Appointment InsertAppointment(int customerId, string userId, string title, string description, string location, string contact, string type, string url, DateTime start, DateTime end)
+        public int InsertAppointment(int customerId, string userId, string title, string description, string location, string contact, string type, string url, DateTime start, DateTime end, string userName)
         {
             this.CustomerId = customerId;
             this.UserId = userId;
@@ -38,12 +40,52 @@ namespace Scheduling_Desktop_UI_App.Classes
             this.Start = start;
             this.End = end;
             this.CreateDate = DateTime.Now;
-            this.CreatedBy = User.UserName;
+            this.CreatedBy = userName;
             this.LastUpdate = Timestamp.FromDateTime(DateTime.Now);
-            this.LastUpdateBy = User.UserName;
-            return new Appointment();
+            this.LastUpdateBy = userName;
+
+            //Create connection object
+            MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
+
+            //Open connection object
+            conn.Open();
+
+            //Create command object
+            MySqlCommand cmd = new MySqlCommand("INSERT INTO appointment (customerId, userId, title, description, location, contact, type, url, start, end, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES (@customerId, @userId, @title, @description, @location, @contact, @type, @url, @start, @end, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)", conn);
+
+            //Add parameters
+            cmd.Parameters.AddWithValue("@customerId", this.CustomerId);
+            cmd.Parameters.AddWithValue("@userId", this.UserId);
+            cmd.Parameters.AddWithValue("@title", this.Title);
+            cmd.Parameters.AddWithValue("@description", this.Description);
+            cmd.Parameters.AddWithValue("@location", this.Location);
+            cmd.Parameters.AddWithValue("@contact", this.Contact);
+            cmd.Parameters.AddWithValue("@type", this.Type);
+            cmd.Parameters.AddWithValue("@url", this.Url);
+            cmd.Parameters.AddWithValue("@start", this.Start);
+            cmd.Parameters.AddWithValue("@end", this.End);
+            cmd.Parameters.AddWithValue("@createDate", this.CreateDate);
+            cmd.Parameters.AddWithValue("@createdBy", this.CreatedBy);
+            cmd.Parameters.AddWithValue("@lastUpdate", this.LastUpdate);
+            cmd.Parameters.AddWithValue("@lastUpdateBy", this.LastUpdateBy);
+
+            //Create query to retrieve appointmentId
+            string getAppointmentIdQuery = "SELECT appointmentId FROM appointment WHERE title = @title";
+            MySqlCommand cmd2 = new MySqlCommand(getAppointmentIdQuery, conn);
+
+            //Add parameters
+            cmd2.Parameters.AddWithValue("@title", this.Title);
+
+            //Execute command to run query to retrieve appointmentId
+            this.AppointmentId = Convert.ToInt32(cmd2.ExecuteScalar());
+
+            //Close connection
+            conn.Close();
+
+            //Return AppointmentId
+            return AppointmentId;
         }
-        public Appointment UpdateAppointment(int appointmentId, int customerId, string userId, string title, string description, string location, string contact, string type, string url, DateTime start, DateTime end)
+        public Appointment UpdateAppointment(int appointmentId, int customerId, string userId, string title, string description, string location, string contact, string type, string url, DateTime start, DateTime end, User user)
         {
             this.AppointmentId = appointmentId;
             this.CustomerId = customerId;
@@ -57,13 +99,28 @@ namespace Scheduling_Desktop_UI_App.Classes
             this.Start = start;
             this.End = end;
             this.LastUpdate = Timestamp.FromDateTime(DateTime.Now);
-            this.LastUpdateBy = User.UserName;
+            this.LastUpdateBy = user.UserName;
             return new Appointment();
         }
-        public Appointment DeleteAppointment(int appointmentId)
+        public void DeleteAppointment(int appointmentId)
         {
-            this.AppointmentId = appointmentId;
-            return new Appointment();
+            //Create connection object
+            MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
+
+            //Open connection object
+            conn.Open();
+
+            //Create command object
+            MySqlCommand cmd = new MySqlCommand("DELETE FROM appointment WHERE appointmentId = @appointmentId", conn);
+
+            //Add parameters
+            cmd.Parameters.AddWithValue("@appointmentId", appointmentId);
+
+            //Execute command
+            cmd.ExecuteNonQuery();
+
+            //Close connection
+            conn.Close();
         }
         public Appointment GetAppointment(int appointmentId)
         {

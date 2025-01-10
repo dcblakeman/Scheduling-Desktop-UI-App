@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Scheduling_Desktop_UI_App.Appointment_Navigation_Pages;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,9 +16,11 @@ namespace Scheduling_Desktop_UI_App
     public partial class AppointmentNavigationPage : Form
     {
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString;
-        public AppointmentNavigationPage()
+        string userName;
+        public AppointmentNavigationPage(string userName)
         {
             InitializeComponent();
+            this.userName = userName;
         }
 
         private void AppointmentNavigationPage_Load(object sender, EventArgs e)
@@ -38,6 +41,14 @@ namespace Scheduling_Desktop_UI_App
         private void QuitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void AddAppointmentButton_Click(object sender, EventArgs e)
+        {
+            //Add Appointment Page
+            AddAppointmentPage addAppointmentPage = new AddAppointmentPage(userName);
+            addAppointmentPage.Show();
+            this.Hide();
         }
     }
 }

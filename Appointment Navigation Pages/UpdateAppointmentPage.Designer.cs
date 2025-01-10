@@ -102,6 +102,7 @@
             resources.ApplyResources(this.updateAppointmentGroupBox, "updateAppointmentGroupBox");
             this.updateAppointmentGroupBox.Name = "updateAppointmentGroupBox";
             this.updateAppointmentGroupBox.TabStop = false;
+            this.updateAppointmentGroupBox.Enter += new System.EventHandler(this.UpdateAppointmentGroupBox_Enter);
             // 
             // lastUpdateByVariable
             // 

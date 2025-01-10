@@ -77,6 +77,7 @@
             this.AddAppointmentButton.TabIndex = 4;
             this.AddAppointmentButton.Text = "Add Appointment";
             this.AddAppointmentButton.UseVisualStyleBackColor = true;
+            this.AddAppointmentButton.Click += new System.EventHandler(this.AddAppointmentButton_Click);
             // 
             // AppointmentNavigationLabel
             // 

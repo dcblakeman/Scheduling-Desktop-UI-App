@@ -16,15 +16,20 @@ namespace Scheduling_Desktop_UI_App
 {
     public partial class CustomerNavigationPage : Form
     {
-        private readonly string connectionString = ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString;
-        public CustomerNavigationPage()
+        string userName;
+        public CustomerNavigationPage(string userName)
         {
             InitializeComponent();
+            this.userName = userName;
+        }
+
+        public CustomerNavigationPage()
+        {
         }
 
         private void NavigationFormButton_Click(object sender, EventArgs e)
         {
-            MainNavigationPage mainNavigationPage = new MainNavigationPage();
+            MainNavigationPage mainNavigationPage = new MainNavigationPage(userName);
             mainNavigationPage.Show();
             this.Hide();
 
@@ -32,6 +37,9 @@ namespace Scheduling_Desktop_UI_App
         private void CustomerNavigationPage_Load(object sender, EventArgs e)
         {
             // Retrieve the connection string from the App.config file
+            string connectionString = ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString;
+
+            //Create query to populate datagridview
             string query = "SELECT * FROM customer"; // set query to fetch data "Select * from  tabelname"; 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -46,7 +54,7 @@ namespace Scheduling_Desktop_UI_App
 
         private void AddCustomerButton_Click(object sender, EventArgs e)
         {
-            AddCustomerPage addCustomerPage = new AddCustomerPage();
+            AddCustomerPage addCustomerPage = new AddCustomerPage(userName);
             addCustomerPage.Show();
             this.Hide();
         }

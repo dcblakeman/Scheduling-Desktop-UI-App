@@ -12,21 +12,28 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
 {
     public partial class UpdateAppointmentPage : Form
     {
-        public UpdateAppointmentPage()
+        string userName;
+        public UpdateAppointmentPage(string userName)
         {
             InitializeComponent();
+            this.userName = userName;
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
             //Return to Appointment Navigation Page
-            AppointmentNavigationPage appointmentNavigationPage = new AppointmentNavigationPage();
+            AppointmentNavigationPage appointmentNavigationPage = new AppointmentNavigationPage(userName);
             appointmentNavigationPage.Show();
             this.Hide();
 
         }
 
         private void SubmitButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UpdateAppointmentGroupBox_Enter(object sender, EventArgs e)
         {
 
         }

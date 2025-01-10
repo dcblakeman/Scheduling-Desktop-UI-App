@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
+using System.Configuration;
 
 namespace Scheduling_Desktop_UI_App.Classes
 {
-    internal class City
+    public class City
     {
         public City() { }
         public int CityId { get; set; }
@@ -16,30 +18,93 @@ namespace Scheduling_Desktop_UI_App.Classes
         public string CreatedBy { get; set; }
         public DateTime LastUpdate { get; set; }
         public string LastUpdateBy { get; set; }
-        public City InsertCity(string cityName, int countryId)
+        public int InsertCity(string cityName, int countryId, string userName)
         {
             this.CityName = cityName;
             this.CountryId = countryId;
             this.CreateDate = DateTime.Now;
-            this.CreatedBy = User.UserName;
+            this.CreatedBy = userName;
             this.LastUpdate = DateTime.Now;
-            this.LastUpdateBy = User.UserName;
-            return new City();
+            this.LastUpdateBy = userName;
+
+            //Create connection object
+            MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
+            
+            //Open Connection
+            conn.Open();
+
+            //Create Query to insert information
+            string insertCityQuery = "INSERT INTO city (city, countryId, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES (@city, @countryId, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(insertCityQuery, conn);
+
+            //Add Parameters
+            cmd.Parameters.AddWithValue("@city", this.CityName);
+            cmd.Parameters.AddWithValue("@countryId", this.CountryId);
+            cmd.Parameters.AddWithValue("@createDate", this.CreateDate);
+            cmd.Parameters.AddWithValue("@createdBy", this.CreatedBy);
+            cmd.Parameters.AddWithValue("@lastUpdate", this.LastUpdate);
+            cmd.Parameters.AddWithValue("@lastUpdateBy", this.LastUpdateBy);
+
+            //Create query to return CityId
+            string getCityIdQuery = "SELECT cityId FROM city WHERE city = @city";
+
+            //Create command object 
+            MySqlCommand cmd2 = new MySqlCommand(getCityIdQuery, conn);
+
+            //Add parameters
+            cmd2.Parameters.AddWithValue("@city", this.CityName);
+
+            //Execute command to run query to retrieve CityId
+            this.CityId = Convert.ToInt32(cmd2.ExecuteScalar());
+
+            //Close connection
+            conn.Close();
+
+            //Return CityId
+            return CityId;
         }
-        public City UpdateCity(int cityId, string cityName, int countryId)
+        public int UpdateCity(int cityId, string cityName, int countryId, User user)
         {
             this.CityId = cityId;
             this.CityName = cityName;
             this.CountryId = countryId;
             this.LastUpdate = DateTime.Now;
-            this.LastUpdateBy = User.UserName;
-            return new City();
+            this.LastUpdateBy = user.UserName;
+
+            //Create connection object
+            MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
+
+            //Open Connection
+            conn.Open();
+
+            //Create Query to update information
+            string updateCityQuery = "UPDATE city SET city = @city, countryId = @countryId, lastUpdate, lastUpdateBy WHERE cityId = @cityId";
+
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(updateCityQuery, conn);
+
+            //Add Parameters
+            cmd.Parameters.AddWithValue("@cityId", this.CityId);
+            cmd.Parameters.AddWithValue("@city", this.CityName);
+            cmd.Parameters.AddWithValue("@countryId", this.CountryId);
+            cmd.Parameters.AddWithValue("@lastUpdate", this.LastUpdate);
+            cmd.Parameters.AddWithValue("@lastUpdateBy", this.LastUpdateBy);
+
+            //Execute Command
+            cmd.ExecuteNonQuery();
+
+            //Close Connection
+            conn.Close();
+
+            //Return CityId
+            return CityId;
         }
-        public City DeleteCity(int cityId)
-        {
-            this.CityId = cityId;
-            return new City();
-        }
+        //public void DeleteCity(int cityId)
+        //{
+        //    this.CityId = cityId;
+        //}
         public City GetCity(int cityId)
         {
             this.CityId = cityId;

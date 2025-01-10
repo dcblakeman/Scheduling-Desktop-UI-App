@@ -184,6 +184,24 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User Navigation Pages\RegisterUserPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="User Navigation Pages\RegisterUserPage.Designer.cs">
+      <DependentUpon>RegisterUserPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="User Navigation Pages\UpdateUserPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="User Navigation Pages\UpdateUserPage.Designer.cs">
+      <DependentUpon>UpdateUserPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="User Navigation Pages\UserListPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="User Navigation Pages\UserListPage.Designer.cs">
+      <DependentUpon>UserListPage.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Appointment Navigation Pages\AddAppointmentPage.resx">
       <DependentUpon>AddAppointmentPage.cs</DependentUpon>
     </EmbeddedResource>
@@ -222,6 +240,15 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="User Navigation Pages\RegisterUserPage.resx">
+      <DependentUpon>RegisterUserPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User Navigation Pages\UpdateUserPage.resx">
+      <DependentUpon>UpdateUserPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User Navigation Pages\UserListPage.resx">
+      <DependentUpon>UserListPage.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

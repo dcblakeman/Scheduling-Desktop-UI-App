@@ -87,7 +87,7 @@
             this.cancelButton.TabIndex = 44;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // address1TextBox
             // 
@@ -138,6 +138,7 @@
             this.submitButton.TabIndex = 43;
             this.submitButton.Text = "Submit";
             this.submitButton.UseVisualStyleBackColor = true;
+            this.submitButton.Click += new System.EventHandler(this.SubmitButton_Click);
             // 
             // phoneNumberTextBox
             // 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Scheduling_Desktop_UI_App.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,15 +13,17 @@ namespace Scheduling_Desktop_UI_App
 {
     public partial class MainNavigationPage : Form
     {
-        public MainNavigationPage()
+        string userName;
+        public MainNavigationPage(string userName)
         {
             InitializeComponent();
+            this.userName = userName;
         }
 
         private void CustomersButton_Click(object sender, EventArgs e)
         {
             //Navigate to Customers Form
-            CustomerNavigationPage customersForm = new CustomerNavigationPage();
+            CustomerNavigationPage customersForm = new CustomerNavigationPage(userName);
             customersForm.Show();
             this.Hide();
         }
@@ -28,26 +31,21 @@ namespace Scheduling_Desktop_UI_App
         private void AppointmentsButton_Click(object sender, EventArgs e)
         {
             //Navigate to Appointments Form
-            AppointmentNavigationPage appointmentsForm = new AppointmentNavigationPage();
+            AppointmentNavigationPage appointmentsForm = new AppointmentNavigationPage(userName);
             appointmentsForm.Show();
             this.Hide();
         }
 
-        private void mainNavigationPage_Load(object sender, EventArgs e)
+        private void MainNavigationPage_Load(object sender, EventArgs e)
         {
 
         }
 
         private void LogoutButton_Click(object sender, EventArgs e)
         {
-            LoginForm loginForm = new LoginForm();
+            LoginForm loginForm = new LoginForm(userName);
             loginForm.Show();
             this.Hide();
-        }
-
-        private void NavigationPageLabel_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -37,9 +37,14 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
         private void CancelButton_Click(object sender, EventArgs e)
         {
             //Return to Customer Navigation Page
-            this.Close();
+            CustomerNavigationPage customerNavigationPage = new CustomerNavigationPage();
+            customerNavigationPage.Show();
+            this.Hide();
+        }
+
+        private void SubmitButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
-
-
 }

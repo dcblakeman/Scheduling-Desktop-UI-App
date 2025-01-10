@@ -12,9 +12,11 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
 {
     public partial class AddAppointmentPage : Form
     {
-        public AddAppointmentPage()
+        string userName;
+        public AddAppointmentPage(string userName)
         {
             InitializeComponent();
+            this.userName = userName;
         }
 
         private void AddAppointmentPage_Load(object sender, EventArgs e)
@@ -24,7 +26,7 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
         private void CancelButton_Click(object sender, EventArgs e)
         {
             //Return to Appointment Navigation Page
-            AppointmentNavigationPage appointmentNavigationPage = new AppointmentNavigationPage();
+            AppointmentNavigationPage appointmentNavigationPage = new AppointmentNavigationPage(userName);
             appointmentNavigationPage.Show();
             this.Hide();
         }
