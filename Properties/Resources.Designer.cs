@@ -61,7 +61,7 @@ namespace Scheduling_Desktop_UI_App.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Username and Password do not match..
+        ///   Looks up a localized string similar to user.UserName and Password do not match..
         /// </summary>
         internal static string LoginErrorMessage {
             get {

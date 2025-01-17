@@ -18,18 +18,20 @@ using System.Configuration;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using Scheduling_Desktop_UI_App.Classes;
 using System.IO;
+using Scheduling_Desktop_UI_App.User_Navigation_Pages;
 
 
 namespace Scheduling_Desktop_UI_App
 {
     public partial class LoginForm : Form
     {
-        private readonly GeoCoordinateWatcher _watcher;
-        private static readonly string logFilePath = "Login_History.txt";
-        string userName;
+        private readonly GeoCoordinateWatcher _watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
 
-        // Retrieve the connection string from the App.config file
-        private readonly string connectionString = ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString;
+        // Optional: Check if location data is available immediately after loading the form
+        GeoCoordinate coordinate;
+
+        private static readonly string logFilePath = "Login_History.txt";
+        User _user = new User();
 
         // Set up the resource manager to access resource files
         private readonly ResourceManager resourceManager = new ResourceManager("Scheduling_Desktop_UI_App.Properties.Resources", typeof(Program).Assembly);
@@ -40,13 +42,11 @@ namespace Scheduling_Desktop_UI_App
         // Get the current culture (language/region) of the system.
         private readonly CultureInfo currentCulture = CultureInfo.CurrentCulture;
 
-        public LoginForm(string userName)
+        //Empty Constructor\
+        public LoginForm()
         {
             InitializeComponent();
-            this.userName = userName;
 
-            // Set up the GeoCoordinateWatcher
-            _watcher = new GeoCoordinateWatcher();
             _watcher.StatusChanged += Watcher_StatusChanged;
             _watcher.PositionChanged += Watcher_PositionChanged;
             _watcher.Start();
@@ -69,14 +69,20 @@ namespace Scheduling_Desktop_UI_App
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
-
         {
-            // Optional: Check if location data is available immediately after loading the form
-            GeoCoordinate coordinate = _watcher.Position.Location;
+            //Show system user in console
+            Console.WriteLine($"System User: {Environment.UserName}");
 
+            //Create watcher object
+            _watcher.StatusChanged += Watcher_StatusChanged;
+            _watcher.PositionChanged += Watcher_PositionChanged;
+            _watcher.Start();
+
+            // Optional: Check if location data is available immediately after loading the form
+            coordinate = _watcher.Position.Location;
             if (coordinate.IsUnknown)
             {
-                MessageBox.Show("Location is not available. Please wait...");
+                Console.WriteLine("Unknown location");
             }
             else
             {
@@ -85,12 +91,11 @@ namespace Scheduling_Desktop_UI_App
         }
         private void Login_Click(object sender, EventArgs e)
         {
-            //Create User object
-            User user = new User();
-            user.UserName = UsernameTextBox.Text;
-            user.Password = PasswordTextBox.Text;
+            //Assign fields to user properties
+            _user.UserName = UserNameTextBox.Text;
+            _user.Password = PasswordTextBox.Text;
 
-            bool UserAuthenticated = user.UserAuthentication(user.UserName, user.Password);
+            bool UserAuthenticated = _user.UserAuthentication(_user);
 
             // Check if the query returned a result
             if (UserAuthenticated == true)
@@ -102,14 +107,14 @@ namespace Scheduling_Desktop_UI_App
                 MessageBox.Show(translatedMessage);
 
                 // Navigate to the next form or main application window and hide login window
-                MainNavigationPage mainNavigationPage = new MainNavigationPage(user.UserName);
+                MainNavigationPage mainNavigationPage = new MainNavigationPage(_user);
                 mainNavigationPage.Show();
                 this.Hide();
 
                 // Log the login time
                 DateTime loginTime = DateTime.Now;
                 // Create a log entry
-                string logEntry = $"{loginTime:yyyy-MM-dd HH:mm:ss} - {user.UserName}";
+                string logEntry = $"{loginTime:yyyy-MM-dd HH:mm:ss} - {_user.UserName}";
                 // Write the log entry to the log file
                 File.AppendAllText(logFilePath, logEntry + Environment.NewLine);
             }
@@ -125,7 +130,7 @@ namespace Scheduling_Desktop_UI_App
         private void RegisterButton_Click(object sender, EventArgs e)
         {
             // Open the Register User Page
-            RegisterUserPage registerUserPage = new RegisterUserPage(userName);
+            UserRegisterPage registerUserPage = new UserRegisterPage(_user);
             registerUserPage.Show();
             this.Hide();
         }
@@ -138,8 +143,8 @@ namespace Scheduling_Desktop_UI_App
         private void UserList_Click(object sender, EventArgs e)
         {
             //Go to UserListPage
-            UserListPage userListPage = new UserListPage(userName);
-            userListPage.Show();
+            ListUsersPage listUsersPage = new ListUsersPage();
+            listUsersPage.Show();
             this.Hide();
         }
     }

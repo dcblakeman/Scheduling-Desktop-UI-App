@@ -121,6 +121,6 @@
     <value>Login Successful!</value>
   </data>
   <data name="LoginErrorMessage" xml:space="preserve">
-    <value>Username and Password do not match.</value>
+    <value>user.UserName and Password do not match.</value>
   </data>
 </root>

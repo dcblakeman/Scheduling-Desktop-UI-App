@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Scheduling_Desktop_UI_App.Classes
 {
@@ -18,86 +20,63 @@ namespace Scheduling_Desktop_UI_App.Classes
         public string CreatedBy { get; set; }
         public DateTime LastUpdate { get; set; }
         public string LastUpdateBy { get; set; }
-
-        public void InsertUser(string userName, string password, int active)
+        //Create connection
+        private MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
+        public void UpdateUser(User _selectedUser)
         {
-            this.UserName = userName;
-            this.Password = password;
-            this.Active = active;
-            this.CreateDate = DateTime.Now;
-            this.CreatedBy = UserName;
-            this.LastUpdate = DateTime.Now;
-            this.LastUpdateBy = UserName;
+            UserId = _selectedUser.UserId;
+            UserName = _selectedUser.UserName;
+            Password = _selectedUser.Password;
+            Active = _selectedUser.Active;
+            LastUpdate = DateTime.Now;
+            LastUpdateBy = _selectedUser.UserName;
 
-            //Create connection object
-            MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
-
-            //Open Connection
-            conn.Open();
-
-            //Create Query to insert information
-            string insertUserQuery = "INSERT INTO user (userName, password, active, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES (@userName, @password, @active, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
-
-            //Create Command
-            MySqlCommand cmd = new MySqlCommand(insertUserQuery, conn);
-
-            //Add Parameters
-            cmd.Parameters.AddWithValue("@userName", UserName);
-            cmd.Parameters.AddWithValue("@password", Password);
-            cmd.Parameters.AddWithValue("@active", Active);
-            cmd.Parameters.AddWithValue("@createDate", CreateDate);
-            cmd.Parameters.AddWithValue("@createdBy", CreatedBy);
-            cmd.Parameters.AddWithValue("@lastUpdate", LastUpdate);
-            cmd.Parameters.AddWithValue("@lastUpdateBy", LastUpdateBy);
-
-            //Execute command
-            cmd.ExecuteNonQuery();
-
-            //Close connection
-            conn.Close();
-        }
-
-        public static void UpdateUser(int userId, string userName, string password, int active, User user)
-        {
-            user.UserId = userId;
-            user.UserName = userName;
-            user.Password = password;
-            user.Active = active;
-            user.LastUpdate = DateTime.Now;
-            user.LastUpdateBy = user.UserName;
-        }
-        public static void DeleteUser(int userId)
-        {
-            //Create new user instance
-            User user = new User();
-            user.UserId = userId;
-        }
-        public static void GetUser(int userId)
-        {
-            //Create new user instance
-            User user = new User();
-            user.UserId = userId;
-        }
-        public bool UserAuthentication(string userName, string password)
-        {
             try
             {
-                //Check and see if the username and password are correct in the database
+                //Open connection
+                conn.Open();
+                //Create query string
+                string updateUserQuery = "UPDATE user SET userName = @UserName, password = @password, active = @active, lastUpdate = @lastUpdate, lastUpdateBy = @lastUpdateBy WHERE userId = @userId";
+                //Create command object
+                MySqlCommand cmd = new MySqlCommand(updateUserQuery, conn);
+                //Add parameters
+                cmd.Parameters.AddWithValue("@userName", UserName);
+                cmd.Parameters.AddWithValue("@password", Password);
+                cmd.Parameters.AddWithValue("@active", Active);
+                cmd.Parameters.AddWithValue("@lastUpdate", LastUpdate);
+                cmd.Parameters.AddWithValue("@lastUpdateBy", LastUpdateBy);
+                //Execute command
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public bool UserAuthentication(User user)
+        {
+            //Assign to local object
+            this.UserName = user.UserName;
+            this.Password = user.Password;
+
+            try
+            {
+                //Check and see if the user.UserName and password are correct in the database
                 //Create connection object
-                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
+                using (conn)
                 {
                     //Open connection
                     conn.Open();
 
-                    //Create a query
-                    string loginQuery = "SELECT * FROM user WHERE userName = @userName AND password = @password";
+                    //Create query to verify username and password
+                    string loginQuery = "SELECT COUNT(*) FROM user WHERE userName = @userName AND password = @password";
 
                     //Create a command object
                     MySqlCommand cmd = new MySqlCommand(loginQuery, conn);
 
                     //Add parameters
-                    cmd.Parameters.AddWithValue("@userName", userName);
-                    cmd.Parameters.AddWithValue("@password", password);
+                    cmd.Parameters.AddWithValue("@userName", UserName);
+                    cmd.Parameters.AddWithValue("@password", Password);
 
                     int count;
                     count = Convert.ToInt32(cmd.ExecuteScalar());

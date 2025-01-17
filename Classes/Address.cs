@@ -23,87 +23,129 @@ namespace Scheduling_Desktop_UI_App.Classes
         public string LastUpdateBy { get; set; }
 
         //Insert Address
-        public int InsertAddress(string address1, string address2, int cityId, string postalCode, string phone, string userName)
+        public int InsertAddress(Address address, User user)
         {
-            this.Address1 = address1;
-            this.Address2 = address2;
-            this.CityId = cityId;
-            this.PostalCode = postalCode;
-            this.Phone = phone;
+            this.Address1 = address.Address1;
+            this.Address2 = address.Address2;
+            this.CityId = address.CityId;
+            this.PostalCode = address.PostalCode;
+            this.Phone = address.Phone;
             this.CreateDate = DateTime.Now;
-            this.CreatedBy = userName;
+            this.CreatedBy = user.UserName;
             this.LastUpdate = DateTime.Now;
-            this.LastUpdateBy = userName;
+            this.LastUpdateBy = user.UserName;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
+                {
+                    //Open Connection
+                    conn.Open();
 
-            //Create connection object
-            MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
+                    //Create Query to insert information
+                    string insertAddressQuery = "INSERT INTO address (address, address2, cityId, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES (@address, @address2, @cityId, @postalCode, @phone, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
 
-            //Open Connection
-            conn.Open();
+                    //Create Command
+                    MySqlCommand cmd = new MySqlCommand(insertAddressQuery, conn);
 
-            //Create Query to insert information
-            string insertAddressQuery = "INSERT INTO address (address, address2, cityId, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES (@address, @address2, @cityId, @postalCode, @phone, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
+                    //Add Parameters
+                    cmd.Parameters.AddWithValue("@address", this.Address1);
+                    cmd.Parameters.AddWithValue("@address2", this.Address2);
+                    cmd.Parameters.AddWithValue("@cityId", this.CityId);
+                    cmd.Parameters.AddWithValue("@postalCode", this.PostalCode);
+                    cmd.Parameters.AddWithValue("@phone", this.Phone);
+                    cmd.Parameters.AddWithValue("@createDate", this.CreateDate);
+                    cmd.Parameters.AddWithValue("@createdBy", this.CreatedBy);
+                    cmd.Parameters.AddWithValue("@lastUpdate", this.LastUpdate);
+                    cmd.Parameters.AddWithValue("@lastUpdateBy", this.LastUpdateBy);
 
-            //Create Command
-            MySqlCommand cmd = new MySqlCommand(insertAddressQuery, conn);
+                    //Create query to return AddressId
+                    string getAddressIdQuery = "SELECT addressId FROM address WHERE address = @address";
 
-            //Add Parameters
-            cmd.Parameters.AddWithValue("@address", this.Address1);
-            cmd.Parameters.AddWithValue("@address2", this.Address2);
-            cmd.Parameters.AddWithValue("@cityId", this.CityId);
-            cmd.Parameters.AddWithValue("@postalCode", this.PostalCode);
-            cmd.Parameters.AddWithValue("@phone", this.Phone);
-            cmd.Parameters.AddWithValue("@createDate", this.CreateDate);
-            cmd.Parameters.AddWithValue("@createdBy", this.CreatedBy);
-            cmd.Parameters.AddWithValue("@lastUpdate", this.LastUpdate);
-            cmd.Parameters.AddWithValue("@lastUpdateBy", this.LastUpdateBy);
+                    //Create command object
+                    MySqlCommand cmd2 = new MySqlCommand(getAddressIdQuery, conn);
 
-            //Create query to return AddressId
-            string getAddressIdQuery = "SELECT addressId FROM address WHERE address = @address";
+                    //Add parameters
+                    cmd2.Parameters.AddWithValue("@address", this.Address1);
 
-            //Create command object
-            MySqlCommand cmd2 = new MySqlCommand(getAddressIdQuery, conn);
+                    //Execute command to run query to retrieve AddressId
+                    this.AddressId = Convert.ToInt32(cmd2.ExecuteScalar());
 
-            //Add parameters
-            cmd2.Parameters.AddWithValue("@address", this.Address1);
+                    //Close connection
+                    conn.Close();
 
-            //Execute command to run query to retrieve AddressId
-            this.AddressId = Convert.ToInt32(cmd2.ExecuteScalar());
-
-            //Close connection
-            conn.Close();
-
-            //Return AddressId
-            return AddressId;
+                    //Return AddressId
+                    return AddressId;
+                }
+            }catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         //Update Address
-        public int UpdateAddress(int addressId, string address1, string address2, int cityId, string postalCode, string phone, User user)
+        public int UpdateAddress(Address address, User user)
         {
-            this.AddressId = addressId;
-            this.Address1 = address1;
-            this.Address2 = address2;
-            this.CityId = cityId;
-            this.PostalCode = postalCode;
-            this.Phone = phone;
+            this.AddressId = address.AddressId;
+            this.Address1 = address.Address1;
+            this.Address2 = address.Address2;
+            this.CityId = address.CityId;
+            this.PostalCode = address.PostalCode;
+            this.Phone = address.Phone;
             this.LastUpdate = DateTime.Now;
             this.LastUpdateBy = user.UserName;
-            return AddressId;
+            
+
+            try
+            {
+                using(MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
+                {
+                    //Open Connection
+                    conn.Open();
+                    //Create Query to update information
+                    string updateAddressQuery = "UPDATE address SET address = @address, address2 = @address2, cityId = @cityId, postalCode = @postalCode, phone = @phone, lastUpdate = @lastUpdate, lastUpdateBy = @lastUpdateBy WHERE addressId = @addressId";
+                    //Create Command
+                    MySqlCommand cmd = new MySqlCommand(updateAddressQuery, conn);
+                    //Add Parameters
+                    cmd.Parameters.AddWithValue("@addressId", this.AddressId);
+                    cmd.Parameters.AddWithValue("@address", this.Address1);
+                    cmd.Parameters.AddWithValue("@address2", this.Address2);
+                    cmd.Parameters.AddWithValue("@cityId", this.CityId);
+                    cmd.Parameters.AddWithValue("@postalCode", this.PostalCode);
+                    cmd.Parameters.AddWithValue("@phone", this.Phone);
+                    cmd.Parameters.AddWithValue("@lastUpdate", this.LastUpdate);
+                    cmd.Parameters.AddWithValue("@lastUpdateBy", this.LastUpdateBy);
+                    //Execute Command
+                    cmd.ExecuteNonQuery();
+                    //Close Connection
+                    conn.Close();
+                    return AddressId;
+                }
+        }catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         //Delete Address
         public Address DeleteAddress(int addressId)
         {
-            this.AddressId = addressId;
-            return new Address();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
+                {
+                    conn.Open();
+                    string deleteAddressQuery = "DELETE FROM address WHERE addressId = @addressId";
+                    MySqlCommand cmd = new MySqlCommand(deleteAddressQuery, conn);
+                    cmd.Parameters.AddWithValue("@addressId", addressId);
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    return new Address();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-
-        //Get Address List
-        public Address GetAddress()
-        {
-            Address address = new Address();
-            return address;
-        }
-
     }
 }

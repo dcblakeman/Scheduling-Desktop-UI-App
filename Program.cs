@@ -20,21 +20,19 @@ namespace Scheduling_Desktop_UI_App
         {
             try
             {
-                // Retrieve the connection string from app.config
+                //Create connection object
                 string connectionString = ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString;
 
                 // Use the connection string to create a MySQL connection
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
+                    //Open connection
                     connection.Open();
-                    Console.WriteLine("Connection established successfully!");
 
-                    // Test query (optional)
-                    string query = "SELECT NOW()";
-                    MySqlCommand command = new MySqlCommand(query, connection);
-
-                    var result = command.ExecuteScalar();
-                    Console.WriteLine("Current Server Time: " + result);
+                    
+                    /////////////////////Close Connection////////////////////
+                    connection.Close();
+                    Console.WriteLine("Connection closed successfully!");
                 }
             }
             catch (Exception ex)

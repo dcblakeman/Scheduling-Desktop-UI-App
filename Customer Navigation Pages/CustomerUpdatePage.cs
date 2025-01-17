@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Scheduling_Desktop_UI_App.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -10,25 +12,26 @@ using System.Windows.Forms;
 
 namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
 {
-    public partial class UpdateCustomerPage : Form
+    public partial class CustomerUpdatePage : Form
     {
-        public UpdateCustomerPage()
+        User _user;
+        Customer _customer;
+
+        //Connection string
+        private string connectionString = ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString;
+
+        public CustomerUpdatePage(Customer customer, User user)
         {
             InitializeComponent();
+            _user = user;
+            _customer = customer;
         }
 
-        private void UpdateCustomerButton_Click(object sender, EventArgs e)
+        private void CustomerUpdatePage_Load(object sender, EventArgs e)
         {
-            //Navigate to Update Customer Form
-            UpdateCustomerPage updateCustomerPage = new UpdateCustomerPage();
-            updateCustomerPage.Show();
-            this.Hide();
+            //Call Update Customer
+            _customer.UpdateCustomer(_customer, _user);
         }
-
-        private void UpdateCustomerPage_Load(object sender, EventArgs e)
-        {
-        }
-
         private void PhoneNumberTextBox_Enter(object sender, EventArgs e)
         {
 
@@ -44,6 +47,8 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
 
         private void SubmitButton_Click(object sender, EventArgs e)
         {
+            //Update Customer
+            _customer.UpdateCustomer(_customer, _user);
 
         }
     }

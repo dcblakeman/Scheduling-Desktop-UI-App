@@ -1,0 +1,873 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="EndDateTimePicker.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>Off</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="EndDateTimePicker.Location" type="System.Drawing.Point, System.Drawing">
+    <value>172, 414</value>
+  </data>
+  <data name="EndDateTimePicker.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="EndDateTimePicker.Size" type="System.Drawing.Size, System.Drawing">
+    <value>296, 26</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="EndDateTimePicker.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="&gt;&gt;EndDateTimePicker.Name" xml:space="preserve">
+    <value>EndDateTimePicker</value>
+  </data>
+  <data name="&gt;&gt;EndDateTimePicker.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;EndDateTimePicker.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;EndDateTimePicker.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="StartDateTimePicker.CustomFormat" xml:space="preserve">
+    <value />
+  </data>
+  <data name="StartDateTimePicker.Location" type="System.Drawing.Point, System.Drawing">
+    <value>172, 378</value>
+  </data>
+  <data name="StartDateTimePicker.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="StartDateTimePicker.Size" type="System.Drawing.Size, System.Drawing">
+    <value>296, 26</value>
+  </data>
+  <data name="StartDateTimePicker.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="&gt;&gt;StartDateTimePicker.Name" xml:space="preserve">
+    <value>StartDateTimePicker</value>
+  </data>
+  <data name="&gt;&gt;StartDateTimePicker.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StartDateTimePicker.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;StartDateTimePicker.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="AvailableAppointmentsDataGridViewLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="AvailableAppointmentsDataGridViewLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>981, 23</value>
+  </data>
+  <data name="AvailableAppointmentsDataGridViewLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="AvailableAppointmentsDataGridViewLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>184, 20</value>
+  </data>
+  <data name="AvailableAppointmentsDataGridViewLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="AvailableAppointmentsDataGridViewLabel.Text" xml:space="preserve">
+    <value>Upcoming Appointments</value>
+  </data>
+  <data name="&gt;&gt;AvailableAppointmentsDataGridViewLabel.Name" xml:space="preserve">
+    <value>AvailableAppointmentsDataGridViewLabel</value>
+  </data>
+  <data name="&gt;&gt;AvailableAppointmentsDataGridViewLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AvailableAppointmentsDataGridViewLabel.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;AvailableAppointmentsDataGridViewLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="UpcomingAppointmentsDataGridView.Location" type="System.Drawing.Point, System.Drawing">
+    <value>891, 55</value>
+  </data>
+  <data name="UpcomingAppointmentsDataGridView.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="UpcomingAppointmentsDataGridView.RowHeadersWidth" type="System.Int32, mscorlib">
+    <value>62</value>
+  </data>
+  <data name="UpcomingAppointmentsDataGridView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>360, 454</value>
+  </data>
+  <data name="UpcomingAppointmentsDataGridView.TabIndex" type="System.Int32, mscorlib">
+    <value>49</value>
+  </data>
+  <data name="&gt;&gt;UpcomingAppointmentsDataGridView.Name" xml:space="preserve">
+    <value>UpcomingAppointmentsDataGridView</value>
+  </data>
+  <data name="&gt;&gt;UpcomingAppointmentsDataGridView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;UpcomingAppointmentsDataGridView.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;UpcomingAppointmentsDataGridView.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="UpcomingAppointmentsCalendar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>514, 37</value>
+  </data>
+  <data name="UpcomingAppointmentsCalendar.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>14, 14, 14, 14</value>
+  </data>
+  <data name="UpcomingAppointmentsCalendar.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="&gt;&gt;UpcomingAppointmentsCalendar.Name" xml:space="preserve">
+    <value>UpcomingAppointmentsCalendar</value>
+  </data>
+  <data name="&gt;&gt;UpcomingAppointmentsCalendar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MonthCalendar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;UpcomingAppointmentsCalendar.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;UpcomingAppointmentsCalendar.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="AddAppointmentCancelButton.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="AddAppointmentCancelButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>171, 454</value>
+  </data>
+  <data name="AddAppointmentCancelButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 0, 8, 0</value>
+  </data>
+  <data name="AddAppointmentCancelButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 35</value>
+  </data>
+  <data name="AddAppointmentCancelButton.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="AddAppointmentCancelButton.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="&gt;&gt;AddAppointmentCancelButton.Name" xml:space="preserve">
+    <value>AddAppointmentCancelButton</value>
+  </data>
+  <data name="&gt;&gt;AddAppointmentCancelButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AddAppointmentCancelButton.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;AddAppointmentCancelButton.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="SubmitButton.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="SubmitButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>358, 452</value>
+  </data>
+  <data name="SubmitButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 0, 8, 0</value>
+  </data>
+  <data name="SubmitButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 35</value>
+  </data>
+  <data name="SubmitButton.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="SubmitButton.Text" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="&gt;&gt;SubmitButton.Name" xml:space="preserve">
+    <value>SubmitButton</value>
+  </data>
+  <data name="&gt;&gt;SubmitButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SubmitButton.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;SubmitButton.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="UrlTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>172, 340</value>
+  </data>
+  <data name="UrlTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 0, 8, 0</value>
+  </data>
+  <data name="UrlTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>296, 26</value>
+  </data>
+  <data name="UrlTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;UrlTextBox.Name" xml:space="preserve">
+    <value>UrlTextBox</value>
+  </data>
+  <data name="&gt;&gt;UrlTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;UrlTextBox.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;UrlTextBox.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="TypeTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>172, 303</value>
+  </data>
+  <data name="TypeTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 0, 8, 0</value>
+  </data>
+  <data name="TypeTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>296, 26</value>
+  </data>
+  <data name="TypeTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;TypeTextBox.Name" xml:space="preserve">
+    <value>TypeTextBox</value>
+  </data>
+  <data name="&gt;&gt;TypeTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TypeTextBox.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;TypeTextBox.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="ContactTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>172, 266</value>
+  </data>
+  <data name="ContactTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 0, 8, 0</value>
+  </data>
+  <data name="ContactTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>296, 26</value>
+  </data>
+  <data name="ContactTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;ContactTextBox.Name" xml:space="preserve">
+    <value>ContactTextBox</value>
+  </data>
+  <data name="&gt;&gt;ContactTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ContactTextBox.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;ContactTextBox.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="LocationTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>172, 229</value>
+  </data>
+  <data name="LocationTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 0, 8, 0</value>
+  </data>
+  <data name="LocationTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>296, 26</value>
+  </data>
+  <data name="LocationTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;LocationTextBox.Name" xml:space="preserve">
+    <value>LocationTextBox</value>
+  </data>
+  <data name="&gt;&gt;LocationTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LocationTextBox.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;LocationTextBox.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="DescriptionTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>172, 192</value>
+  </data>
+  <data name="DescriptionTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 0, 8, 0</value>
+  </data>
+  <data name="DescriptionTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>296, 26</value>
+  </data>
+  <data name="DescriptionTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;DescriptionTextBox.Name" xml:space="preserve">
+    <value>DescriptionTextBox</value>
+  </data>
+  <data name="&gt;&gt;DescriptionTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DescriptionTextBox.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;DescriptionTextBox.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="TitleTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>172, 155</value>
+  </data>
+  <data name="TitleTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 0, 8, 0</value>
+  </data>
+  <data name="TitleTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>296, 26</value>
+  </data>
+  <data name="TitleTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;TitleTextBox.Name" xml:space="preserve">
+    <value>TitleTextBox</value>
+  </data>
+  <data name="&gt;&gt;TitleTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TitleTextBox.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;TitleTextBox.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="UserIdTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>172, 118</value>
+  </data>
+  <data name="UserIdTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 0, 8, 0</value>
+  </data>
+  <data name="UserIdTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>296, 26</value>
+  </data>
+  <data name="UserIdTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;UserIdTextBox.Name" xml:space="preserve">
+    <value>UserIdTextBox</value>
+  </data>
+  <data name="&gt;&gt;UserIdTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;UserIdTextBox.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;UserIdTextBox.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="CustomerIdTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>172, 82</value>
+  </data>
+  <data name="CustomerIdTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 0, 8, 0</value>
+  </data>
+  <data name="CustomerIdTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>296, 26</value>
+  </data>
+  <data name="CustomerIdTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;CustomerIdTextBox.Name" xml:space="preserve">
+    <value>CustomerIdTextBox</value>
+  </data>
+  <data name="&gt;&gt;CustomerIdTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CustomerIdTextBox.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;CustomerIdTextBox.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="AppointmentIdTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>172, 45</value>
+  </data>
+  <data name="AppointmentIdTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 0, 8, 0</value>
+  </data>
+  <data name="AppointmentIdTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>296, 26</value>
+  </data>
+  <data name="AppointmentIdTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;AppointmentIdTextBox.Name" xml:space="preserve">
+    <value>AppointmentIdTextBox</value>
+  </data>
+  <data name="&gt;&gt;AppointmentIdTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AppointmentIdTextBox.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;AppointmentIdTextBox.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="AppointmentIdLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="AppointmentIdLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>34, 46</value>
+  </data>
+  <data name="AppointmentIdLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 20</value>
+  </data>
+  <data name="AppointmentIdLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="AppointmentIdLabel.Text" xml:space="preserve">
+    <value>Appointment ID:</value>
+  </data>
+  <data name="&gt;&gt;AppointmentIdLabel.Name" xml:space="preserve">
+    <value>AppointmentIdLabel</value>
+  </data>
+  <data name="&gt;&gt;AppointmentIdLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AppointmentIdLabel.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;AppointmentIdLabel.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="EndTimeLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="EndTimeLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>80, 416</value>
+  </data>
+  <data name="EndTimeLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 20</value>
+  </data>
+  <data name="EndTimeLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="EndTimeLabel.Text" xml:space="preserve">
+    <value>End Time:</value>
+  </data>
+  <data name="&gt;&gt;EndTimeLabel.Name" xml:space="preserve">
+    <value>EndTimeLabel</value>
+  </data>
+  <data name="&gt;&gt;EndTimeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;EndTimeLabel.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;EndTimeLabel.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="CustomerIdLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="CustomerIdLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>57, 83</value>
+  </data>
+  <data name="CustomerIdLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 20</value>
+  </data>
+  <data name="CustomerIdLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="CustomerIdLabel.Text" xml:space="preserve">
+    <value>Customer ID:</value>
+  </data>
+  <data name="&gt;&gt;CustomerIdLabel.Name" xml:space="preserve">
+    <value>CustomerIdLabel</value>
+  </data>
+  <data name="&gt;&gt;CustomerIdLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CustomerIdLabel.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;CustomerIdLabel.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="StartTimeLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="StartTimeLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>76, 379</value>
+  </data>
+  <data name="StartTimeLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 20</value>
+  </data>
+  <data name="StartTimeLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="StartTimeLabel.Text" xml:space="preserve">
+    <value>Start Time:</value>
+  </data>
+  <data name="&gt;&gt;StartTimeLabel.Name" xml:space="preserve">
+    <value>StartTimeLabel</value>
+  </data>
+  <data name="&gt;&gt;StartTimeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StartTimeLabel.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;StartTimeLabel.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="UserIdLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="UserIdLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>92, 120</value>
+  </data>
+  <data name="UserIdLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 20</value>
+  </data>
+  <data name="UserIdLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="UserIdLabel.Text" xml:space="preserve">
+    <value>User ID:</value>
+  </data>
+  <data name="&gt;&gt;UserIdLabel.Name" xml:space="preserve">
+    <value>UserIdLabel</value>
+  </data>
+  <data name="&gt;&gt;UserIdLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;UserIdLabel.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;UserIdLabel.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="UrlLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="UrlLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>114, 342</value>
+  </data>
+  <data name="UrlLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 20</value>
+  </data>
+  <data name="UrlLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="UrlLabel.Text" xml:space="preserve">
+    <value>URL:</value>
+  </data>
+  <data name="&gt;&gt;UrlLabel.Name" xml:space="preserve">
+    <value>UrlLabel</value>
+  </data>
+  <data name="&gt;&gt;UrlLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;UrlLabel.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;UrlLabel.ZOrder" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="TitleLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="TitleLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>117, 157</value>
+  </data>
+  <data name="TitleLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>42, 20</value>
+  </data>
+  <data name="TitleLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="TitleLabel.Text" xml:space="preserve">
+    <value>Title:</value>
+  </data>
+  <data name="&gt;&gt;TitleLabel.Name" xml:space="preserve">
+    <value>TitleLabel</value>
+  </data>
+  <data name="&gt;&gt;TitleLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TitleLabel.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;TitleLabel.ZOrder" xml:space="preserve">
+    <value>22</value>
+  </data>
+  <data name="TypeLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="TypeLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>112, 305</value>
+  </data>
+  <data name="TypeLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 20</value>
+  </data>
+  <data name="TypeLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="TypeLabel.Text" xml:space="preserve">
+    <value>Type:</value>
+  </data>
+  <data name="&gt;&gt;TypeLabel.Name" xml:space="preserve">
+    <value>TypeLabel</value>
+  </data>
+  <data name="&gt;&gt;TypeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TypeLabel.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;TypeLabel.ZOrder" xml:space="preserve">
+    <value>23</value>
+  </data>
+  <data name="DescriptionLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="DescriptionLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>66, 194</value>
+  </data>
+  <data name="DescriptionLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>93, 20</value>
+  </data>
+  <data name="DescriptionLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="DescriptionLabel.Text" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="&gt;&gt;DescriptionLabel.Name" xml:space="preserve">
+    <value>DescriptionLabel</value>
+  </data>
+  <data name="&gt;&gt;DescriptionLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DescriptionLabel.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;DescriptionLabel.ZOrder" xml:space="preserve">
+    <value>24</value>
+  </data>
+  <data name="ContactLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ContactLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>90, 268</value>
+  </data>
+  <data name="ContactLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 20</value>
+  </data>
+  <data name="ContactLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="ContactLabel.Text" xml:space="preserve">
+    <value>Contact:</value>
+  </data>
+  <data name="&gt;&gt;ContactLabel.Name" xml:space="preserve">
+    <value>ContactLabel</value>
+  </data>
+  <data name="&gt;&gt;ContactLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ContactLabel.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;ContactLabel.ZOrder" xml:space="preserve">
+    <value>25</value>
+  </data>
+  <data name="LocationLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="LocationLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>86, 231</value>
+  </data>
+  <data name="LocationLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 20</value>
+  </data>
+  <data name="LocationLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="LocationLabel.Text" xml:space="preserve">
+    <value>Location:</value>
+  </data>
+  <data name="&gt;&gt;LocationLabel.Name" xml:space="preserve">
+    <value>LocationLabel</value>
+  </data>
+  <data name="&gt;&gt;LocationLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LocationLabel.Parent" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;LocationLabel.ZOrder" xml:space="preserve">
+    <value>26</value>
+  </data>
+  <data name="UpdateAppointmentGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>105, 65</value>
+  </data>
+  <data name="UpdateAppointmentGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1280, 583</value>
+  </data>
+  <data name="UpdateAppointmentGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="UpdateAppointmentGroupBox.Text" xml:space="preserve">
+    <value>Update Appointment</value>
+  </data>
+  <data name="&gt;&gt;UpdateAppointmentGroupBox.Name" xml:space="preserve">
+    <value>UpdateAppointmentGroupBox</value>
+  </data>
+  <data name="&gt;&gt;UpdateAppointmentGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;UpdateAppointmentGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;UpdateAppointmentGroupBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>9, 20</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>1490, 712</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>UpdateAppointmentPage</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>AppointmentUpdatePage</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+</root>
