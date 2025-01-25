@@ -12,24 +12,28 @@ using ZstdSharp.Unsafe;
 
 namespace Scheduling_Desktop_UI_App.User_Navigation_Pages
 {
-    public partial class UpdateUserPage : Form
+    public partial class UserUpdatePage : Form
     {
         User _selectedUser;
-        public UpdateUserPage()
-        {
-            InitializeComponent();
-        }
-        public UpdateUserPage(User selectedUser)
+        User _user;
+        public UserUpdatePage(User selectedUser, User user)
         {
             InitializeComponent();
             _selectedUser = selectedUser;
+            _user = user;
+
+            //Assign selectedUser information to text fields
+            UserIdTextBox2.Text = _selectedUser.UserId.ToString();
+            UserNameTextBox1.Text = _selectedUser.UserName;
+            PasswordTextBox1.Text = _selectedUser.Password;
+            ActiveUserTextBox.Text = _selectedUser.Active.ToString();
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            //Return to login screen
-            LoginForm loginForm = new LoginForm();
-            loginForm.ShowDialog();
+            //Return to List Users Page
+            UserListPage listUsersPage = new UserListPage(_user);
+            listUsersPage.ShowDialog();
             this.Hide();
         }
 
@@ -44,10 +48,15 @@ namespace Scheduling_Desktop_UI_App.User_Navigation_Pages
             //Assign updated username and password to user
             _selectedUser.UserName = UserNameTextBox1.Text;
             _selectedUser.Password = PasswordTextBox1.Text;
+            _selectedUser.Active = Convert.ToInt32(ActiveUserTextBox.Text);
 
             //Send updated information to database
             _selectedUser.UpdateUser(_selectedUser);
 
+            //Return to ListUsersPage
+            UserListPage listUsersPage = new UserListPage(_user);
+            listUsersPage.ShowDialog();
+            this.Hide();
         }
 
         private void UserUpdatePage_Load(object sender, EventArgs e)
@@ -62,7 +71,7 @@ namespace Scheduling_Desktop_UI_App.User_Navigation_Pages
         private void UpdateUserCancelButton_Click(object sender, EventArgs e)
         {
             //Return to User Navigation Page
-            ListUsersPage listUsersPage = new ListUsersPage();
+            UserListPage listUsersPage = new UserListPage(_user);
             listUsersPage.Show();
             this.Hide();
 
@@ -79,6 +88,16 @@ namespace Scheduling_Desktop_UI_App.User_Navigation_Pages
         }
 
         private void UpdateUserGroupBox_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UserIdTextBox2_TextChanged(object sender, EventArgs e)
         {
 
         }

@@ -18,15 +18,8 @@ namespace Scheduling_Desktop_UI_App.Classes
         public DateTime LastUpdate { get; set; }
         public string LastUpdateBy { get; set; }
 
-        public int InsertCountry(Country country, User user)
+        public Country InsertCountry(Country country)
         {
-            //Set CountryName
-            this.CountryName = country.CountryName;
-            this.CreateDate = DateTime.Now;
-            this.CreatedBy = user.UserName;
-            this.LastUpdate = DateTime.Now;
-            this.LastUpdateBy = user.UserName;
-
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
@@ -40,12 +33,12 @@ namespace Scheduling_Desktop_UI_App.Classes
                     MySqlCommand cmd = new MySqlCommand(insertCountryQuery, conn);
 
                     //Add Parameters
+
                     cmd.Parameters.AddWithValue("@country", country.CountryName);
                     cmd.Parameters.AddWithValue("@createDate", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@createdBy", user.UserName);
+                    cmd.Parameters.AddWithValue("@createdBy", country.CreatedBy);
                     cmd.Parameters.AddWithValue("@lastUpdate", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@lastUpdateBy", user.UserName);
-
+                    cmd.Parameters.AddWithValue("@lastUpdateBy", country.LastUpdateBy);
                     //Execute Command to run query
                     cmd.ExecuteNonQuery();
 
@@ -54,35 +47,29 @@ namespace Scheduling_Desktop_UI_App.Classes
                     MySqlCommand cmd2 = new MySqlCommand(getCountryIdQuery, conn);
 
                     //Add Parameters
-                    cmd2.Parameters.AddWithValue("@country", this.CountryName);
+                    cmd2.Parameters.AddWithValue("@country", country.CountryName);
 
                     //Execute command to run query to retrieve countryId
-                    this.CountryId = Convert.ToInt32(cmd2.ExecuteScalar());
+                    country.CountryId = Convert.ToInt32(cmd2.ExecuteScalar());
 
                     //Close connection
                     conn.Close();
 
                     //Return CountryId
-                    return this.CountryId;
+                    return country;
                 }
 
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return 0;
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("Error inserting Country");
+                return null;
             }
         }
-        public int UpdateCountry(Country country, User user)
+        public void UpdateCountry(Country country)
         {
-            //Set CountryId
-            this.CountryId = country.CountryId;
-            this.CountryName = country.CountryName;
-            this.CreateDate = DateTime.Now;
-            this.CreatedBy = user.UserName;
-            this.LastUpdate = DateTime.Now;
-            this.LastUpdateBy = user.UserName;
-
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
@@ -97,22 +84,21 @@ namespace Scheduling_Desktop_UI_App.Classes
                     cmd.Parameters.AddWithValue("@countryId", country.CountryId);
                     cmd.Parameters.AddWithValue("@country", country.CountryName);
                     cmd.Parameters.AddWithValue("@lastUpdate", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@lastUpdateBy", user.UserName);
+                    cmd.Parameters.AddWithValue("@lastUpdateBy", country.LastUpdateBy);
                     //Execute command
                     cmd.ExecuteNonQuery();
                     //Close Connection
                     conn.Close();
-                    //Return CountryId
-                    return this.CountryId;
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return 0;
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("Error updating Country");
             }
         }
-        public void DeleteCountry(int countryId)
+        public void DeleteCountry(Country country)
         {
             try
             {
@@ -121,7 +107,7 @@ namespace Scheduling_Desktop_UI_App.Classes
                     conn.Open();
                     string deleteCountryQuery = "DELETE FROM country WHERE countryId = @countryId";
                     MySqlCommand cmd = new MySqlCommand(deleteCountryQuery, conn);
-                    cmd.Parameters.AddWithValue("@countryId", countryId);
+                    cmd.Parameters.AddWithValue("@countryId", country.CountryId);
                     cmd.ExecuteNonQuery();
                     conn.Close();
                 }
@@ -129,12 +115,51 @@ namespace Scheduling_Desktop_UI_App.Classes
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("Error deleting Country");
             }
         }
+
+        //Get country from sql database based on countryid
         public Country GetCountry(int countryId)
         {
-            this.CountryId = countryId;
-            return new Country();  
+            Country country = new Country();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
+                {
+                    //Open connection
+                    conn.Open();
+                    //Create query string
+                    string getCountryQuery = "SELECT countryId, country, createDate, createdBy, lastUpdate, lastUpdateBy FROM country WHERE countryId = @countryId";
+                    //Create command
+                    MySqlCommand cmd = new MySqlCommand(getCountryQuery, conn);
+                    //Add parameters
+                    cmd.Parameters.AddWithValue("@countryId", countryId);
+                    //Execute command
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    //Read data
+                    while (reader.Read())
+                    {
+                        country.CountryId = reader.GetInt32("countryId");
+                        country.CountryName = reader.GetString("country");
+                        country.CreateDate = reader.GetDateTime("createDate");
+                        country.CreatedBy = reader.GetString("createdBy");
+                        country.LastUpdate = reader.GetDateTime("lastUpdate");
+                        country.LastUpdateBy = reader.GetString("lastUpdateBy");
+                    }
+                    //Close connection
+                    conn.Close();
+                    return country;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("Error getting Country");
+                return null;
+            }
         }
     }
 }

@@ -16,9 +16,23 @@ namespace Scheduling_Desktop_UI_App
 {
     public partial class UserRegisterPage : Form
     {
+        //Create Logged In User Object
+        private User _user;
+
+        //Create New Registered user object
+        private User _newUser = new User();
+
         //Create Connection Object
         private MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
-        User _user;
+        public UserRegisterPage()
+        {
+            InitializeComponent();
+            //Get next userId
+            _newUser.UserId = _newUser.GetNextUserId();
+            //Populate UserIdTextBox
+            UserIdTextBox.Text = _newUser.UserId.ToString();
+        }
+
         public UserRegisterPage(User user)
         {
             InitializeComponent();
@@ -28,7 +42,7 @@ namespace Scheduling_Desktop_UI_App
         private void CancelButton_Click(object sender, EventArgs e)
         {
             //Return to Login Form
-            LoginForm loginForm = new LoginForm();
+            LoginPage loginForm = new LoginPage();
             loginForm.Show();
             this.Hide();
         }
@@ -70,16 +84,22 @@ namespace Scheduling_Desktop_UI_App
                 cmd.Parameters.AddWithValue("@lastUpdate", DateTime.Now);
                 cmd.Parameters.AddWithValue("@lastUpdateBy", newUser);
                 cmd.ExecuteNonQuery();
+                MessageBox.Show("User Registered Successfully.");
+
             } catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
 
-
             //Return to Login Form
-            LoginForm loginForm = new LoginForm();
+            LoginPage loginForm = new LoginPage();
             loginForm.Show();
             this.Hide();
+        }
+
+        private void UserRegisterPage_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

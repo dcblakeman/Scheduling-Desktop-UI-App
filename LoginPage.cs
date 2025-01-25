@@ -19,11 +19,12 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using Scheduling_Desktop_UI_App.Classes;
 using System.IO;
 using Scheduling_Desktop_UI_App.User_Navigation_Pages;
+using Scheduling_Desktop_UI_App.User_Pages;
 
 
 namespace Scheduling_Desktop_UI_App
 {
-    public partial class LoginForm : Form
+    public partial class LoginPage : Form
     {
         private readonly GeoCoordinateWatcher _watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
 
@@ -31,7 +32,12 @@ namespace Scheduling_Desktop_UI_App
         GeoCoordinate coordinate;
 
         private static readonly string logFilePath = "Login_History.txt";
-        User _user = new User();
+        
+        Country _country = new Country();
+        City _city = new City();
+        Address _address = new Address();
+        Customer _customer = new Customer();
+        Appointment _appointment = new Appointment();
 
         // Set up the resource manager to access resource files
         private readonly ResourceManager resourceManager = new ResourceManager("Scheduling_Desktop_UI_App.Properties.Resources", typeof(Program).Assembly);
@@ -43,7 +49,7 @@ namespace Scheduling_Desktop_UI_App
         private readonly CultureInfo currentCulture = CultureInfo.CurrentCulture;
 
         //Empty Constructor\
-        public LoginForm()
+        public LoginPage()
         {
             InitializeComponent();
 
@@ -55,7 +61,7 @@ namespace Scheduling_Desktop_UI_App
             Console.WriteLine($"Current UI language: {uiCulture.DisplayName}");
 
             // Print out a user-friendly name for the locale.
-            Console.WriteLine($"Current system language: {currentCulture.DisplayName}"); 
+            Console.WriteLine($"Current system language: {currentCulture.DisplayName}");
         }
 
         private static void Watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
@@ -89,9 +95,40 @@ namespace Scheduling_Desktop_UI_App
                 MessageBox.Show($"Initial Location: Latitude {coordinate.Latitude}, Longitude {coordinate.Longitude}");
             }
         }
-        private void Login_Click(object sender, EventArgs e)
+        private void RegisterButton_Click(object sender, EventArgs e)
+        {
+            // Open the Register User Page
+            UserRegisterPage userRegisterPage = new UserRegisterPage();
+            userRegisterPage.Show();
+            this.Hide();
+        }
+        private void QuitButton_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+        private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //Stop watcher
+            _watcher.Stop();
+        }
+
+        private void UserNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GenerateReportsButton_Click(object sender, EventArgs e)
+        {
+            //Open the Reports Page
+            GenerateReportsPage reportsPage = new GenerateReportsPage();
+            reportsPage.Show();
+            this.Hide();
+        }
+
+        private void LoginButton_Click(object sender, EventArgs e)
         {
             //Assign fields to user properties
+            User _user = new User();
             _user.UserName = UserNameTextBox.Text;
             _user.Password = PasswordTextBox.Text;
 
@@ -99,7 +136,7 @@ namespace Scheduling_Desktop_UI_App
 
             // Check if the query returned a result
             if (UserAuthenticated == true)
-        {
+            {
                 // Retrieve the translation for the key "Greeting"
                 string translatedMessage = resourceManager.GetString("LoginSuccessfulMessage", currentCulture);
 
@@ -127,24 +164,12 @@ namespace Scheduling_Desktop_UI_App
                 MessageBox.Show(translatedMessage);
             }
         }
-        private void RegisterButton_Click(object sender, EventArgs e)
-        {
-            // Open the Register User Page
-            UserRegisterPage registerUserPage = new UserRegisterPage(_user);
-            registerUserPage.Show();
-            this.Hide();
-        }
 
-        private void QuitButton_Click(object sender, EventArgs e)
+        private void UserListViewButton_Click(object sender, EventArgs e)
         {
-            Application.Exit();
-        }
-
-        private void UserList_Click(object sender, EventArgs e)
-        {
-            //Go to UserListPage
-            ListUsersPage listUsersPage = new ListUsersPage();
-            listUsersPage.Show();
+            //Go to UserLlistViewPage
+            UserListViewPage userListViewPage = new UserListViewPage();
+            userListViewPage.Show();
             this.Hide();
         }
     }

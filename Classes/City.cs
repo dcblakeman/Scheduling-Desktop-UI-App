@@ -18,15 +18,8 @@ namespace Scheduling_Desktop_UI_App.Classes
         public string CreatedBy { get; set; }
         public DateTime LastUpdate { get; set; }
         public string LastUpdateBy { get; set; }
-        public int InsertCity(City city, User user)
+        public City InsertCity(City city)
         {
-            this.CityName = city.CityName;
-            this.CountryId = city.CountryId;
-            this.CreateDate = DateTime.Now;
-            this.CreatedBy = user.UserName;
-            this.LastUpdate = DateTime.Now;
-            this.LastUpdateBy = user.UserName;
-
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
@@ -41,12 +34,12 @@ namespace Scheduling_Desktop_UI_App.Classes
                     MySqlCommand cmd = new MySqlCommand(insertCityQuery, conn);
 
                     //Add Parameters
-                    cmd.Parameters.AddWithValue("@city", this.CityName);
-                    cmd.Parameters.AddWithValue("@countryId", this.CountryId);
-                    cmd.Parameters.AddWithValue("@createDate", this.CreateDate);
-                    cmd.Parameters.AddWithValue("@createdBy", this.CreatedBy);
-                    cmd.Parameters.AddWithValue("@lastUpdate", this.LastUpdate);
-                    cmd.Parameters.AddWithValue("@lastUpdateBy", this.LastUpdateBy);
+                    cmd.Parameters.AddWithValue("@city", city.CityName);
+                    cmd.Parameters.AddWithValue("@countryId", city.CountryId);
+                    cmd.Parameters.AddWithValue("@createDate", city.CreateDate);
+                    cmd.Parameters.AddWithValue("@createdBy", city.CreatedBy);
+                    cmd.Parameters.AddWithValue("@lastUpdate", city.LastUpdate);
+                    cmd.Parameters.AddWithValue("@lastUpdateBy", city.LastUpdateBy);
 
                     //Create query to return CityId
                     string getCityIdQuery = "SELECT cityId FROM city WHERE city = @city";
@@ -55,30 +48,26 @@ namespace Scheduling_Desktop_UI_App.Classes
                     MySqlCommand cmd2 = new MySqlCommand(getCityIdQuery, conn);
 
                     //Add parameters
-                    cmd2.Parameters.AddWithValue("@city", this.CityName);
+                    cmd2.Parameters.AddWithValue("@city", city.CityName);
 
                     //Execute command to run query to retrieve CityId
-                    this.CityId = Convert.ToInt32(cmd2.ExecuteScalar());
+                    city.CityId = Convert.ToInt32(cmd2.ExecuteScalar());
 
                     //Close connection
                     conn.Close();
 
                     //Return CityId
-                    return CityId;
+                    return city;
                 }
-            }catch(Exception ex)
+            } catch (Exception ex)
             {
-                throw ex;
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("Error inserting city");
+                return null;
             }
         }
-        public int UpdateCity(City city, User user)
+        public void UpdateCity(City city)
         {
-            this.CityId = city.CityId;
-            this.CityName = city.CityName;
-            this.CountryId = city.CountryId;
-            this.LastUpdate = DateTime.Now;
-            this.LastUpdateBy = user.UserName;
-
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
@@ -93,31 +82,29 @@ namespace Scheduling_Desktop_UI_App.Classes
                     MySqlCommand cmd = new MySqlCommand(updateCityQuery, conn);
 
                     //Add Parameters
-                    cmd.Parameters.AddWithValue("@cityId", this.CityId);
-                    cmd.Parameters.AddWithValue("@city", this.CityName);
-                    cmd.Parameters.AddWithValue("@countryId", this.CountryId);
-                    cmd.Parameters.AddWithValue("@lastUpdate", this.LastUpdate);
-                    cmd.Parameters.AddWithValue("@lastUpdateBy", this.LastUpdateBy);
+                    cmd.Parameters.AddWithValue("@cityId", city.CityId);
+                    cmd.Parameters.AddWithValue("@city", city.CityName);
+                    cmd.Parameters.AddWithValue("@countryId", city.CountryId);
+                    cmd.Parameters.AddWithValue("@lastUpdate", city.LastUpdate);
+                    cmd.Parameters.AddWithValue("@lastUpdateBy", city.LastUpdateBy);
 
                     //Execute Command
                     cmd.ExecuteNonQuery();
 
                     //Close Connection
                     conn.Close();
-
-                    //Return CityId
-                    return CityId;
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("Error updating city");
             }
         }
 
-        public void DeleteCity(int cityId)
+        public void DeleteCity(City city)
         {
-            this.CityId = cityId;
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
@@ -125,20 +112,63 @@ namespace Scheduling_Desktop_UI_App.Classes
                     conn.Open();
                     string deleteCityQuery = "DELETE FROM city WHERE cityId = @cityId";
                     MySqlCommand cmd = new MySqlCommand(deleteCityQuery, conn);
-                    cmd.Parameters.AddWithValue("@cityId", cityId);
+                    cmd.Parameters.AddWithValue("@cityId", city.CityId);
                     cmd.ExecuteNonQuery();
                     conn.Close();
+                    Console.WriteLine("Successfully deleted city");
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("Error deleting city");
             }
         }
+
+        //Get city from sql database based on cityid
         public City GetCity(int cityId)
         {
-            this.CityId = cityId;
-            return new City();
+            City city = new City();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
+                {
+                    //Open connection
+                    conn.Open();
+                    //Create query string
+                    string getCityQuery = "SELECT * FROM city WHERE cityId = @cityId";
+                    //Create command
+                    MySqlCommand cmd = new MySqlCommand(getCityQuery, conn);
+                    //Add parameter
+                    cmd.Parameters.AddWithValue("@cityId", cityId);
+                    //Execute reader using using and assign results to city attributes
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            
+                            city.CityId = reader.GetInt32("cityId");
+                            city.CityName = reader.GetString("city");
+                            city.CountryId = reader.GetInt32("countryId");
+                            city.CreateDate = reader.GetDateTime("createDate");
+                            city.CreatedBy = reader.GetString("createdBy");
+                            city.LastUpdate = reader.GetDateTime("lastUpdate");
+                            city.LastUpdateBy = reader.GetString("lastUpdateBy");
+                        }
+                    }
+                    //Close connection
+                    conn.Close();
+                    return city;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("Error getting city");
+                return null;
+            }
         }
     }
 }

@@ -28,8 +28,7 @@ namespace Scheduling_Desktop_UI_App
                 {
                     //Open connection
                     connection.Open();
-
-                    
+                    Console.WriteLine("Connection opened successfully!");
                     /////////////////////Close Connection////////////////////
                     connection.Close();
                     Console.WriteLine("Connection closed successfully!");
@@ -41,7 +40,7 @@ namespace Scheduling_Desktop_UI_App
             }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
+            Application.Run(new LoginPage());
         }
     }
 }

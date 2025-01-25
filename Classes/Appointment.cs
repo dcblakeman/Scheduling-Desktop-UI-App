@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,24 +33,8 @@ namespace Scheduling_Desktop_UI_App.Classes
         //Create connection
         private MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
 
-        public void InsertAppointment(Appointment appointment, User user)
+        public Appointment InsertAppointment(Appointment appointment)
         {
-            this.AppointmentId = appointment.AppointmentId;
-            this.CustomerId = appointment.CustomerId;
-            this.UserId = appointment.UserId;
-            this.Title = appointment.Title;
-            this.Description = appointment.Description;
-            this.Location = appointment.Location;
-            this.Contact = appointment.Contact;
-            this.Type = appointment.Type;
-            this.Url = appointment.Url;
-            this.Start = appointment.Start;
-            this.End = appointment.End;
-            this.CreateDate = DateTime.Now;
-            this.CreatedBy = user.UserName;
-            this.LastUpdate = DateTime.Now;
-            this.LastUpdateBy = user.UserName;
-
             try
             {
                 using (conn)
@@ -61,46 +46,35 @@ namespace Scheduling_Desktop_UI_App.Classes
                     MySqlCommand cmd = new MySqlCommand("INSERT INTO appointment (customerId, userId, title, description, location, contact, type, url, start, end, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES (@customerId, @userId, @title, @description, @location, @contact, @type, @url, @start, @end, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)", conn);
 
                     //Add parameters
-                    cmd.Parameters.AddWithValue("@appointmentI", this.AppointmentId);
-                    cmd.Parameters.AddWithValue("@customerId", this.CustomerId);
-                    cmd.Parameters.AddWithValue("@userId", this.UserId);
-                    cmd.Parameters.AddWithValue("@title", this.Title);
-                    cmd.Parameters.AddWithValue("@description", this.Description);
-                    cmd.Parameters.AddWithValue("@location", this.Location);
-                    cmd.Parameters.AddWithValue("@contact", this.Contact);
-                    cmd.Parameters.AddWithValue("@type", this.Type);
-                    cmd.Parameters.AddWithValue("@url", this.Url);
-                    cmd.Parameters.AddWithValue("@start", this.Start);
-                    cmd.Parameters.AddWithValue("@end", this.End);
-                    cmd.Parameters.AddWithValue("@createDate", this.CreateDate);
-                    cmd.Parameters.AddWithValue("@createdBy", this.CreatedBy);
-                    cmd.Parameters.AddWithValue("@lastUpdate", this.LastUpdate);
-                    cmd.Parameters.AddWithValue("@lastUpdateBy", this.LastUpdateBy);
+                    cmd.Parameters.AddWithValue("@customerId", appointment.CustomerId);
+                    cmd.Parameters.AddWithValue("@userId", appointment.UserId);
+                    cmd.Parameters.AddWithValue("@title", appointment.Title);
+                    cmd.Parameters.AddWithValue("@description", appointment.Description);
+                    cmd.Parameters.AddWithValue("@location", appointment.Location);
+                    cmd.Parameters.AddWithValue("@contact", appointment.Contact);
+                    cmd.Parameters.AddWithValue("@type", appointment.Type);
+                    cmd.Parameters.AddWithValue("@url", appointment.Url);
+                    cmd.Parameters.AddWithValue("@start", appointment.Start);
+                    cmd.Parameters.AddWithValue("@end", appointment.End);
+                    cmd.Parameters.AddWithValue("@createDate", appointment.CreateDate);
+                    cmd.Parameters.AddWithValue("@createdBy", appointment.CreatedBy);
+                    cmd.Parameters.AddWithValue("@lastUpdate", appointment.LastUpdate);
+                    cmd.Parameters.AddWithValue("@lastUpdateBy", appointment.LastUpdateBy);
                     //Close connection
                     conn.Close();
+                    return appointment;
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("Error inserting appointment");
+                return null;
             }
         }
-        public Appointment UpdateAppointment(Appointment appointment, User user)
+        public void UpdateAppointment(Appointment appointment)
         {
-            this.AppointmentId = appointment.AppointmentId;
-            this.CustomerId = appointment.CustomerId;
-            this.UserId = appointment.UserId;
-            this.Title = appointment.Title;
-            this.Description = appointment.Description;
-            this.Location = appointment.Location;
-            this.Contact = appointment.Contact;
-            this.Type = appointment.Type;
-            this.Url = appointment.Url;
-            this.Start = appointment.Start;
-            this.End = appointment.End;
-            this.LastUpdate = DateTime.Now;
-            this.LastUpdateBy = user.UserName;
-
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
@@ -110,29 +84,30 @@ namespace Scheduling_Desktop_UI_App.Classes
                     //Create command object
                     MySqlCommand cmd = new MySqlCommand("UPDATE appointment SET customerId = @customerId, userId = @userId, title = @title, description = @description, location = @location, contact = @contact, type = @type, url = @url, start = @start, end = @end, lastUpdate = @lastUpdate, lastUpdateBy = @lastUpdateBy WHERE appointmentId = @appointmentId", conn);
                     //Add parameters
-                    cmd.Parameters.AddWithValue("@customerId", this.CustomerId);
-                    cmd.Parameters.AddWithValue("@userId", this.UserId);
-                    cmd.Parameters.AddWithValue("@title", this.Title);
-                    cmd.Parameters.AddWithValue("@description", this.Description);
-                    cmd.Parameters.AddWithValue("@location", this.Location);
-                    cmd.Parameters.AddWithValue("@contact", this.Contact);
-                    cmd.Parameters.AddWithValue("@type", this.Type);
-                    cmd.Parameters.AddWithValue("@url", this.Url);
-                    cmd.Parameters.AddWithValue("@start", this.Start);
-                    cmd.Parameters.AddWithValue("@end", this.End);
-                    cmd.Parameters.AddWithValue("@lastUpdate", this.LastUpdate);
-                    cmd.Parameters.AddWithValue("@lastUpdateBy", this.LastUpdateBy);
-                    cmd.Parameters.AddWithValue("@appointmentId", this.AppointmentId);
+                    cmd.Parameters.AddWithValue("@appointmentId", appointment.AppointmentId);
+                    cmd.Parameters.AddWithValue("@customerId", appointment.CustomerId);
+                    cmd.Parameters.AddWithValue("@userId", appointment.UserId);
+                    cmd.Parameters.AddWithValue("@title", appointment.Title);
+                    cmd.Parameters.AddWithValue("@description", appointment.Description);
+                    cmd.Parameters.AddWithValue("@location", appointment.Location);
+                    cmd.Parameters.AddWithValue("@contact", appointment.Contact);
+                    cmd.Parameters.AddWithValue("@type", appointment.Type);
+                    cmd.Parameters.AddWithValue("@url", appointment.Url);
+                    cmd.Parameters.AddWithValue("@start", appointment.Start);
+                    cmd.Parameters.AddWithValue("@end", appointment.End);
+                    cmd.Parameters.AddWithValue("@lastUpdate", appointment.LastUpdate);
+                    cmd.Parameters.AddWithValue("@lastUpdateBy", appointment.LastUpdateBy);
                     //Execute command
                     cmd.ExecuteNonQuery();
                     //Close connection
                     conn.Close();
-                    return new Appointment();
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("Error updating appointment");
             }
         }
         public void DeleteAppointment(int appointmentId)
@@ -158,74 +133,200 @@ namespace Scheduling_Desktop_UI_App.Classes
                 throw ex;
             }
         }
-        public List<Appointment> GetAll()
-        {   //Get list of appointments for appointmentdatagridview
-            List<Appointment> appointmentList = new List<Appointment>();
-            return appointmentList;
-        }
 
-        internal bool CheckForOverlappingAppointments(DateTime value1, DateTime value2)
+        //Get appointment from sql db based on appointmentid
+       public Appointment GetAppointment(int appointmentId)
         {
-            throw new NotImplementedException();
-        }
-
-        internal bool CheckForOverlappingCustomerAppointments(DateTime value1, DateTime value2, int v)
-        {
-            throw new NotImplementedException();
-        }
-
-        //Notify user when an appointment is in 15 minutes
-        public void NotifyUser()
-        {
-            //Get current time
-            DateTime currentTime = DateTime.Now;
-            //Get all appointments
-            List<Appointment> appointments = GetAll();
-            //Check if any appointments are within 15 minutes
-            foreach (Appointment appointment in appointments)
+            Appointment appointment = new Appointment();
+            try
             {
-                if (appointment.Start > currentTime && appointment.Start < currentTime.AddMinutes(15))
+                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
                 {
-                    //Create alert pop up window
-                    MessageBox.Show("You have an appointment in 15 minutes");
-                }
-            }
-        }
-        //Get available appointment times
-
-        internal object AddAppointmentTimesToDataGridView(DataGridView AppointmentDataGridView)
-        {
-            //Open connection
-            using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
-            {
-                //Show todays records in datagridview
-                try
-                {
-                    //Create query string
-                    string getAppointmentsQuery = "SELECT * FROM appointment WHERE start >= @start AND end <= @end";
-                    //Create command object
-                    MySqlCommand cmd = new MySqlCommand(getAppointmentsQuery, conn);
-                    //Add parameters
-                    cmd.Parameters.AddWithValue("@start", DateTime.Today);
-                    cmd.Parameters.AddWithValue("@end", DateTime.Today.AddDays(1));
                     //Open connection
                     conn.Open();
-                    //Create data adapter
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                    //Create dataset
-                    System.Data.DataTable dt = new System.Data.DataTable();
-                    //Fill dataset
-
-                    //Add data to datagridview
-                    return AppointmentDataGridView.DataSource = dt;
+                    //Create query string
+                    string selectAppointmentQuery = "SELECT * FROM appointment WHERE appointmentId = @appointmentId";
+                    //Create command
+                    MySqlCommand cmd = new MySqlCommand(selectAppointmentQuery, conn);
+                    //Add parameters
+                    cmd.Parameters.AddWithValue("@appointmentId", appointmentId);
+                    //Create data reader
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        //Read data
+                        while (reader.Read())
+                        {
+                            appointment = new Appointment
+                            {
+                                AppointmentId = reader.GetInt32("appointmentId"),
+                                CustomerId = reader.GetInt32("customerId"),
+                                UserId = reader.GetInt32("userId"),
+                                Title = reader.GetString("title"),
+                                Description = reader.GetString("description"),
+                                Location = reader.GetString("location"),
+                                Contact = reader.GetString("contact"),
+                                Type = reader.GetString("type"),
+                                Url = reader.GetString("url"),
+                                Start = reader.GetDateTime("start"),
+                                End = reader.GetDateTime("end"),
+                                CreateDate = reader.GetDateTime("createDate"),
+                                CreatedBy = reader.GetString("createdBy"),
+                                LastUpdate = reader.GetDateTime("lastUpdate"),
+                                LastUpdateBy = reader.GetString("lastUpdateBy")
+                            };
+                        }
+                    }
+                    //Close connection
+                    conn.Close();
+                    return appointment;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message);
-                }
-
             }
-            throw new NotImplementedException();
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("Error getting appointment");
+                return null;
+            }
+        }//End GetAppointment Method
+
+        //Get all of the appointments for one customer
+        public List<Appointment> GetAppointmentsByCustomerId(int customerId)
+        {
+            List<Appointment> appointments = new List<Appointment>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
+                {
+                    //Open connection
+                    conn.Open();
+                    //Create query string
+                    string selectAllCustomerAppointmentsQuery = "SELECT * FROM appointment WHERE customerId = @customerId";
+                    //Create command
+                    MySqlCommand cmd = new MySqlCommand(selectAllCustomerAppointmentsQuery, conn);
+                    //Add parameters
+                    cmd.Parameters.AddWithValue("@customerId", customerId);
+                    //Create data reader
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        //Read data
+                        while (reader.Read())
+                        {
+                            Appointment appointment = new Appointment
+                            {
+                                AppointmentId = reader.GetInt32("appointmentId"),
+                                CustomerId = reader.GetInt32("customerId"),
+                                UserId = reader.GetInt32("userId"),
+                                Title = reader.GetString("title"),
+                                Description = reader.GetString("description"),
+                                Location = reader.GetString("location"),
+                                Contact = reader.GetString("contact"),
+                                Type = reader.GetString("type"),
+                                Url = reader.GetString("url"),
+                                Start = reader.GetDateTime("start"),
+                                End = reader.GetDateTime("end"),
+                                CreateDate = reader.GetDateTime("createDate"),
+                                CreatedBy = reader.GetString("createdBy"),
+                                LastUpdate = reader.GetDateTime("lastUpdate"),
+                                LastUpdateBy = reader.GetString("lastUpdateBy")
+                            };
+                            appointments.Add(appointment);
+                        }
+                    }
+                    //Close connection
+                    conn.Close();
+                    return appointments;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("Error getting all customer appointments");
+                return null;
+            }
+        }//End GetAllCustomerAppointments Method
+
+        //Get all appointments by date
+        public List<Appointment> GetAppointmentsByDate(DateTime date)
+        {
+            List<Appointment> appointments = new List<Appointment>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
+                {
+                    //Open connection
+                    conn.Open();
+                    //Create query string
+                    string selectAllAppointmentsByDateQuery = "SELECT * FROM appointment WHERE start BETWEEN @date AND @tomorrow";
+                    //Create command
+                    MySqlCommand cmd = new MySqlCommand(selectAllAppointmentsByDateQuery, conn);
+                    //Add parameters
+                    cmd.Parameters.AddWithValue("@date", date);
+                    cmd.Parameters.AddWithValue("@tomorrow", date.AddDays(1));
+                    //Create data reader
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        //Read data
+                        while (reader.Read())
+                        {
+                            Appointment appointment = new Appointment
+                            {
+                                AppointmentId = reader.GetInt32("appointmentId"),
+                                CustomerId = reader.GetInt32("customerId"),
+                                UserId = reader.GetInt32("userId"),
+                                Title = reader.GetString("title"),
+                                Description = reader.GetString("description"),
+                                Location = reader.GetString("location"),
+                                Contact = reader.GetString("contact"),
+                                Type = reader.GetString("type"),
+                                Url = reader.GetString("url"),
+                                Start = reader.GetDateTime("start"),
+                                End = reader.GetDateTime("end"),
+                                CreateDate = reader.GetDateTime("createDate"),
+                                CreatedBy = reader.GetString("createdBy"),
+                                LastUpdate = reader.GetDateTime("lastUpdate"),
+                                LastUpdateBy = reader.GetString("lastUpdateBy")
+                            };
+                            appointments.Add(appointment);
+                        }
+                    }
+                    //Close connection
+                    conn.Close();
+                    return appointments;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("Error getting all appointments by date");
+                return null;
+            }
+        }//End GetAllAppointmentsByDate Method
+
+        public MySqlDataAdapter PopulateAppointmentDataGridViewWithDateAndName(DateTime date)
+        {
+            try
+            {
+                string query = @"SELECT appointmentId AS `Appointment_Id`, start AS `Appointment_Time`, customerName AS `Customer_Name`, type AS `Appointment_Type` FROM appointment, customer WHERE appointment.customerId = customer.customerId AND start BETWEEN @startOfDay AND @endOfDay";
+                //Open connection
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@startOfDay", date);
+                cmd.Parameters.AddWithValue("@endOfDay", date.AddDays(1).AddSeconds(-1));
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                conn.Close();
+                adapter.Fill(dt);
+                return adapter;
+                //AppointmentsDataGridView.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
     }
 }

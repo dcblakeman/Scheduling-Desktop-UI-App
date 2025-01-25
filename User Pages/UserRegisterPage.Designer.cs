@@ -54,7 +54,7 @@
             this.RegisterUserGroupBox.Controls.Add(this.UserNameTextBox);
             this.RegisterUserGroupBox.Controls.Add(this.Password_Label);
             this.RegisterUserGroupBox.Controls.Add(this.UserName);
-            this.RegisterUserGroupBox.Location = new System.Drawing.Point(94, 83);
+            this.RegisterUserGroupBox.Location = new System.Drawing.Point(70, 46);
             this.RegisterUserGroupBox.Name = "RegisterUserGroupBox";
             this.RegisterUserGroupBox.Size = new System.Drawing.Size(598, 275);
             this.RegisterUserGroupBox.TabIndex = 0;
@@ -161,10 +161,11 @@
             this.AcceptButton = this.RegisterButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 449);
+            this.ClientSize = new System.Drawing.Size(736, 363);
             this.Controls.Add(this.RegisterUserGroupBox);
             this.Name = "UserRegisterPage";
             this.Text = "Register User";
+            this.Load += new System.EventHandler(this.UserRegisterPage_Load);
             this.RegisterUserGroupBox.ResumeLayout(false);
             this.RegisterUserGroupBox.PerformLayout();
             this.ResumeLayout(false);

@@ -129,54 +129,61 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Appointment Navigation Pages\AppointmentAddPage.cs">
+    <Compile Include="Appointment Pages\AppointmentAddPage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Appointment Navigation Pages\AppointmentAddPage.Designer.cs">
+    <Compile Include="Appointment Pages\AppointmentAddPage.Designer.cs">
       <DependentUpon>AppointmentAddPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Appointment Navigation Pages\AppointmentNavigationPage.cs">
+    <Compile Include="Appointment Pages\AppointmentNavigationPage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Appointment Navigation Pages\AppointmentNavigationPage.Designer.cs">
+    <Compile Include="Appointment Pages\AppointmentNavigationPage.Designer.cs">
       <DependentUpon>AppointmentNavigationPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Appointment Navigation Pages\AppointmentUpdatePage.cs">
+    <Compile Include="Appointment Pages\AppointmentUpdatePage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Appointment Navigation Pages\AppointmentUpdatePage.Designer.cs">
+    <Compile Include="Appointment Pages\AppointmentUpdatePage.Designer.cs">
       <DependentUpon>AppointmentUpdatePage.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Address.cs" />
     <Compile Include="Classes\Appointment.cs" />
-    <Compile Include="Classes\Calendar.cs" />
+    <Compile Include="Classes\AppointmentDateTimesAndNames.cs" />
     <Compile Include="Classes\City.cs" />
     <Compile Include="Classes\Country.cs" />
     <Compile Include="Classes\Customer.cs" />
+    <Compile Include="Classes\CustomerDemographics.cs" />
     <Compile Include="Classes\User.cs" />
-    <Compile Include="Customer Navigation Pages\CustomerAddPage.cs">
+    <Compile Include="Customer Pages\CustomerAddPage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Customer Navigation Pages\CustomerAddPage.Designer.cs">
+    <Compile Include="Customer Pages\CustomerAddPage.Designer.cs">
       <DependentUpon>CustomerAddPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Customer Navigation Pages\CustomerUpdatePage.cs">
+    <Compile Include="Customer Pages\CustomerProfilePage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Customer Navigation Pages\CustomerUpdatePage.Designer.cs">
+    <Compile Include="Customer Pages\CustomerProfilePage.Designer.cs">
+      <DependentUpon>CustomerProfilePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Customer Pages\CustomerUpdatePage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Customer Pages\CustomerUpdatePage.Designer.cs">
       <DependentUpon>CustomerUpdatePage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Customer Navigation Pages\CustomerNavigationPage.cs">
+    <Compile Include="Customer Pages\CustomerNavigationPage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Customer Navigation Pages\CustomerNavigationPage.Designer.cs">
+    <Compile Include="Customer Pages\CustomerNavigationPage.Designer.cs">
       <DependentUpon>CustomerNavigationPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginForm.cs">
+    <Compile Include="LoginPage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginForm.Designer.cs">
-      <DependentUpon>LoginForm.cs</DependentUpon>
+    <Compile Include="LoginPage.Designer.cs">
+      <DependentUpon>LoginPage.cs</DependentUpon>
     </Compile>
     <Compile Include="MainNavigationPage.cs">
       <SubType>Form</SubType>
@@ -184,52 +191,70 @@
     <Compile Include="MainNavigationPage.Designer.cs">
       <DependentUpon>MainNavigationPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="GenerateReportsPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerateReportsPage.Designer.cs">
+      <DependentUpon>GenerateReportsPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User Navigation Pages\ListUsersPage.cs">
+    <Compile Include="User Pages\UserListPage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="User Navigation Pages\ListUsersPage.Designer.cs">
-      <DependentUpon>ListUsersPage.cs</DependentUpon>
+    <Compile Include="User Pages\UserListPage.Designer.cs">
+      <DependentUpon>UserListPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="User Navigation Pages\UserRegisterPage.cs">
+    <Compile Include="User Pages\UserListViewPage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="User Navigation Pages\UserRegisterPage.Designer.cs">
+    <Compile Include="User Pages\UserListViewPage.Designer.cs">
+      <DependentUpon>UserListViewPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="User Pages\UserRegisterPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="User Pages\UserRegisterPage.Designer.cs">
       <DependentUpon>UserRegisterPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="User Navigation Pages\UpdateUserPage.cs">
+    <Compile Include="User Pages\UserUpdatePage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="User Navigation Pages\UpdateUserPage.Designer.cs">
-      <DependentUpon>UpdateUserPage.cs</DependentUpon>
+    <Compile Include="User Pages\UserUpdatePage.Designer.cs">
+      <DependentUpon>UserUpdatePage.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Appointment Navigation Pages\AppointmentAddPage.resx">
+    <EmbeddedResource Include="Appointment Pages\AppointmentAddPage.resx">
       <DependentUpon>AppointmentAddPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Appointment Navigation Pages\AppointmentNavigationPage.resx">
+    <EmbeddedResource Include="Appointment Pages\AppointmentNavigationPage.resx">
       <DependentUpon>AppointmentNavigationPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Appointment Navigation Pages\AppointmentUpdatePage.resx">
+    <EmbeddedResource Include="Appointment Pages\AppointmentUpdatePage.resx">
       <DependentUpon>AppointmentUpdatePage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Customer Navigation Pages\CustomerAddPage.resx">
+    <EmbeddedResource Include="Customer Pages\CustomerAddPage.resx">
       <DependentUpon>CustomerAddPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Customer Navigation Pages\CustomerNavigationPage.resx">
+    <EmbeddedResource Include="Customer Pages\CustomerNavigationPage.resx">
       <DependentUpon>CustomerNavigationPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Customer Navigation Pages\CustomerUpdatePage.resx">
+    <EmbeddedResource Include="Customer Pages\CustomerProfilePage.resx">
+      <DependentUpon>CustomerProfilePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Customer Pages\CustomerUpdatePage.resx">
       <DependentUpon>CustomerUpdatePage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginForm.es.resx">
-      <DependentUpon>LoginForm.cs</DependentUpon>
+    <EmbeddedResource Include="LoginPage.es.resx">
+      <DependentUpon>LoginPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginForm.resx">
-      <DependentUpon>LoginForm.cs</DependentUpon>
+    <EmbeddedResource Include="LoginPage.resx">
+      <DependentUpon>LoginPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainNavigationPage.resx">
       <DependentUpon>MainNavigationPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenerateReportsPage.resx">
+      <DependentUpon>GenerateReportsPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.es.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -242,14 +267,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="User Navigation Pages\ListUsersPage.resx">
-      <DependentUpon>ListUsersPage.cs</DependentUpon>
+    <EmbeddedResource Include="User Pages\UserListPage.resx">
+      <DependentUpon>UserListPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="User Navigation Pages\UserRegisterPage.resx">
+    <EmbeddedResource Include="User Pages\UserListViewPage.resx">
+      <DependentUpon>UserListViewPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User Pages\UserRegisterPage.resx">
       <DependentUpon>UserRegisterPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="User Navigation Pages\UpdateUserPage.resx">
-      <DependentUpon>UpdateUserPage.cs</DependentUpon>
+    <EmbeddedResource Include="User Pages\UserUpdatePage.resx">
+      <DependentUpon>UserUpdatePage.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

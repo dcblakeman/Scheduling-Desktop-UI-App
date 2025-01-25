@@ -2,12 +2,12 @@
 
 namespace Scheduling_Desktop_UI_App.User_Navigation_Pages
 {
-    partial class UpdateUserPage
+    partial class UserUpdatePage
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        //private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -26,27 +26,24 @@ namespace Scheduling_Desktop_UI_App.User_Navigation_Pages
             this.RegisterUserGroupBox = new System.Windows.Forms.GroupBox();
             this.UserNameLabel = new System.Windows.Forms.Label();
             this.UserIdLabel = new System.Windows.Forms.Label();
-            this.ConfirmPasswordLabel = new System.Windows.Forms.Label();
             this.UpdateButton = new System.Windows.Forms.Button();
             this.UpdateUserCancelButton = new System.Windows.Forms.Button();
-            this.ConfirmPasswordTextBox = new System.Windows.Forms.TextBox();
             this.PasswordTextBox = new System.Windows.Forms.TextBox();
             this.UserIdTextBox = new System.Windows.Forms.TextBox();
             this.UserNameTextBox = new System.Windows.Forms.TextBox();
-            this.Password_Label = new System.Windows.Forms.Label();
             this.UpdateUserGroupBox = new System.Windows.Forms.GroupBox();
+            this.ActiveUserTextBox = new System.Windows.Forms.TextBox();
             this.ConfirmPasswordTextBox1 = new System.Windows.Forms.TextBox();
             this.PasswordTextBox1 = new System.Windows.Forms.TextBox();
             this.UserNameTextBox1 = new System.Windows.Forms.TextBox();
             this.UserIdTextBox2 = new System.Windows.Forms.TextBox();
+            this.ActiveLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.PasswordLabel = new System.Windows.Forms.Label();
             this.UserIdLabel1 = new System.Windows.Forms.Label();
             this.UserNameLabel1 = new System.Windows.Forms.Label();
             this.RegisterButton = new System.Windows.Forms.Button();
             this.UpdateUserCancelButton1 = new System.Windows.Forms.Button();
-            this.ActiveLabel = new System.Windows.Forms.Label();
-            this.ActiveUserTextBox = new System.Windows.Forms.TextBox();
             this.RegisterUserGroupBox.SuspendLayout();
             this.UpdateUserGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -55,14 +52,11 @@ namespace Scheduling_Desktop_UI_App.User_Navigation_Pages
             // 
             this.RegisterUserGroupBox.Controls.Add(this.UserNameLabel);
             this.RegisterUserGroupBox.Controls.Add(this.UserIdLabel);
-            this.RegisterUserGroupBox.Controls.Add(this.ConfirmPasswordLabel);
             this.RegisterUserGroupBox.Controls.Add(this.UpdateButton);
             this.RegisterUserGroupBox.Controls.Add(this.UpdateUserCancelButton);
-            this.RegisterUserGroupBox.Controls.Add(this.ConfirmPasswordTextBox);
             this.RegisterUserGroupBox.Controls.Add(this.PasswordTextBox);
             this.RegisterUserGroupBox.Controls.Add(this.UserIdTextBox);
             this.RegisterUserGroupBox.Controls.Add(this.UserNameTextBox);
-            this.RegisterUserGroupBox.Controls.Add(this.Password_Label);
             this.RegisterUserGroupBox.Location = new System.Drawing.Point(26, 70);
             this.RegisterUserGroupBox.Margin = new System.Windows.Forms.Padding(2);
             this.RegisterUserGroupBox.Name = "RegisterUserGroupBox";
@@ -90,17 +84,6 @@ namespace Scheduling_Desktop_UI_App.User_Navigation_Pages
             this.UserIdLabel.TabIndex = 16;
             this.UserIdLabel.Text = "UserId";
             // 
-            // ConfirmPasswordLabel
-            // 
-            this.ConfirmPasswordLabel.AutoSize = true;
-            this.ConfirmPasswordLabel.Location = new System.Drawing.Point(59, 109);
-            this.ConfirmPasswordLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.ConfirmPasswordLabel.Name = "ConfirmPasswordLabel";
-            this.ConfirmPasswordLabel.Size = new System.Drawing.Size(137, 20);
-            this.ConfirmPasswordLabel.TabIndex = 15;
-            this.ConfirmPasswordLabel.Text = "Confirm Password";
-            this.ConfirmPasswordLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // UpdateButton
             // 
             this.UpdateButton.Location = new System.Drawing.Point(156, 130);
@@ -119,19 +102,12 @@ namespace Scheduling_Desktop_UI_App.User_Navigation_Pages
             this.UpdateUserCancelButton.Text = "Cancel";
             this.UpdateUserCancelButton.UseVisualStyleBackColor = true;
             // 
-            // ConfirmPasswordTextBox
-            // 
-            this.ConfirmPasswordTextBox.Location = new System.Drawing.Point(156, 106);
-            this.ConfirmPasswordTextBox.Name = "ConfirmPasswordTextBox";
-            this.ConfirmPasswordTextBox.Size = new System.Drawing.Size(157, 26);
-            this.ConfirmPasswordTextBox.TabIndex = 3;
-            // 
             // PasswordTextBox
             // 
             this.PasswordTextBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PasswordTextBox.Location = new System.Drawing.Point(3, 32);
+            this.PasswordTextBox.Location = new System.Drawing.Point(2, 21);
             this.PasswordTextBox.Name = "PasswordTextBox";
-            this.PasswordTextBox.Size = new System.Drawing.Size(593, 39);
+            this.PasswordTextBox.Size = new System.Drawing.Size(395, 26);
             this.PasswordTextBox.TabIndex = 2;
             // 
             // UserIdTextBox
@@ -150,15 +126,6 @@ namespace Scheduling_Desktop_UI_App.User_Navigation_Pages
             this.UserNameTextBox.Size = new System.Drawing.Size(157, 26);
             this.UserNameTextBox.TabIndex = 1;
             // 
-            // Password_Label
-            // 
-            this.Password_Label.AutoSize = true;
-            this.Password_Label.Location = new System.Drawing.Point(97, 84);
-            this.Password_Label.Name = "Password_Label";
-            this.Password_Label.Size = new System.Drawing.Size(78, 20);
-            this.Password_Label.TabIndex = 5;
-            this.Password_Label.Text = "Password";
-            // 
             // UpdateUserGroupBox
             // 
             this.UpdateUserGroupBox.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -174,13 +141,21 @@ namespace Scheduling_Desktop_UI_App.User_Navigation_Pages
             this.UpdateUserGroupBox.Controls.Add(this.UserNameLabel1);
             this.UpdateUserGroupBox.Controls.Add(this.RegisterButton);
             this.UpdateUserGroupBox.Controls.Add(this.UpdateUserCancelButton1);
-            this.UpdateUserGroupBox.Location = new System.Drawing.Point(525, 135);
+            this.UpdateUserGroupBox.Location = new System.Drawing.Point(67, 42);
             this.UpdateUserGroupBox.Name = "UpdateUserGroupBox";
             this.UpdateUserGroupBox.Size = new System.Drawing.Size(598, 354);
             this.UpdateUserGroupBox.TabIndex = 1;
             this.UpdateUserGroupBox.TabStop = false;
             this.UpdateUserGroupBox.Text = "Update User";
             this.UpdateUserGroupBox.Enter += new System.EventHandler(this.UpdateUserGroupBox_Enter);
+            // 
+            // ActiveUserTextBox
+            // 
+            this.ActiveUserTextBox.Location = new System.Drawing.Point(215, 199);
+            this.ActiveUserTextBox.Name = "ActiveUserTextBox";
+            this.ActiveUserTextBox.Size = new System.Drawing.Size(253, 26);
+            this.ActiveUserTextBox.TabIndex = 4;
+            this.ActiveUserTextBox.TextChanged += new System.EventHandler(this.ActiveUserTextBox_TextChanged);
             // 
             // ConfirmPasswordTextBox1
             // 
@@ -210,6 +185,16 @@ namespace Scheduling_Desktop_UI_App.User_Navigation_Pages
             this.UserIdTextBox2.ReadOnly = true;
             this.UserIdTextBox2.Size = new System.Drawing.Size(253, 26);
             this.UserIdTextBox2.TabIndex = 1;
+            this.UserIdTextBox2.TextChanged += new System.EventHandler(this.UserIdTextBox2_TextChanged);
+            // 
+            // ActiveLabel
+            // 
+            this.ActiveLabel.AutoSize = true;
+            this.ActiveLabel.Location = new System.Drawing.Point(157, 202);
+            this.ActiveLabel.Name = "ActiveLabel";
+            this.ActiveLabel.Size = new System.Drawing.Size(52, 20);
+            this.ActiveLabel.TabIndex = 6;
+            this.ActiveLabel.Text = "Active";
             // 
             // label5
             // 
@@ -219,6 +204,7 @@ namespace Scheduling_Desktop_UI_App.User_Navigation_Pages
             this.label5.Size = new System.Drawing.Size(137, 20);
             this.label5.TabIndex = 6;
             this.label5.Text = "Confirm Password";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // PasswordLabel
             // 
@@ -269,27 +255,10 @@ namespace Scheduling_Desktop_UI_App.User_Navigation_Pages
             this.UpdateUserCancelButton1.UseVisualStyleBackColor = true;
             this.UpdateUserCancelButton1.Click += new System.EventHandler(this.UpdateUserCancelButton_Click);
             // 
-            // ActiveLabel
-            // 
-            this.ActiveLabel.AutoSize = true;
-            this.ActiveLabel.Location = new System.Drawing.Point(157, 202);
-            this.ActiveLabel.Name = "ActiveLabel";
-            this.ActiveLabel.Size = new System.Drawing.Size(52, 20);
-            this.ActiveLabel.TabIndex = 6;
-            this.ActiveLabel.Text = "Active";
-            // 
-            // ActiveUserTextBox
-            // 
-            this.ActiveUserTextBox.Location = new System.Drawing.Point(215, 199);
-            this.ActiveUserTextBox.Name = "ActiveUserTextBox";
-            this.ActiveUserTextBox.Size = new System.Drawing.Size(253, 26);
-            this.ActiveUserTextBox.TabIndex = 4;
-            this.ActiveUserTextBox.TextChanged += new System.EventHandler(this.ActiveUserTextBox_TextChanged);
-            // 
             // UpdateUserPage
             // 
             this.AcceptButton = this.UpdateButton;
-            this.ClientSize = new System.Drawing.Size(1674, 772);
+            this.ClientSize = new System.Drawing.Size(728, 439);
             this.Controls.Add(this.UpdateUserGroupBox);
             this.Name = "UpdateUserPage";
             this.Text = "Update User";
@@ -308,14 +277,13 @@ namespace Scheduling_Desktop_UI_App.User_Navigation_Pages
         private System.Windows.Forms.GroupBox RegisterUserGroupBox;
         private System.Windows.Forms.Label UserNameLabel;
         private System.Windows.Forms.Label UserIdLabel;
-        private System.Windows.Forms.Label ConfirmPasswordLabel;
+        //private System.Windows.Forms.Label ConfirmPasswordLabel;
         private System.Windows.Forms.Button UpdateButton;
         private System.Windows.Forms.Button UpdateUserCancelButton;
-        private System.Windows.Forms.TextBox ConfirmPasswordTextBox;
+        //private System.Windows.Forms.TextBox ConfirmPasswordTextBox;
         private System.Windows.Forms.TextBox PasswordTextBox;
         private System.Windows.Forms.TextBox UserIdTextBox;
         private System.Windows.Forms.TextBox UserNameTextBox;
-        private System.Windows.Forms.Label Password_Label;
         private System.Windows.Forms.GroupBox UpdateUserGroupBox;
         private System.Windows.Forms.Button RegisterButton;
         private System.Windows.Forms.Button UpdateUserCancelButton1;
