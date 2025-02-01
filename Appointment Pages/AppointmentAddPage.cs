@@ -5,52 +5,128 @@ using System.Data;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using Scheduling_Desktop_UI_App.Customer_mainNavigationPages;
+using System.Collections.Generic;
 
 namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
 {
     public partial class AppointmentAddPage : Form
     {
         //user.UserName variable
-        private User _user;
-        private Customer _customer = new Customer();
+        private User _user = new User();
+        Customer _customer = new Customer();
         private Appointment _appointment = new Appointment();
         private DateTime _appointmentStart = new DateTime();
         private DateTime _appointmentEnd = new DateTime();
-        //Create Connection
-        private MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
-        private Address _address;
-        private City _city;
-        private Country _country;
-        private User user;
-        private Customer customer;
+        private DateTime _daySelected = DateTime.Today;
 
-        public AppointmentAddPage(User user, Customer customer, Address address, City city, Country country)
+        public AppointmentAddPage(User user, Customer customer)
         {
             InitializeComponent();
             _user = user;
             _customer = customer;
-            _address = address;
-            _city = city;
-            _country = country;
+            
+            try
+            {
+                //Assign object attributes to read only fields
+                AppointmentIdTextBox.Text = GetNextAppointmentId().ToString();
+                CustomerIdTextBox.Text = _customer.CustomerId.ToString();
+                UserIdTextBox.Text = _user.UserId.ToString();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
-            //Show Today Method
-            ShowToday();
+            //Load CustomerDataGridView
+            CustomerDataGridView.DataSource = _customer.GetAllCustomers();
+            CustomerDataGridView.ClearSelection();
         }
 
-        public AppointmentAddPage(User user, Customer customer)
+        public AppointmentAddPage(User user, Appointment appointment, Customer customer)
         {
-            this.user = user;
-            this.customer = customer;
+            InitializeComponent();
+            _user = user;
+            _customer = customer;
+            _appointment = appointment;
+
+            try
+            {
+                //Assign object attributes to read only fields
+                UserIdTextBox.Text = _user.UserId.ToString();
+                if(_customer != null)
+                {
+                    CustomerIdTextBox.Text = _customer.CustomerId.ToString();
+                }
+                
+                if(_appointment != null)
+                {
+                    AppointmentIdTextBox.Text = _appointment.AppointmentId.ToString();
+                }
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         private void AddAppointmentPage_Load(object sender, EventArgs e)
         {
             //Assign object attributes to read only fields
             AppointmentIdTextBox.Text = GetNextAppointmentId().ToString();
-            CustomerIdTextBox.Text = _customer.CustomerId.ToString();
             UserIdTextBox.Text = _user.UserId.ToString();
-        }
 
+            /////////////////////////////////Populate AppointmentDataGridView////////////////////////
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            DataTable dt = new DataTable();
+
+            //Call Populate Data Grid View Method
+            adapter = _appointment.GetAppointmentsByDate(_daySelected);
+
+            //Fill The Data table with adapter information
+            adapter.Fill(dt);
+
+            //Assign data table to the data grid view
+            AppointmentsDataGridView.DataSource = dt;
+
+            //Refresh AppointmentDataGridView
+            AppointmentsDataGridView.Refresh();
+            /////////////////////////////////End AppointmentDataGridView/////////////////////////////
+
+            /////////////////////////////Load CustomerDataGridView//////////////////////////////////
+            MySqlDataAdapter custAdapter = new MySqlDataAdapter();
+            DataTable custDt = new DataTable();
+
+            //Call Populate Data Grid View Method
+            custAdapter = GetAllCustomers();
+
+            //Fill DataTable with customerAdapter information
+            custAdapter.Fill(custDt);
+
+            //Assign data table to the data grid view
+            CustomerDataGridView.DataSource = custDt;
+
+            //Allow Active column to be editable
+            CustomerDataGridView.Columns["active"].ReadOnly = false;
+
+            //Refresh CustomerDataGridView
+            CustomerDataGridView.Refresh();
+
+            // Disable editing on all other columns
+            foreach (DataGridViewColumn column in CustomerDataGridView.Columns)
+
+            {
+
+                if (column.Name != "active")
+
+                {
+
+                    column.ReadOnly = true;
+
+                }
+
+                //////////////////////////////End CustomerDataGridView/////////////////////////////////
+
+            }
+        }
         private void CancelButton_Click(object sender, EventArgs e)
         {
             //Return to Appointment Navigation Page
@@ -67,62 +143,69 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
                 MessageBox.Show("Please fill out all fields.");
                 return;
             }
-        }
 
-        private void UpcomingAppointmentsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
+            //Assign textboxes to _appointment attributes
+            _appointment.AppointmentId = Convert.ToInt32(AppointmentIdTextBox.Text);
+            _appointment.UserId = Convert.ToInt32(UserIdTextBox.Text);
+            _appointment.CustomerId = Convert.ToInt32(CustomerIdTextBox.Text);
+            _appointment.Title = TitleTextBox.Text;
+            _appointment.Description = DescriptionTextBox.Text;
+            _appointment.Location = LocationTextBox.Text;
+            _appointment.Contact = ContactTextBox.Text;
+            _appointment.Type = AppointmentTypeComboBox.Text;
 
-        }
+            ///////Appointment Start and End Times/////////////
+            //Calculate based on timezone and dst
+            _appointmentStart = Convert.ToDateTime(StartTimeComboBox.Text);
+            _appointmentEnd = _appointmentStart.AddHours(1);
+            _appointmentStart = TimeZoneInfo.ConvertTimeToUtc(_appointmentStart, TimeZoneInfo.Local);
+            _appointmentEnd = TimeZoneInfo.ConvertTimeToUtc(_appointmentEnd, TimeZoneInfo.Local);
+            string startTime = _daySelected.ToString("yyyy-MM-dd") + " " + _appointmentStart.ToString("hh:mm:ss tt");
+            string endTime = _daySelected.ToString("yyyy-MM-dd") + " " + _appointmentEnd.ToString("hh:mm:ss tt");
+            Console.WriteLine("Starttime: " + startTime);
+            Console.WriteLine("Endtime: " + endTime);
+            _appointment.Start =  Convert.ToDateTime(startTime);
+            _appointment.End = Convert.ToDateTime(endTime);
+            Console.WriteLine(_appointment.Start);
+            Console.WriteLine(_appointment.End);
+            ///////End Appointment Start and End Times///////
+            _appointment.CreateDate = DateTime.Now;
+            _appointment.CreatedBy = _user.UserName;
+            _appointment.LastUpdate = DateTime.Now;
+            _appointment.LastUpdateBy = _user.UserName;
 
-        private void UpcomingAppointmentsCalendar_DateChanged(object sender, DateRangeEventArgs e)
-        {
-            //Show what date is clicked in the console
-            Console.WriteLine(AppointmentCalendar.SelectionRange.Start);
-
-            try
+            //Otherwise, call insert address method
+            _appointment.AppointmentId = _appointment.InsertAppointment(_appointment);
+            if (_appointment.AppointmentId == 0)
             {
-                //Populate the UpcomingAppointmentsDataGridView with the appointments scheduled for the date clicked
-                AppointmentsDataGridView.DataSource = null;
-                //Convert that time to mysql format
-                string selectedDate = AppointmentCalendar.SelectionRange.Start.ToString("yyyy-MM-dd");
-                //Create query to select all appointments
-                string selectQuery = $"SELECT * FROM appointment WHERE start = '{selectedDate}'";
-                //Create command
-                MySqlCommand cmd = new MySqlCommand(selectQuery, conn);
-                //Create data adapter
-                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                //Create a dataset
-                DataSet ds = new DataSet();
-                //Fill the dataset
-                adapter.Fill(ds);
-                //Set the data source of the data grid view to the dataset
-                AppointmentsDataGridView.DataSource = ds.Tables[0];
-                //Refresh datagridview
-                AppointmentsDataGridView.Refresh();
-
-            } catch(Exception ex)
-            {
-                //Write exception to console
-                Console.WriteLine(ex.Message);
-                //Allow user to proceed without error message
-                AppointmentsDataGridView.DataSource = null;
+                MessageBox.Show("Appointment was not added.");
             }
-            
+            else
+            {
+                //Return to Appointment Navigation Page
+                MessageBox.Show("Appointment was added.");
+                AppointmentNavigationPage appointmentNavigationPage = new AppointmentNavigationPage(_user);
+                appointmentNavigationPage.Show();
+                this.Hide();
+            }
+
         }
 
         private void AppointmentTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            //Assign appointment type to _appointment
+            _appointment.Type = AppointmentTypeComboBox.Text;
         }
 
         private void StartTimeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Combine the date from the monthlycalendar and the time from the combobox to create a datetime object
-            _appointmentStart = Convert.ToDateTime(AppointmentCalendar.SelectionRange.Start.ToShortDateString() + " " + StartTimeComboBox.Text);
+            //Set start time  to create a datetime object And account for timezone and dst
+            _appointmentStart = Convert.ToDateTime(StartTimeComboBox.Text);
+            
 
-            //Set end appointment time to one hour after appointmentTime
+            //Set end appointment time to one hour after appointmentTime accounting for timezone and dst
             _appointmentEnd = _appointmentStart.AddHours(1);
-
+            EndTimeTextBox.Text = _appointmentEnd.ToString("hh:mm:ss");
         }
 
         private void EndTimeTextBox_TextChanged(object sender, EventArgs e)
@@ -136,8 +219,13 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
             if (AppointmentCalendar.SelectionRange.Start.DayOfWeek == DayOfWeek.Saturday || AppointmentCalendar.SelectionRange.Start.DayOfWeek == DayOfWeek.Sunday)
             {
                 MessageBox.Show("Please select a Monday through Friday.");
-                //AppointmentsDataGridView.DataSource = _appointment.GetDayAppointments(AppointmentCalendar.SelectionRange.Start);
             }
+            else
+            {
+                //Assign _daySelected to the selected date
+                _daySelected = AppointmentCalendar.SelectionRange.Start;
+            }
+            AppointmentsDataGridView.DataSource = _appointment.GetAppointmentsByDate(_daySelected);
         }
 
         private void AppointmentsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -147,40 +235,29 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
 
         private void CustomerProfileButton_Click(object sender, EventArgs e)
         {
+            //Make sure that a row has been selected
+            if (CustomerDataGridView.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a customer to view their profile.");
+                return;
+            }
+
+            int customerId;
+            //Otherwise, assign customerId cell to _customer.customerId
+            customerId = Convert.ToInt32(CustomerDataGridView.CurrentRow.Cells[0].Value);
+            
+
             //Go to Customer Profile
-            CustomerProfilePage customerProfilePage = new CustomerProfilePage(_user, _customer, _address, _city, _country);
+            CustomerProfilePage customerProfilePage = new CustomerProfilePage(_user, customerId);
             customerProfilePage.Show();
             this.Hide();
-        }
-
-        //Method that starts with today's date selected on the appointment calendar and today's appointments showing in the appointment datagridview
-        private void ShowToday()
-        {
-            //Set appointment calendar to today's date
-            AppointmentCalendar.SetDate(DateTime.Now);
-            //Populate the UpcomingAppointmentsDataGridView with the appointments scheduled for today
-            AppointmentsDataGridView.DataSource = null;
-            //Convert that time to mysql format
-            string selectedDate = AppointmentCalendar.SelectionRange.Start.ToString("yyyy-MM-dd");
-            //Create query to select all appointments
-            string selectQuery = $"SELECT * FROM appointment WHERE start = '{selectedDate}'";
-            //Create command
-            MySqlCommand cmd = new MySqlCommand(selectQuery, conn);
-            //Create data adapter
-            MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-            //Create a dataset
-            DataSet ds = new DataSet();
-            //Fill the dataset
-            adapter.Fill(ds);
-            //Set the data source of the data grid view to the dataset
-            AppointmentsDataGridView.DataSource = ds.Tables[0];
-            //Refresh datagridview
-            AppointmentsDataGridView.Refresh();
         }
 
         //Method to get the next appointmentid that will be generated in the database
         private int GetNextAppointmentId()
         {
+            //Create Connection Object
+            MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
             int appointmentId = 0;
             //Create query to select all appointments
             string selectQuery = $"SELECT appointmentId FROM appointment ORDER BY appointmentId DESC LIMIT 1";
@@ -199,6 +276,56 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
             }
             //Return the next appointmentid
             return appointmentId + 1;
+        }
+
+        private void CustomerDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+        }
+
+        private void CustomerSelectButton_Click(object sender, EventArgs e)
+        {
+            
+            CustomerIdTextBox.Text = CustomerDataGridView.CurrentRow.Cells[0].Value.ToString();
+        }
+
+        public MySqlDataAdapter GetAllCustomers()
+        {
+            //Create connection object
+            MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
+            //Create data adapter object
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            //Create query string
+            string getAllCustomersQuery = "SELECT * FROM customer";
+            //Create command
+            MySqlCommand cmd = new MySqlCommand(getAllCustomersQuery, conn);
+            //Open connection
+            conn.Open();
+            cmd.CommandText = getAllCustomersQuery;
+            conn.Close();
+            //Assign command to adapter
+            adapter.SelectCommand = cmd;
+            return adapter;
+        }
+
+        private void DeleteAppointmentButton_Click(object sender, EventArgs e)
+        {
+            //If no cell is selected, have pop up box stating to select row
+            if (AppointmentsDataGridView.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select an appointment to delete.");
+                return;
+            }
+            //Otherwise, delete the selected appointment
+            else
+            {
+                //Get the appointmentId from the selected row
+                int appointmentId = Convert.ToInt32(AppointmentsDataGridView.CurrentRow.Cells[0].Value);
+                //Delete the appointment from the database
+                _appointment.DeleteAppointment(appointmentId);
+                //Refresh the AppointmentDataGridView
+                AppointmentsDataGridView.DataSource = _appointment.PopulateAppointmentDataGridViewWithDateAndName(_daySelected);
+                AppointmentsDataGridView.Refresh();
+            }
         }
     }
 }

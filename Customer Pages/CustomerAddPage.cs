@@ -18,16 +18,22 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
     public partial class CustomerAddPage : Form
     {
         private User _user;
-        //Create Connection Object
-        private MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
+        private Customer _customer = new Customer();
+        private Address _address = new Address();
+        private City _city = new City();
+        private Country _country = new Country();
 
         public CustomerAddPage(User user)
         {
             InitializeComponent();
             _user = user;
+            //Get next customerId from mysql db
+            CustomerIdTextBox.Text = _customer.GetNextCustomerId().ToString();
+
         }
         private void AddCustomerPage_Load(object sender, EventArgs e)
         {
+            
         }
 
         private void PhoneNumberTextBox_Leave(object sender, EventArgs e)
@@ -60,13 +66,11 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
         }
         private void SubmitButton_Click(object sender, EventArgs e)
         {
+            Console.WriteLine("Submit Button Clicked");
             try
             {
-                //Open Connection
-                conn.Open();
-
                 //Create country object
-                Country country = new Country
+                _country = new Country
                 {
                     CountryName = CountryTextBox.Text,
                     CreateDate = DateTime.Now,
@@ -75,46 +79,61 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
                     LastUpdateBy = _user.UserName
                 };
                 //Insert Country and return CountryId
-                country = country.InsertCountry(country);
-                    
-                //Create City Object
-                City city = new City();
-                city.CityName = CityTextBox.Text;
-                city.CountryId = country.CountryId;
-                city.CreateDate = DateTime.Now;
-                city.CreatedBy = _user.UserName;
-                city.LastUpdate = DateTime.Now;
-                city.LastUpdateBy = _user.UserName;
+                Console.WriteLine("Inserting Country");
+                _country.CountryId = _country.InsertCountry(_country);
+
+                _city = new City
+                {
+                    CityName = CityTextBox.Text,
+                    CountryId = _country.CountryId,
+                    CreateDate = DateTime.Now,
+                    CreatedBy = _user.UserName,
+                    LastUpdate = DateTime.Now,
+                    LastUpdateBy = _user.UserName
+                };
                 //Insert City and return CityId
-                city = city.InsertCity(city);
+                Console.WriteLine("Inserting City");
+                _city.CityId = _city.InsertCity(_city);
+                Console.WriteLine("Returned City Id:" + _city.CityId);
 
                 //Create Address Object
-                Address address = new Address();
-                address.Address1 = AddressTextBox1.Text;
-                address.Address2 = Address2TextBox.Text;
-                address.CityId = city.CityId;
-                address.PostalCode = PostalCodeTextBox.Text;
-                address.Phone = PhoneNumberTextBox.Text;
-                address.CreateDate = DateTime.Now;
-                address.CreatedBy = _user.UserName;
-                address.LastUpdate = DateTime.Now;
-                address.LastUpdateBy = _user.UserName;
+                _address = new Address
+                {
+                    Address1 = AddressTextBox1.Text,
+                    Address2 = Address2TextBox.Text,
+                    CityId = _city.CityId,
+                    PostalCode = PostalCodeTextBox.Text,
+                    Phone = PhoneNumberTextBox.Text,
+                    CreateDate = DateTime.Now,
+                    CreatedBy = _user.UserName,
+                    LastUpdate = DateTime.Now,
+                    LastUpdateBy = _user.UserName
+                };
                 //Insert Address and return AddressId
-                address = address.InsertAddress(address);
-
+                Console.WriteLine("Inserting Address");
+                _address.AddressId = _address.InsertAddress(_address);
+                Console.WriteLine("AddressId: " + _address.AddressId);
                 //Create Customer Object
-                Customer customer = new Customer();
-                customer.CustomerName = CustomerNameTextBox.Text;
-                customer.AddressId = address.AddressId;
-                customer.Active = 1;
-                customer.CreateDate = DateTime.Now;
-                customer.CreatedBy = _user.UserName;
-                customer.LastUpdate = DateTime.Now;
-                customer.LastUpdateBy = _user.UserName;
+                _customer = new Customer
+                {
+                    CustomerName = CustomerNameTextBox.Text,
+                    AddressId = _address.AddressId,
+                    Active = 1,
+                    CreateDate = DateTime.Now,
+                    CreatedBy = _user.UserName,
+                    LastUpdate = DateTime.Now,
+                    LastUpdateBy = _user.UserName
+                };
                 //Insert Customer and return CustomerId
-                customer = customer.InsertCustomer(customer);
+                Console.WriteLine("Inserting Customer");
+                _customer.CustomerId = _customer.InsertCustomer(_customer);
 
-            }catch (Exception ex)
+                //Return to Customer Navigation Page
+                CustomerNavigationPage customerNavigationPage = new CustomerNavigationPage(_user);
+                customerNavigationPage.Show();
+                this.Hide();
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
@@ -178,6 +197,15 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
             Address2TextBox.ForeColor = Color.Black;
         }
 
+        private void CustomerIdTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddCustomerGroupBox_Enter(object sender, EventArgs e)
+        {
+
+        }
         private void PostalCodeTextBox_TextChanged(object sender, EventArgs e)
         {
             //Limit input to 5 digits
@@ -191,6 +219,70 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
             {
                 PostalCodeTextBox.ForeColor = Color.Black;
             }
+        }
+
+        private void PostalCodeTextBox_Enter(object sender, EventArgs e)
+        {
+            //Clear text box
+            if(PostalCodeTextBox.Text == "99999")
+            {
+                PostalCodeTextBox.Clear();
+                PostalCodeTextBox.ForeColor = Color.Black;
+            }
+        }
+
+        private void PostalCodeTextBox_Leave(object sender, EventArgs e)
+        {
+            //If the text box is empty then fill with "99999" and inactive caption forecolor
+            if (PostalCodeTextBox.Text == "")
+            {
+                PostalCodeTextBox.Text = "99999";
+                PostalCodeTextBox.ForeColor = Color.Gray;
+            }
+        }
+
+        private void CountryTextBox_Enter(object sender, EventArgs e)
+        {
+            //clear text box
+            CountryTextBox.Clear();
+        }
+
+        private void CountryTextBox_Leave(object sender, EventArgs e)
+        {
+            //If the text box is empty, fill it with 'US'
+            if (string.IsNullOrWhiteSpace(CountryTextBox.Text))
+            {
+                CountryTextBox.Text = "US";
+                CountryTextBox.ForeColor = Color.Gray;
+            }
+        }
+
+        private void CountryTextBox_TextChanged(object sender, EventArgs e)
+        {
+            CountryTextBox.ForeColor = Color.Black;
+        }
+
+        private void Address2TextBox_Enter(object sender, EventArgs e)
+        {
+            if(Address2TextBox.Text == "Optional")
+            {
+                Address2TextBox.Text = "";
+                Address2TextBox.ForeColor = Color.Black;
+            }
+        }
+
+        private void PhoneNumberTextBox_Enter(object sender, EventArgs e)
+        {
+            if(PhoneNumberTextBox.Text == "999-999-9999")
+            {
+                PhoneNumberTextBox.Text = "";
+                PhoneNumberTextBox.ForeColor = Color.Black;
+            }
+        }
+
+        private void AddCustomerGroupBox_Enter_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

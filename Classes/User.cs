@@ -21,20 +21,20 @@ namespace Scheduling_Desktop_UI_App.Classes
         public DateTime LastUpdate { get; set; }
         public string LastUpdateBy { get; set; }
         //Create connection
-        private MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
-        public void UpdateUser(User _selectedUser)
+        public int UpdateUser(User user, User selectedUser)
         {
-            UserId = _selectedUser.UserId;
-            UserName = _selectedUser.UserName;
-            Password = _selectedUser.Password;
-            Active = _selectedUser.Active;
+            UserId = selectedUser.UserId;
+            UserName = selectedUser.UserName;
+            Password = selectedUser.Password;
+            Active = selectedUser.Active;
             LastUpdate = DateTime.Now;
-            LastUpdateBy = _selectedUser.UserName;
-
+            LastUpdateBy = user.UserName;
+            int value;
             try
             {
-                //Open connection
-                conn.Open();
+                //Create connection object
+                MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
+                
                 //Create query string
                 string updateUserQuery = "UPDATE user SET userName = @UserName, password = @password, active = @active, lastUpdate = @lastUpdate, lastUpdateBy = @lastUpdateBy WHERE userId = @userId";
                 //Create command object
@@ -46,20 +46,22 @@ namespace Scheduling_Desktop_UI_App.Classes
                 cmd.Parameters.AddWithValue("@active", Active);
                 cmd.Parameters.AddWithValue("@lastUpdate", LastUpdate);
                 cmd.Parameters.AddWithValue("@lastUpdateBy", LastUpdateBy);
-                //Execute command
-                cmd.ExecuteNonQuery();
 
-                //User updated successfully
-                MessageBox.Show("User updated successfully.");
+                //Open connection and execute query
+                conn.Open();
+                value = cmd.ExecuteNonQuery();
+                conn.Close();
+                return value;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);
                 Console.WriteLine("Error updating user.");
+                return 0;
             }
         }
-        public bool UserAuthentication(User user)
+        public int UserAuthentication(User user)
         {
             //Assign to local object
             this.UserName = user.UserName;
@@ -69,7 +71,7 @@ namespace Scheduling_Desktop_UI_App.Classes
             {
                 //Check and see if the user.UserName and password are correct in the database
                 //Create connection object
-                using (conn)
+                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
                 {
                     //Open connection
                     conn.Open();
@@ -91,19 +93,22 @@ namespace Scheduling_Desktop_UI_App.Classes
                     if (count > 0)
                     {
                         //User is authenticated
+                        //Return userId from userName
+                        string getUserIdQuery = "SELECT userId FROM user WHERE userName = @userName";
+                        MySqlCommand cmd2 = new MySqlCommand(getUserIdQuery, conn);
+                        cmd2.Parameters.AddWithValue("@userName", this.UserName);
+                        int userId = Convert.ToInt32(cmd2.ExecuteScalar());
                         //Close connection
                         conn.Close();
-
-                        //Return true
-                        return true;
+                        return userId;
                     }
                     else
                     {
                         //Close connection
                         conn.Close();
 
-                        ///Return false
-                        return false;
+                        //Return 0
+                        return 0;
                     }
                 }
             }
@@ -112,7 +117,7 @@ namespace Scheduling_Desktop_UI_App.Classes
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);
                 Console.WriteLine("Error authenticating user");
-                return false;
+                return 0;
             }
         }
 
@@ -124,21 +129,21 @@ namespace Scheduling_Desktop_UI_App.Classes
             {
                 using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
                 {
-                    //Open connection
-                    conn.Open();
+                    
                     //Create query string
                     string getUserQuery = "SELECT * FROM user WHERE userId = @userId";
                     //Create command
                     MySqlCommand cmd = new MySqlCommand(getUserQuery, conn);
                     //Add parameters
                     cmd.Parameters.AddWithValue("@userId", userId);
-                    //Execute read command
+
+                    //Open connection and execute reader
+                    conn.Open();
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
                             user.UserId = reader.GetInt32("userId");
-                            user.UserName = reader.GetString("userName");
                             user.Password = reader.GetString("password");
                             user.Active = reader.GetInt32("active");
                             user.CreateDate = reader.GetDateTime("createDate");
@@ -165,12 +170,10 @@ namespace Scheduling_Desktop_UI_App.Classes
         //Alert User when they are logged on and they have an appointment in 15 minutes
         public void AlertUser(User user)
         {
-            //Assign to local object
-            this.UserId = user.UserId;
             try
             {
                 //Create connection object
-                using (conn)
+                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
                 {
                     //Open connection
                     conn.Open();
@@ -179,7 +182,7 @@ namespace Scheduling_Desktop_UI_App.Classes
                     //Create a command object
                     MySqlCommand cmd = new MySqlCommand(alertQuery, conn);
                     //Add parameters
-                    cmd.Parameters.AddWithValue("@userId", this.UserId);
+                    cmd.Parameters.AddWithValue("@userId", user.UserId);
                     int count;
                     count = Convert.ToInt32(cmd.ExecuteScalar());
                     //if the query returns a result, the user is authenticated
@@ -285,5 +288,75 @@ namespace Scheduling_Desktop_UI_App.Classes
                 return null;
             }
         }//End GetAllUsers Method
+
+        //Insert User Method
+        public void InsertUser(User user)
+        {
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
+                {
+                    conn.Open();
+                    //Check and see if user is already in the mysql db
+                    string checkUserQuery = "SELECT COUNT(*) FROM user WHERE userName = @userName";
+                    MySqlCommand checkUserCmd = new MySqlCommand(checkUserQuery, conn);
+                    checkUserCmd.Parameters.AddWithValue("@userName", user.UserName);
+                    int count;
+                    count = Convert.ToInt32(checkUserCmd.ExecuteScalar());
+                    if (count > 0)
+                    {
+                        //User already exists
+                        MessageBox.Show("User already exists.");
+                        conn.Close();
+                        return;
+                    }
+                    string insertUserQuery = "INSERT INTO user (userId, userName, password, active, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES (@userId, @userName, @password, @active, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
+                    MySqlCommand cmd = new MySqlCommand(insertUserQuery, conn);
+                    cmd.Parameters.AddWithValue("@userId", user.UserId);
+                    cmd.Parameters.AddWithValue("@userName", user.UserName);
+                    cmd.Parameters.AddWithValue("@password", user.Password);
+                    cmd.Parameters.AddWithValue("@active", user.Active);
+                    cmd.Parameters.AddWithValue("@createDate", user.CreateDate);
+                    cmd.Parameters.AddWithValue("@createdBy", user.CreatedBy);
+                    cmd.Parameters.AddWithValue("@lastUpdate", user.LastUpdate);
+                    cmd.Parameters.AddWithValue("@lastUpdateBy", user.LastUpdateBy);
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("Error inserting user");
+            }
+        }//End InsertUser Method
+
+        //DeleteUser Method
+        public int DeleteUser(int userId)
+        {
+            int value;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
+                {
+                    conn.Open();
+                    string deleteUserQuery = "DELETE FROM user WHERE userId = @userId";
+                    MySqlCommand cmd = new MySqlCommand(deleteUserQuery, conn);
+                    cmd.Parameters.AddWithValue("@userId", userId);
+                    value = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    return value;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("Error deleting user");
+                return 0;
+            }
+        }//End DeleteUser Method
+
     }
 }

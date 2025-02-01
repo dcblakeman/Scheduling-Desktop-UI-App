@@ -22,8 +22,6 @@ namespace Scheduling_Desktop_UI_App
         //Create New Registered user object
         private User _newUser = new User();
 
-        //Create Connection Object
-        private MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
         public UserRegisterPage()
         {
             InitializeComponent();
@@ -62,34 +60,28 @@ namespace Scheduling_Desktop_UI_App
                 MessageBox.Show("Passwords do not match.");
                 return;
             }
-
+            
             //Insert User into mysql database
             newUser.UserName = UserNameTextBox.Text;
             newUser.Password = PasswordTextBox.Text;
+            newUser.Active = Convert.ToInt32(ActiveTextBox.Text);
 
-            try
+            //Check to see who added user - user themselves, or another user
+            if(_user != null)
             {
-                //Open connection
-                conn.Open();
-                //Create query
-                string query = "INSERT INTO user (userName, password, active, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES (@username, @password, 1, now(), 'test', now(), 'test')";
-                //Create command
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                //Add parameters
-                cmd.Parameters.AddWithValue("@username", newUser.UserName);
-                cmd.Parameters.AddWithValue("@password", newUser.Password);
-                cmd.Parameters.AddWithValue("@active", 1);
-                cmd.Parameters.AddWithValue("@createDate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@createdBy", newUser);
-                cmd.Parameters.AddWithValue("@lastUpdate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@lastUpdateBy", newUser);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("User Registered Successfully.");
-
-            } catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+                newUser.CreateDate = DateTime.Now;
+                newUser.CreatedBy = _user.UserName;
+                newUser.LastUpdate = DateTime.Now;
+                newUser.LastUpdateBy = _user.UserName;
             }
+            else
+            {
+                newUser.CreateDate = DateTime.Now;
+                newUser.CreatedBy = newUser.UserName;
+                newUser.LastUpdate = DateTime.Now;
+                newUser.LastUpdateBy = newUser.UserName;
+            }
+            newUser.InsertUser(newUser);
 
             //Return to Login Form
             LoginPage loginForm = new LoginPage();
@@ -98,6 +90,22 @@ namespace Scheduling_Desktop_UI_App
         }
 
         private void UserRegisterPage_Load(object sender, EventArgs e)
+        {
+            //Assign next user Id to userID text box
+            UserIdTextBox.Text = _newUser.UserId.ToString();
+        }
+
+        private void ActiveTextBox_TextChanged(object sender, EventArgs e)
+        {
+            //Make sure only a 1 or 0 is entered
+            if (ActiveTextBox.Text != "1" && ActiveTextBox.Text != "0")
+            {
+                MessageBox.Show("Please enter a 1 or 0.");
+                ActiveTextBox.Text = "";
+            }
+        }
+
+        private void UserGroupBox_Enter(object sender, EventArgs e)
         {
 
         }

@@ -106,6 +106,7 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.AppointmentsDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.AppointmentsDataGridView.RowHeadersVisible = false;
             this.AppointmentsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.AppointmentsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.AppointmentsDataGridView_CellContentClick);
             // 
@@ -163,14 +164,7 @@
             resources.GetString("StartTimeComboBox.Items4"),
             resources.GetString("StartTimeComboBox.Items5"),
             resources.GetString("StartTimeComboBox.Items6"),
-            resources.GetString("StartTimeComboBox.Items7"),
-            resources.GetString("StartTimeComboBox.Items8"),
-            resources.GetString("StartTimeComboBox.Items9"),
-            resources.GetString("StartTimeComboBox.Items10"),
-            resources.GetString("StartTimeComboBox.Items11"),
-            resources.GetString("StartTimeComboBox.Items12"),
-            resources.GetString("StartTimeComboBox.Items13"),
-            resources.GetString("StartTimeComboBox.Items14")});
+            resources.GetString("StartTimeComboBox.Items7")});
             resources.ApplyResources(this.StartTimeComboBox, "StartTimeComboBox");
             this.StartTimeComboBox.Name = "StartTimeComboBox";
             this.StartTimeComboBox.SelectedIndexChanged += new System.EventHandler(this.StartTimeComboBox_SelectedIndexChanged);

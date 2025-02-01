@@ -38,6 +38,7 @@ namespace Scheduling_Desktop_UI_App
         Address _address = new Address();
         Customer _customer = new Customer();
         Appointment _appointment = new Appointment();
+        User _user = new User();
 
         // Set up the resource manager to access resource files
         private readonly ResourceManager resourceManager = new ResourceManager("Scheduling_Desktop_UI_App.Properties.Resources", typeof(Program).Assembly);
@@ -128,14 +129,13 @@ namespace Scheduling_Desktop_UI_App
         private void LoginButton_Click(object sender, EventArgs e)
         {
             //Assign fields to user properties
-            User _user = new User();
             _user.UserName = UserNameTextBox.Text;
             _user.Password = PasswordTextBox.Text;
 
-            bool UserAuthenticated = _user.UserAuthentication(_user);
+            int UserAuthenticated = _user.UserAuthentication(_user);
 
             // Check if the query returned a result
-            if (UserAuthenticated == true)
+            if (UserAuthenticated > 0)
             {
                 // Retrieve the translation for the key "Greeting"
                 string translatedMessage = resourceManager.GetString("LoginSuccessfulMessage", currentCulture);
@@ -143,10 +143,8 @@ namespace Scheduling_Desktop_UI_App
                 // Output the translated message
                 MessageBox.Show(translatedMessage);
 
-                // Navigate to the next form or main application window and hide login window
-                MainNavigationPage mainNavigationPage = new MainNavigationPage(_user);
-                mainNavigationPage.Show();
-                this.Hide();
+                //Assign UserAuthenticated (UserId) to user
+                _user.UserId = UserAuthenticated;
 
                 // Log the login time
                 DateTime loginTime = DateTime.Now;
@@ -154,6 +152,11 @@ namespace Scheduling_Desktop_UI_App
                 string logEntry = $"{loginTime:yyyy-MM-dd HH:mm:ss} - {_user.UserName}";
                 // Write the log entry to the log file
                 File.AppendAllText(logFilePath, logEntry + Environment.NewLine);
+
+                // Navigate to the next form or main application window and hide login window
+                MainNavigationPage mainNavigationPage = new MainNavigationPage(_user);
+                mainNavigationPage.Show();
+                this.Hide();
             }
             else
             {

@@ -31,19 +31,33 @@ namespace Scheduling_Desktop_UI_App.Classes
         public string LastUpdateBy { get; set; }
 
         //Create connection
-        private MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
 
-        public Appointment InsertAppointment(Appointment appointment)
+        public int InsertAppointment(Appointment appointment)
         {
+            
             try
             {
-                using (conn)
+                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
                 {
+                    //Make sure this appointment isn't overlapping another appointment on the same day and time
+                    string checkAppointmentQuery = "SELECT * FROM appointment WHERE (start BETWEEN @start AND @end) OR (end BETWEEN @start AND @end) AND customerId = @customerId";
+                    MySqlCommand cmdCheck = new MySqlCommand(checkAppointmentQuery, conn);
+                    cmdCheck.Parameters.AddWithValue("@start", appointment.Start);
+                    cmdCheck.Parameters.AddWithValue("@end", appointment.End);
+                    cmdCheck.Parameters.AddWithValue("@customerId", appointment.CustomerId);
                     //Open connection object
                     conn.Open();
-
+                    MySqlDataReader reader = cmdCheck.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        MessageBox.Show("This appointment overlaps another appointment for this customer. Please choose a different time.");
+                        return 0;
+                    }
+                    //Close connection
+                    conn.Close();
+                    //Otherwise, insert appointment into mysql database
                     //Create command object
-                    MySqlCommand cmd = new MySqlCommand("INSERT INTO appointment (customerId, userId, title, description, location, contact, type, url, start, end, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES (@customerId, @userId, @title, @description, @location, @contact, @type, @url, @start, @end, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)", conn);
+                    MySqlCommand cmd = new MySqlCommand("INSERT INTO appointment (customerId, userId, title, description, location, contact, type, start, end, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES (@customerId, @userId, @title, @description, @location, @contact, @type, @start, @end, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)", conn);
 
                     //Add parameters
                     cmd.Parameters.AddWithValue("@customerId", appointment.CustomerId);
@@ -53,16 +67,42 @@ namespace Scheduling_Desktop_UI_App.Classes
                     cmd.Parameters.AddWithValue("@location", appointment.Location);
                     cmd.Parameters.AddWithValue("@contact", appointment.Contact);
                     cmd.Parameters.AddWithValue("@type", appointment.Type);
-                    cmd.Parameters.AddWithValue("@url", appointment.Url);
+                    //cmd.Parameters.AddWithValue("@url", appointment.Url);
                     cmd.Parameters.AddWithValue("@start", appointment.Start);
                     cmd.Parameters.AddWithValue("@end", appointment.End);
                     cmd.Parameters.AddWithValue("@createDate", appointment.CreateDate);
                     cmd.Parameters.AddWithValue("@createdBy", appointment.CreatedBy);
                     cmd.Parameters.AddWithValue("@lastUpdate", appointment.LastUpdate);
                     cmd.Parameters.AddWithValue("@lastUpdateBy", appointment.LastUpdateBy);
+                    //Execute command
+                    Console.WriteLine("Inserting Appointment");
+                    //Closing connection
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+
+                    //Confirm appointment was inserted
+                    string getAppointmentIdQuery = "SELECT appointmentId FROM appointment WHERE customerId = @customerId AND start = @start";
+                    MySqlCommand cmd2 = new MySqlCommand(getAppointmentIdQuery, conn);
+                    cmd2.Parameters.AddWithValue("@customerId", appointment.CustomerId);
+                    cmd2.Parameters.AddWithValue("@start", appointment.Start);
+                    conn.Open();
+                    MySqlDataReader reader2 = cmd2.ExecuteReader();
+                    if (reader2.HasRows)
+                    {
+                        while (reader2.Read())
+                        {
+                            appointment.AppointmentId = reader2.GetInt32("appointmentId");
+                            Console.WriteLine("AppointmentId: " + appointment.AppointmentId);
+                        }
+                    }else
+                    {
+                        Console.WriteLine("No AppointmentId was found");
+                        
+                    }
                     //Close connection
                     conn.Close();
-                    return appointment;
+                    return appointment.AppointmentId;
                 }
             }
             catch (Exception ex)
@@ -70,11 +110,12 @@ namespace Scheduling_Desktop_UI_App.Classes
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);
                 Console.WriteLine("Error inserting appointment");
-                return null;
+                return 0;
             }
         }
-        public void UpdateAppointment(Appointment appointment)
+        public int UpdateAppointment(Appointment appointment)
         {
+            int value;
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
@@ -98,9 +139,10 @@ namespace Scheduling_Desktop_UI_App.Classes
                     cmd.Parameters.AddWithValue("@lastUpdate", appointment.LastUpdate);
                     cmd.Parameters.AddWithValue("@lastUpdateBy", appointment.LastUpdateBy);
                     //Execute command
-                    cmd.ExecuteNonQuery();
+                    value = cmd.ExecuteNonQuery();
                     //Close connection
                     conn.Close();
+                    return value;
                 }
             }
             catch (Exception ex)
@@ -108,10 +150,12 @@ namespace Scheduling_Desktop_UI_App.Classes
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);
                 Console.WriteLine("Error updating appointment");
+                return 0;
             }
         }
-        public void DeleteAppointment(int appointmentId)
+        public int DeleteAppointment(int appointmentId)
         {
+            int value;
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
@@ -123,17 +167,45 @@ namespace Scheduling_Desktop_UI_App.Classes
                     //Add parameters
                     cmd.Parameters.AddWithValue("@appointmentId", appointmentId);
                     //Execute command
-                    cmd.ExecuteNonQuery();
+                    value = cmd.ExecuteNonQuery();
                     //Close connection
                     conn.Close();
+                    return value;
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                ex.Source = "Error deleting appointment";
+                return 0;
             }
         }
 
+        public int DeleteAppointment(DateTime time)
+        {
+            int value;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
+                {
+                    //Open connection object
+                    conn.Open();
+                    //Create command object
+                    MySqlCommand cmd = new MySqlCommand("DELETE FROM appointment WHERE start = @start", conn);
+                    //Add parameters
+                    cmd.Parameters.AddWithValue("@start", time);
+                    //Execute command
+                    value = cmd.ExecuteNonQuery();
+                    //Close connection
+                    conn.Close();
+                    return value;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.Source = "Error deleting appointment";
+                return 0;
+            }
+        }
         //Get appointment from sql db based on appointmentid
        public Appointment GetAppointment(int appointmentId)
         {
@@ -191,116 +263,48 @@ namespace Scheduling_Desktop_UI_App.Classes
         }//End GetAppointment Method
 
         //Get all of the appointments for one customer
-        public List<Appointment> GetAppointmentsByCustomerId(int customerId)
+        public MySqlDataAdapter GetAppointmentsByCustomerId(int customerId)
         {
-            List<Appointment> appointments = new List<Appointment>();
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
-                {
-                    //Open connection
-                    conn.Open();
-                    //Create query string
-                    string selectAllCustomerAppointmentsQuery = "SELECT * FROM appointment WHERE customerId = @customerId";
-                    //Create command
-                    MySqlCommand cmd = new MySqlCommand(selectAllCustomerAppointmentsQuery, conn);
-                    //Add parameters
-                    cmd.Parameters.AddWithValue("@customerId", customerId);
-                    //Create data reader
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        //Read data
-                        while (reader.Read())
-                        {
-                            Appointment appointment = new Appointment
-                            {
-                                AppointmentId = reader.GetInt32("appointmentId"),
-                                CustomerId = reader.GetInt32("customerId"),
-                                UserId = reader.GetInt32("userId"),
-                                Title = reader.GetString("title"),
-                                Description = reader.GetString("description"),
-                                Location = reader.GetString("location"),
-                                Contact = reader.GetString("contact"),
-                                Type = reader.GetString("type"),
-                                Url = reader.GetString("url"),
-                                Start = reader.GetDateTime("start"),
-                                End = reader.GetDateTime("end"),
-                                CreateDate = reader.GetDateTime("createDate"),
-                                CreatedBy = reader.GetString("createdBy"),
-                                LastUpdate = reader.GetDateTime("lastUpdate"),
-                                LastUpdateBy = reader.GetString("lastUpdateBy")
-                            };
-                            appointments.Add(appointment);
-                        }
-                    }
-                    //Close connection
-                    conn.Close();
-                    return appointments;
-                }
+                MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
+                string query = "SELECT * FROM appointment WHERE customerId = @customerId";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@customerId", customerId);
+                conn.Open();
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                conn.Close();
+                adapter.Fill(dt);
+                return adapter;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.StackTrace);
-                Console.WriteLine("Error getting all customer appointments");
                 return null;
             }
         }//End GetAllCustomerAppointments Method
 
         //Get all appointments by date
-        public List<Appointment> GetAppointmentsByDate(DateTime date)
+        public MySqlDataAdapter GetAppointmentsByDate(DateTime date)
         {
-            List<Appointment> appointments = new List<Appointment>();
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
-                {
-                    //Open connection
-                    conn.Open();
-                    //Create query string
-                    string selectAllAppointmentsByDateQuery = "SELECT * FROM appointment WHERE start BETWEEN @date AND @tomorrow";
-                    //Create command
-                    MySqlCommand cmd = new MySqlCommand(selectAllAppointmentsByDateQuery, conn);
-                    //Add parameters
-                    cmd.Parameters.AddWithValue("@date", date);
-                    cmd.Parameters.AddWithValue("@tomorrow", date.AddDays(1));
-                    //Create data reader
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        //Read data
-                        while (reader.Read())
-                        {
-                            Appointment appointment = new Appointment
-                            {
-                                AppointmentId = reader.GetInt32("appointmentId"),
-                                CustomerId = reader.GetInt32("customerId"),
-                                UserId = reader.GetInt32("userId"),
-                                Title = reader.GetString("title"),
-                                Description = reader.GetString("description"),
-                                Location = reader.GetString("location"),
-                                Contact = reader.GetString("contact"),
-                                Type = reader.GetString("type"),
-                                Url = reader.GetString("url"),
-                                Start = reader.GetDateTime("start"),
-                                End = reader.GetDateTime("end"),
-                                CreateDate = reader.GetDateTime("createDate"),
-                                CreatedBy = reader.GetString("createdBy"),
-                                LastUpdate = reader.GetDateTime("lastUpdate"),
-                                LastUpdateBy = reader.GetString("lastUpdateBy")
-                            };
-                            appointments.Add(appointment);
-                        }
-                    }
-                    //Close connection
-                    conn.Close();
-                    return appointments;
-                }
+                MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
+                string query = "SELECT * FROM appointment WHERE start BETWEEN @date AND @tomorrow";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@date", date);
+                cmd.Parameters.AddWithValue("@tomorrow", date.AddDays(1));
+                conn.Open();
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                conn.Close();
+                adapter.Fill(dt);
+                return adapter;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.StackTrace);
-                Console.WriteLine("Error getting all appointments by date");
                 return null;
             }
         }//End GetAllAppointmentsByDate Method
@@ -309,6 +313,7 @@ namespace Scheduling_Desktop_UI_App.Classes
         {
             try
             {
+                MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
                 string query = @"SELECT appointmentId AS `Appointment_Id`, start AS `Appointment_Time`, customerName AS `Customer_Name`, type AS `Appointment_Type` FROM appointment, customer WHERE appointment.customerId = customer.customerId AND start BETWEEN @startOfDay AND @endOfDay";
                 //Open connection
                 conn.Open();

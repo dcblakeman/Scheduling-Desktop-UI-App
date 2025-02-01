@@ -31,7 +31,6 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
         private void InitializeComponent()
         {
             this.UpdateCustomerGroupBox = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.CustomerIdTextBox = new System.Windows.Forms.TextBox();
             this.CustomerIdLabel = new System.Windows.Forms.Label();
             this.UpdateCustomerCancelButton = new System.Windows.Forms.Button();
@@ -55,7 +54,6 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
             // 
             // UpdateCustomerGroupBox
             // 
-            this.UpdateCustomerGroupBox.Controls.Add(this.button1);
             this.UpdateCustomerGroupBox.Controls.Add(this.CustomerIdTextBox);
             this.UpdateCustomerGroupBox.Controls.Add(this.CustomerIdLabel);
             this.UpdateCustomerGroupBox.Controls.Add(this.UpdateCustomerCancelButton);
@@ -74,37 +72,26 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
             this.UpdateCustomerGroupBox.Controls.Add(this.CountryLabel);
             this.UpdateCustomerGroupBox.Controls.Add(this.PostalCodeLabel);
             this.UpdateCustomerGroupBox.Controls.Add(this.CityLabel);
-            this.UpdateCustomerGroupBox.Location = new System.Drawing.Point(50, 46);
+            this.UpdateCustomerGroupBox.Location = new System.Drawing.Point(34, 22);
             this.UpdateCustomerGroupBox.Name = "UpdateCustomerGroupBox";
-            this.UpdateCustomerGroupBox.Size = new System.Drawing.Size(740, 463);
+            this.UpdateCustomerGroupBox.Size = new System.Drawing.Size(549, 463);
             this.UpdateCustomerGroupBox.TabIndex = 27;
             this.UpdateCustomerGroupBox.TabStop = false;
             this.UpdateCustomerGroupBox.Text = "Update Customer";
-            // 
-            // button1
-            // 
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.button1.Location = new System.Drawing.Point(373, 363);
-            this.button1.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(112, 54);
-            this.button1.TabIndex = 47;
-            this.button1.Text = "Customer Profilie";
-            this.button1.UseVisualStyleBackColor = true;
+            this.UpdateCustomerGroupBox.Enter += new System.EventHandler(this.UpdateCustomerGroupBox_Enter);
             // 
             // CustomerIdTextBox
             // 
-            this.CustomerIdTextBox.Location = new System.Drawing.Point(222, 76);
+            this.CustomerIdTextBox.Location = new System.Drawing.Point(196, 72);
             this.CustomerIdTextBox.Name = "CustomerIdTextBox";
             this.CustomerIdTextBox.ReadOnly = true;
-            this.CustomerIdTextBox.Size = new System.Drawing.Size(415, 26);
+            this.CustomerIdTextBox.Size = new System.Drawing.Size(253, 26);
             this.CustomerIdTextBox.TabIndex = 46;
             // 
             // CustomerIdLabel
             // 
             this.CustomerIdLabel.AutoSize = true;
-            this.CustomerIdLabel.Location = new System.Drawing.Point(106, 76);
+            this.CustomerIdLabel.Location = new System.Drawing.Point(80, 72);
             this.CustomerIdLabel.Name = "CustomerIdLabel";
             this.CustomerIdLabel.Size = new System.Drawing.Size(92, 20);
             this.CustomerIdLabel.TabIndex = 45;
@@ -113,10 +100,10 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
             // UpdateCustomerCancelButton
             // 
             this.UpdateCustomerCancelButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.UpdateCustomerCancelButton.Location = new System.Drawing.Point(222, 363);
+            this.UpdateCustomerCancelButton.Location = new System.Drawing.Point(195, 357);
             this.UpdateCustomerCancelButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.UpdateCustomerCancelButton.Name = "UpdateCustomerCancelButton";
-            this.UpdateCustomerCancelButton.Size = new System.Drawing.Size(112, 54);
+            this.UpdateCustomerCancelButton.Size = new System.Drawing.Size(88, 40);
             this.UpdateCustomerCancelButton.TabIndex = 44;
             this.UpdateCustomerCancelButton.Text = "Cancel";
             this.UpdateCustomerCancelButton.UseVisualStyleBackColor = true;
@@ -125,28 +112,29 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
             // Address1TextBox
             // 
             this.Address1TextBox.AcceptsTab = true;
-            this.Address1TextBox.Location = new System.Drawing.Point(222, 183);
+            this.Address1TextBox.Location = new System.Drawing.Point(196, 142);
             this.Address1TextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Address1TextBox.Name = "Address1TextBox";
-            this.Address1TextBox.Size = new System.Drawing.Size(415, 26);
+            this.Address1TextBox.Size = new System.Drawing.Size(253, 26);
             this.Address1TextBox.TabIndex = 36;
             // 
             // Address2TextBox
             // 
             this.Address2TextBox.ForeColor = System.Drawing.SystemColors.InactiveCaption;
-            this.Address2TextBox.Location = new System.Drawing.Point(222, 218);
+            this.Address2TextBox.Location = new System.Drawing.Point(195, 182);
             this.Address2TextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Address2TextBox.Name = "Address2TextBox";
-            this.Address2TextBox.Size = new System.Drawing.Size(415, 26);
+            this.Address2TextBox.Size = new System.Drawing.Size(253, 26);
             this.Address2TextBox.TabIndex = 39;
             this.Address2TextBox.Text = "Optional";
+            this.Address2TextBox.TextChanged += new System.EventHandler(this.Address2TextBox_TextChanged);
             this.Address2TextBox.Enter += new System.EventHandler(this.Address2TextBox_Enter);
             this.Address2TextBox.Leave += new System.EventHandler(this.Address2TextBox_Leave);
             // 
             // Address2Label
             // 
             this.Address2Label.AutoSize = true;
-            this.Address2Label.Location = new System.Drawing.Point(117, 223);
+            this.Address2Label.Location = new System.Drawing.Point(92, 178);
             this.Address2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Address2Label.Name = "Address2Label";
             this.Address2Label.Size = new System.Drawing.Size(81, 20);
@@ -156,7 +144,7 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
             // Address1Label
             // 
             this.Address1Label.AutoSize = true;
-            this.Address1Label.Location = new System.Drawing.Point(117, 186);
+            this.Address1Label.Location = new System.Drawing.Point(92, 142);
             this.Address1Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Address1Label.Name = "Address1Label";
             this.Address1Label.Size = new System.Drawing.Size(81, 20);
@@ -166,10 +154,10 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
             // SubmitButton
             // 
             this.SubmitButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.SubmitButton.Location = new System.Drawing.Point(524, 363);
+            this.SubmitButton.Location = new System.Drawing.Point(363, 357);
             this.SubmitButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SubmitButton.Name = "SubmitButton";
-            this.SubmitButton.Size = new System.Drawing.Size(112, 54);
+            this.SubmitButton.Size = new System.Drawing.Size(88, 40);
             this.SubmitButton.TabIndex = 43;
             this.SubmitButton.Text = "Submit";
             this.SubmitButton.UseVisualStyleBackColor = true;
@@ -178,49 +166,57 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
             // PhoneNumberTextBox
             // 
             this.PhoneNumberTextBox.ForeColor = System.Drawing.SystemColors.InactiveCaption;
-            this.PhoneNumberTextBox.Location = new System.Drawing.Point(222, 146);
+            this.PhoneNumberTextBox.Location = new System.Drawing.Point(196, 322);
             this.PhoneNumberTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PhoneNumberTextBox.Name = "PhoneNumberTextBox";
-            this.PhoneNumberTextBox.Size = new System.Drawing.Size(415, 26);
+            this.PhoneNumberTextBox.Size = new System.Drawing.Size(253, 26);
             this.PhoneNumberTextBox.TabIndex = 35;
             this.PhoneNumberTextBox.Text = "999-999-9999";
+            this.PhoneNumberTextBox.TextChanged += new System.EventHandler(this.PhoneNumberTextBox_TextChanged);
             // 
             // CountryTextBox
             // 
-            this.CountryTextBox.Location = new System.Drawing.Point(222, 326);
+            this.CountryTextBox.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.CountryTextBox.Location = new System.Drawing.Point(196, 285);
             this.CountryTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CountryTextBox.Name = "CountryTextBox";
-            this.CountryTextBox.Size = new System.Drawing.Size(415, 26);
+            this.CountryTextBox.Size = new System.Drawing.Size(253, 26);
             this.CountryTextBox.TabIndex = 42;
+            this.CountryTextBox.Text = "US";
             // 
             // PostalCodeTextBox
             // 
-            this.PostalCodeTextBox.Location = new System.Drawing.Point(222, 291);
+            this.PostalCodeTextBox.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.PostalCodeTextBox.Location = new System.Drawing.Point(196, 249);
             this.PostalCodeTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PostalCodeTextBox.Name = "PostalCodeTextBox";
-            this.PostalCodeTextBox.Size = new System.Drawing.Size(415, 26);
+            this.PostalCodeTextBox.Size = new System.Drawing.Size(253, 26);
             this.PostalCodeTextBox.TabIndex = 41;
+            this.PostalCodeTextBox.Text = "99999";
+            this.PostalCodeTextBox.TextChanged += new System.EventHandler(this.PostalCodeTextBox_TextChanged);
+            this.PostalCodeTextBox.Enter += new System.EventHandler(this.PostalCodeTextBox_Enter);
+            this.PostalCodeTextBox.Leave += new System.EventHandler(this.PostalCodeTextBox_Leave);
             // 
             // CityTextBox
             // 
-            this.CityTextBox.Location = new System.Drawing.Point(222, 254);
+            this.CityTextBox.Location = new System.Drawing.Point(196, 212);
             this.CityTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CityTextBox.Name = "CityTextBox";
-            this.CityTextBox.Size = new System.Drawing.Size(415, 26);
+            this.CityTextBox.Size = new System.Drawing.Size(253, 26);
             this.CityTextBox.TabIndex = 40;
             // 
             // CustomerNameTextBox
             // 
-            this.CustomerNameTextBox.Location = new System.Drawing.Point(222, 110);
+            this.CustomerNameTextBox.Location = new System.Drawing.Point(196, 106);
             this.CustomerNameTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CustomerNameTextBox.Name = "CustomerNameTextBox";
-            this.CustomerNameTextBox.Size = new System.Drawing.Size(415, 26);
+            this.CustomerNameTextBox.Size = new System.Drawing.Size(253, 26);
             this.CustomerNameTextBox.TabIndex = 30;
             // 
             // CustomerNameLabel
             // 
             this.CustomerNameLabel.AutoSize = true;
-            this.CustomerNameLabel.Location = new System.Drawing.Point(70, 112);
+            this.CustomerNameLabel.Location = new System.Drawing.Point(44, 108);
             this.CustomerNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.CustomerNameLabel.Name = "CustomerNameLabel";
             this.CustomerNameLabel.Size = new System.Drawing.Size(128, 20);
@@ -230,7 +226,7 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
             // PhoneNumberLabel
             // 
             this.PhoneNumberLabel.AutoSize = true;
-            this.PhoneNumberLabel.Location = new System.Drawing.Point(79, 149);
+            this.PhoneNumberLabel.Location = new System.Drawing.Point(52, 322);
             this.PhoneNumberLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PhoneNumberLabel.Name = "PhoneNumberLabel";
             this.PhoneNumberLabel.Size = new System.Drawing.Size(119, 20);
@@ -240,7 +236,7 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
             // CountryLabel
             // 
             this.CountryLabel.AutoSize = true;
-            this.CountryLabel.Location = new System.Drawing.Point(130, 329);
+            this.CountryLabel.Location = new System.Drawing.Point(104, 285);
             this.CountryLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.CountryLabel.Name = "CountryLabel";
             this.CountryLabel.Size = new System.Drawing.Size(68, 20);
@@ -250,7 +246,7 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
             // PostalCodeLabel
             // 
             this.PostalCodeLabel.AutoSize = true;
-            this.PostalCodeLabel.Location = new System.Drawing.Point(99, 294);
+            this.PostalCodeLabel.Location = new System.Drawing.Point(74, 249);
             this.PostalCodeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PostalCodeLabel.Name = "PostalCodeLabel";
             this.PostalCodeLabel.Size = new System.Drawing.Size(99, 20);
@@ -260,7 +256,7 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
             // CityLabel
             // 
             this.CityLabel.AutoSize = true;
-            this.CityLabel.Location = new System.Drawing.Point(159, 257);
+            this.CityLabel.Location = new System.Drawing.Point(134, 212);
             this.CityLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.CityLabel.Name = "CityLabel";
             this.CityLabel.Size = new System.Drawing.Size(39, 20);
@@ -271,10 +267,11 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(846, 575);
+            this.ClientSize = new System.Drawing.Size(630, 509);
             this.Controls.Add(this.UpdateCustomerGroupBox);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "CustomerUpdatePage";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Update Customer";
             this.Load += new System.EventHandler(this.CustomerUpdatePage_Load_1);
             this.UpdateCustomerGroupBox.ResumeLayout(false);
@@ -306,6 +303,5 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
         //private User user;
         private System.Windows.Forms.TextBox CustomerIdTextBox;
         private System.Windows.Forms.Label CustomerIdLabel;
-        private System.Windows.Forms.Button button1;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Scheduling_Desktop_UI_App.User_Navigation_Pages
 {
-    partial class UserListPage
+    partial class UserNavigationPage
     {
         /// <summary>
         /// Required designer variable.
@@ -116,6 +116,7 @@
             this.ClientSize = new System.Drawing.Size(892, 499);
             this.Controls.Add(this.UserListGroupBox);
             this.Name = "UserListPage";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "User List";
             this.Load += new System.EventHandler(this.UserListPage_Load);
             this.UserListGroupBox.ResumeLayout(false);

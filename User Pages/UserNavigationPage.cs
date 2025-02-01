@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using Scheduling_Desktop_UI_App.Classes;
+using Scheduling_Desktop_UI_App.User_Pages;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,17 +14,16 @@ using System.Windows.Forms;
 
 namespace Scheduling_Desktop_UI_App.User_Navigation_Pages
 {
-    public partial class UserListPage : Form
+    public partial class UserNavigationPage : Form
     {
         //Create connection
         private MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
-        //Row index
-        int _index;
+
         //Selected User
-        User _SelectedUser = new User();
+        User _selectedUser = new User();
         //User
         User _user;
-        public UserListPage(User user)
+        public UserNavigationPage(User user)
         {
             InitializeComponent();
             _user = user;
@@ -62,35 +62,34 @@ namespace Scheduling_Desktop_UI_App.User_Navigation_Pages
 
         private void DeleteUser_Click(object sender, EventArgs e)
         {
+            int value;
             //Delete user from database
-            string userId = UserListDataGridView.CurrentRow.Cells[0].Value.ToString();
-            _index = UserListDataGridView.CurrentCell.RowIndex;
-            string query = $"DELETE FROM user WHERE userId = {userId}";
-            MySqlCommand cmd = new MySqlCommand(query, conn);
-            try
+            int userId = Convert.ToInt32(UserListDataGridView.CurrentRow.Cells[0].Value);
+            value = _user.DeleteUser(userId);
+            if(value == 1)
             {
-                cmd.ExecuteNonQuery();
+                //Refresh datagridview
+                string selectQuery = "SELECT userId, userName FROM user";
+                MySqlCommand selectCmd = new MySqlCommand(selectQuery, conn);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(selectCmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                UserListDataGridView.DataSource = dt;
+                MessageBox.Show("User Deleted");
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine(ex.Message);
+                MessageBox.Show("User Not Deleted");
             }
-
-            //Refresh datagridview
-            string selectQuery = "SELECT userId, userName FROM user";
-            MySqlCommand selectCmd = new MySqlCommand(selectQuery, conn);
-            MySqlDataAdapter adapter = new MySqlDataAdapter(selectCmd);
-            DataSet ds = new DataSet();
-            adapter.Fill(ds);
-            UserListDataGridView.DataSource = ds.Tables[0];
-            //Unselect 1st row
-            UserListDataGridView.Rows[0].Selected = false;
+            
         }
 
         private void UpdateUserButton_Click(object sender, EventArgs e)
         {
             //Create UserUpdate Object
-            UserUpdatePage userUpdatePage = new UserUpdatePage(_SelectedUser, _user);
+            UserUpdatePage userUpdatePage = new UserUpdatePage(_selectedUser, _user);
+            userUpdatePage.Show();
+            this.Hide();
         }
 
         private void AddUserButton_Click(object sender, EventArgs e)
@@ -147,10 +146,10 @@ namespace Scheduling_Desktop_UI_App.User_Navigation_Pages
             {
                 //Get selected user by userid
                 int userId = Convert.ToInt32(UserListDataGridView.CurrentRow.Cells[0].Value);
-                _SelectedUser = _SelectedUser.GetUser(userId);
+                _selectedUser = _selectedUser.GetUser(userId);
 
                 //Go to UpdateUserPage
-                UserUpdatePage updateUserPage = new UserUpdatePage(_SelectedUser, _user);
+                UserUpdatePage updateUserPage = new UserUpdatePage(_selectedUser, _user);
                 updateUserPage.Show();
                 this.Hide();
             }

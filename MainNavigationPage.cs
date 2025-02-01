@@ -73,7 +73,7 @@ namespace Scheduling_Desktop_UI_App
         private void UsersButton_Click(object sender, EventArgs e)
         {
             //Go to UserListPage
-            UserListPage listUsersPage = new UserListPage(_user);
+            UserNavigationPage listUsersPage = new UserNavigationPage(_user);
             listUsersPage.Show();
             this.Hide();
         }

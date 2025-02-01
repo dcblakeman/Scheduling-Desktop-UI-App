@@ -18,16 +18,43 @@ namespace Scheduling_Desktop_UI_App.Classes
         public string CreatedBy { get; set; }
         public DateTime LastUpdate { get; set; }
         public string LastUpdateBy { get; set; }
-        public City InsertCity(City city)
+        public int InsertCity(City city)
         {
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
                 {
                     //Open Connection
+                    Console.WriteLine("Opening Insert City Connection");
                     conn.Open();
 
-                    //Create Query to insert information
+                    /////////////Check and see if city has already been entered into mysql db///////////
+                    string checkCityQuery = "SELECT cityId FROM city WHERE city = @city";
+                    MySqlCommand cmdCheck = new MySqlCommand(checkCityQuery, conn);
+                    cmdCheck.Parameters.AddWithValue("@city", city.CityName);
+                    MySqlDataReader reader = cmdCheck.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        //If city already exists, return the cityId
+                        while (reader.Read())
+                        {
+                            city.CityId = reader.GetInt32("cityId");
+                        }
+                        Console.WriteLine("Closing Insert City Connection. City already exists in database.");
+                        conn.Close();
+                        return city.CityId;
+                    }
+                    //Closing cmdcheck Reader
+                    conn.Close();
+
+                    Console.WriteLine("City Name: " + city.CityName);
+                    Console.WriteLine("Country Id: " + city.CountryId);
+                    Console.WriteLine("Create Date: " + city.CreateDate);
+                    Console.WriteLine("Created By: " + city.CreatedBy);
+                    Console.WriteLine("Last Update: " + city.LastUpdate);
+                    Console.WriteLine("Last Update By: " + city.LastUpdateBy);
+
+                    /////////////////////Create Query to insert information/////////////////////////////
                     string insertCityQuery = "INSERT INTO city (city, countryId, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES (@city, @countryId, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
 
                     //Create Command
@@ -40,7 +67,13 @@ namespace Scheduling_Desktop_UI_App.Classes
                     cmd.Parameters.AddWithValue("@createdBy", city.CreatedBy);
                     cmd.Parameters.AddWithValue("@lastUpdate", city.LastUpdate);
                     cmd.Parameters.AddWithValue("@lastUpdateBy", city.LastUpdateBy);
+                    
+                    //Open new connection, run insert city query, close connection
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
 
+                    ////////////////Create query to get cityId/////////////////////////////////
                     //Create query to return CityId
                     string getCityIdQuery = "SELECT cityId FROM city WHERE city = @city";
 
@@ -50,31 +83,28 @@ namespace Scheduling_Desktop_UI_App.Classes
                     //Add parameters
                     cmd2.Parameters.AddWithValue("@city", city.CityName);
 
-                    //Execute command to run query to retrieve CityId
+                    //Open connection and Execute command to run query to retrieve CityId
+                    conn.Open();
                     city.CityId = Convert.ToInt32(cmd2.ExecuteScalar());
-
-                    //Close connection
                     conn.Close();
 
                     //Return CityId
-                    return city;
+                    Console.WriteLine("City Inserted Successfully.");
+                    return city.CityId;
                 }
             } catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("Error inserting city");
-                return null;
+                return 0;
             }
         }
-        public void UpdateCity(City city)
+        public int UpdateCity(City city)
         {
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
                 {
-                    //Open Connection
-                    conn.Open();
-
                     //Create Query to update information
                     string updateCityQuery = "UPDATE city SET city = @city, countryId = @countryId, lastUpdate, lastUpdateBy WHERE cityId = @cityId";
 
@@ -88,11 +118,11 @@ namespace Scheduling_Desktop_UI_App.Classes
                     cmd.Parameters.AddWithValue("@lastUpdate", city.LastUpdate);
                     cmd.Parameters.AddWithValue("@lastUpdateBy", city.LastUpdateBy);
 
-                    //Execute Command
-                    cmd.ExecuteNonQuery();
-
-                    //Close Connection
+                    //Open connection, executing query, closing connection
+                    conn.Open();
+                    int value = cmd.ExecuteNonQuery();
                     conn.Close();
+                    return value;
                 }
             }
             catch (Exception ex)
@@ -100,6 +130,7 @@ namespace Scheduling_Desktop_UI_App.Classes
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);
                 Console.WriteLine("Error updating city");
+                return 0;
             }
         }
 

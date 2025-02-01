@@ -5,20 +5,6 @@
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
-
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
 
         #region Windows Form Designer generated code
 
@@ -31,6 +17,8 @@
             this.CustomerNameLabel = new System.Windows.Forms.Label();
             this.CityLabel = new System.Windows.Forms.Label();
             this.AddCustomerGroupBox = new System.Windows.Forms.GroupBox();
+            this.CustomerIdTextBox = new System.Windows.Forms.TextBox();
+            this.CustomerIdLabel = new System.Windows.Forms.Label();
             this.AddressTextBox1 = new System.Windows.Forms.TextBox();
             this.Address2TextBox = new System.Windows.Forms.TextBox();
             this.Address2Label = new System.Windows.Forms.Label();
@@ -45,15 +33,13 @@
             this.PhoneNumberLabel = new System.Windows.Forms.Label();
             this.CountryLabel = new System.Windows.Forms.Label();
             this.PostalCodeLabel = new System.Windows.Forms.Label();
-            this.CustomerIdTextBox = new System.Windows.Forms.TextBox();
-            this.CustomerIdLabel = new System.Windows.Forms.Label();
             this.AddCustomerGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // CustomerNameLabel
             // 
             this.CustomerNameLabel.AutoSize = true;
-            this.CustomerNameLabel.Location = new System.Drawing.Point(61, 108);
+            this.CustomerNameLabel.Location = new System.Drawing.Point(50, 103);
             this.CustomerNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.CustomerNameLabel.Name = "CustomerNameLabel";
             this.CustomerNameLabel.Size = new System.Drawing.Size(128, 20);
@@ -63,7 +49,7 @@
             // CityLabel
             // 
             this.CityLabel.AutoSize = true;
-            this.CityLabel.Location = new System.Drawing.Point(150, 251);
+            this.CityLabel.Location = new System.Drawing.Point(139, 208);
             this.CityLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.CityLabel.Name = "CityLabel";
             this.CityLabel.Size = new System.Drawing.Size(39, 20);
@@ -95,36 +81,55 @@
             this.AddCustomerGroupBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.AddCustomerGroupBox.Name = "AddCustomerGroupBox";
             this.AddCustomerGroupBox.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.AddCustomerGroupBox.Size = new System.Drawing.Size(771, 475);
+            this.AddCustomerGroupBox.Size = new System.Drawing.Size(572, 444);
             this.AddCustomerGroupBox.TabIndex = 4;
             this.AddCustomerGroupBox.TabStop = false;
             this.AddCustomerGroupBox.Text = "Add Customer";
+            this.AddCustomerGroupBox.Enter += new System.EventHandler(this.AddCustomerGroupBox_Enter_1);
+            // 
+            // CustomerIdTextBox
+            // 
+            this.CustomerIdTextBox.Location = new System.Drawing.Point(226, 65);
+            this.CustomerIdTextBox.Name = "CustomerIdTextBox";
+            this.CustomerIdTextBox.ReadOnly = true;
+            this.CustomerIdTextBox.Size = new System.Drawing.Size(253, 26);
+            this.CustomerIdTextBox.TabIndex = 48;
+            // 
+            // CustomerIdLabel
+            // 
+            this.CustomerIdLabel.AutoSize = true;
+            this.CustomerIdLabel.Location = new System.Drawing.Point(79, 68);
+            this.CustomerIdLabel.Name = "CustomerIdLabel";
+            this.CustomerIdLabel.Size = new System.Drawing.Size(96, 20);
+            this.CustomerIdLabel.TabIndex = 47;
+            this.CustomerIdLabel.Text = "CustomerId:";
             // 
             // AddressTextBox1
             // 
             this.AddressTextBox1.AcceptsTab = true;
-            this.AddressTextBox1.Location = new System.Drawing.Point(238, 178);
+            this.AddressTextBox1.Location = new System.Drawing.Point(227, 137);
             this.AddressTextBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.AddressTextBox1.Name = "AddressTextBox1";
-            this.AddressTextBox1.Size = new System.Drawing.Size(415, 26);
+            this.AddressTextBox1.Size = new System.Drawing.Size(253, 26);
             this.AddressTextBox1.TabIndex = 4;
             // 
             // Address2TextBox
             // 
             this.Address2TextBox.ForeColor = System.Drawing.SystemColors.InactiveCaption;
-            this.Address2TextBox.Location = new System.Drawing.Point(238, 213);
+            this.Address2TextBox.Location = new System.Drawing.Point(227, 173);
             this.Address2TextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Address2TextBox.Name = "Address2TextBox";
-            this.Address2TextBox.Size = new System.Drawing.Size(415, 26);
+            this.Address2TextBox.Size = new System.Drawing.Size(253, 26);
             this.Address2TextBox.TabIndex = 5;
             this.Address2TextBox.Text = "Optional";
             this.Address2TextBox.TextChanged += new System.EventHandler(this.Address2TextBox_TextChanged);
+            this.Address2TextBox.Enter += new System.EventHandler(this.Address2TextBox_Enter);
             this.Address2TextBox.Leave += new System.EventHandler(this.Address2TextBox_Leave);
             // 
             // Address2Label
             // 
             this.Address2Label.AutoSize = true;
-            this.Address2Label.Location = new System.Drawing.Point(108, 218);
+            this.Address2Label.Location = new System.Drawing.Point(97, 173);
             this.Address2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Address2Label.Name = "Address2Label";
             this.Address2Label.Size = new System.Drawing.Size(81, 20);
@@ -134,7 +139,7 @@
             // Address1Label
             // 
             this.Address1Label.AutoSize = true;
-            this.Address1Label.Location = new System.Drawing.Point(108, 181);
+            this.Address1Label.Location = new System.Drawing.Point(97, 138);
             this.Address1Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Address1Label.Name = "Address1Label";
             this.Address1Label.Size = new System.Drawing.Size(81, 20);
@@ -144,7 +149,7 @@
             // AddCustomerCancelButton
             // 
             this.AddCustomerCancelButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.AddCustomerCancelButton.Location = new System.Drawing.Point(238, 358);
+            this.AddCustomerCancelButton.Location = new System.Drawing.Point(227, 353);
             this.AddCustomerCancelButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.AddCustomerCancelButton.Name = "AddCustomerCancelButton";
             this.AddCustomerCancelButton.Size = new System.Drawing.Size(112, 35);
@@ -156,7 +161,7 @@
             // SubmitButton
             // 
             this.SubmitButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.SubmitButton.Location = new System.Drawing.Point(540, 358);
+            this.SubmitButton.Location = new System.Drawing.Point(367, 353);
             this.SubmitButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SubmitButton.Name = "SubmitButton";
             this.SubmitButton.Size = new System.Drawing.Size(112, 35);
@@ -168,53 +173,63 @@
             // PhoneNumberTextBox
             // 
             this.PhoneNumberTextBox.ForeColor = System.Drawing.SystemColors.InactiveCaption;
-            this.PhoneNumberTextBox.Location = new System.Drawing.Point(238, 141);
+            this.PhoneNumberTextBox.Location = new System.Drawing.Point(227, 317);
             this.PhoneNumberTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PhoneNumberTextBox.Name = "PhoneNumberTextBox";
-            this.PhoneNumberTextBox.Size = new System.Drawing.Size(415, 26);
+            this.PhoneNumberTextBox.Size = new System.Drawing.Size(253, 26);
             this.PhoneNumberTextBox.TabIndex = 3;
             this.PhoneNumberTextBox.Text = "999-999-9999";
             this.PhoneNumberTextBox.TextChanged += new System.EventHandler(this.PhoneNumberTextBox_TextChanged);
+            this.PhoneNumberTextBox.Enter += new System.EventHandler(this.PhoneNumberTextBox_Enter);
             this.PhoneNumberTextBox.Leave += new System.EventHandler(this.PhoneNumberTextBox_Leave);
             // 
             // CountryTextBox
             // 
-            this.CountryTextBox.Location = new System.Drawing.Point(238, 321);
+            this.CountryTextBox.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.CountryTextBox.Location = new System.Drawing.Point(227, 281);
             this.CountryTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CountryTextBox.Name = "CountryTextBox";
-            this.CountryTextBox.Size = new System.Drawing.Size(415, 26);
+            this.CountryTextBox.Size = new System.Drawing.Size(253, 26);
             this.CountryTextBox.TabIndex = 8;
+            this.CountryTextBox.Text = "US";
+            this.CountryTextBox.TextChanged += new System.EventHandler(this.CountryTextBox_TextChanged);
+            this.CountryTextBox.Enter += new System.EventHandler(this.CountryTextBox_Enter);
+            this.CountryTextBox.Leave += new System.EventHandler(this.CountryTextBox_Leave);
             // 
             // PostalCodeTextBox
             // 
-            this.PostalCodeTextBox.Location = new System.Drawing.Point(238, 285);
+            this.PostalCodeTextBox.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.PostalCodeTextBox.Location = new System.Drawing.Point(227, 245);
             this.PostalCodeTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PostalCodeTextBox.Name = "PostalCodeTextBox";
-            this.PostalCodeTextBox.Size = new System.Drawing.Size(415, 26);
+            this.PostalCodeTextBox.Size = new System.Drawing.Size(253, 26);
             this.PostalCodeTextBox.TabIndex = 7;
+            this.PostalCodeTextBox.Text = "99999";
             this.PostalCodeTextBox.TextChanged += new System.EventHandler(this.PostalCodeTextBox_TextChanged);
+            this.PostalCodeTextBox.Enter += new System.EventHandler(this.PostalCodeTextBox_Enter);
+            this.PostalCodeTextBox.Leave += new System.EventHandler(this.PostalCodeTextBox_Leave);
             // 
             // CityTextBox
             // 
-            this.CityTextBox.Location = new System.Drawing.Point(238, 248);
+            this.CityTextBox.Location = new System.Drawing.Point(227, 209);
             this.CityTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CityTextBox.Name = "CityTextBox";
-            this.CityTextBox.Size = new System.Drawing.Size(415, 26);
+            this.CityTextBox.Size = new System.Drawing.Size(253, 26);
             this.CityTextBox.TabIndex = 6;
             // 
             // CustomerNameTextBox
             // 
             this.CustomerNameTextBox.AcceptsTab = true;
-            this.CustomerNameTextBox.Location = new System.Drawing.Point(237, 105);
+            this.CustomerNameTextBox.Location = new System.Drawing.Point(226, 101);
             this.CustomerNameTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CustomerNameTextBox.Name = "CustomerNameTextBox";
-            this.CustomerNameTextBox.Size = new System.Drawing.Size(415, 26);
+            this.CustomerNameTextBox.Size = new System.Drawing.Size(253, 26);
             this.CustomerNameTextBox.TabIndex = 1;
             // 
             // PhoneNumberLabel
             // 
             this.PhoneNumberLabel.AutoSize = true;
-            this.PhoneNumberLabel.Location = new System.Drawing.Point(70, 144);
+            this.PhoneNumberLabel.Location = new System.Drawing.Point(59, 313);
             this.PhoneNumberLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PhoneNumberLabel.Name = "PhoneNumberLabel";
             this.PhoneNumberLabel.Size = new System.Drawing.Size(119, 20);
@@ -224,7 +239,7 @@
             // CountryLabel
             // 
             this.CountryLabel.AutoSize = true;
-            this.CountryLabel.Location = new System.Drawing.Point(121, 324);
+            this.CountryLabel.Location = new System.Drawing.Point(110, 278);
             this.CountryLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.CountryLabel.Name = "CountryLabel";
             this.CountryLabel.Size = new System.Drawing.Size(68, 20);
@@ -234,39 +249,23 @@
             // PostalCodeLabel
             // 
             this.PostalCodeLabel.AutoSize = true;
-            this.PostalCodeLabel.Location = new System.Drawing.Point(90, 288);
+            this.PostalCodeLabel.Location = new System.Drawing.Point(79, 243);
             this.PostalCodeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PostalCodeLabel.Name = "PostalCodeLabel";
             this.PostalCodeLabel.Size = new System.Drawing.Size(99, 20);
             this.PostalCodeLabel.TabIndex = 2;
             this.PostalCodeLabel.Text = "Postal Code:";
             // 
-            // CustomerIdTextBox
-            // 
-            this.CustomerIdTextBox.Location = new System.Drawing.Point(237, 71);
-            this.CustomerIdTextBox.Name = "CustomerIdTextBox";
-            this.CustomerIdTextBox.ReadOnly = true;
-            this.CustomerIdTextBox.Size = new System.Drawing.Size(415, 26);
-            this.CustomerIdTextBox.TabIndex = 48;
-            // 
-            // CustomerIdLabel
-            // 
-            this.CustomerIdLabel.AutoSize = true;
-            this.CustomerIdLabel.Location = new System.Drawing.Point(93, 71);
-            this.CustomerIdLabel.Name = "CustomerIdLabel";
-            this.CustomerIdLabel.Size = new System.Drawing.Size(96, 20);
-            this.CustomerIdLabel.TabIndex = 47;
-            this.CustomerIdLabel.Text = "CustomerId:";
-            // 
             // CustomerAddPage
             // 
             this.AcceptButton = this.SubmitButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(771, 472);
+            this.ClientSize = new System.Drawing.Size(572, 442);
             this.Controls.Add(this.AddCustomerGroupBox);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "CustomerAddPage";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add Customer";
             this.AddCustomerGroupBox.ResumeLayout(false);
             this.AddCustomerGroupBox.PerformLayout();

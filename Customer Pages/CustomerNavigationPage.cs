@@ -14,15 +14,11 @@ namespace Scheduling_Desktop_UI_App
         private User _user = new User();
         private Customer _customer = new Customer();
 
-        //Create connection
-        private MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
-
         public CustomerNavigationPage()
         {
             InitializeComponent();
             CustomerDataGridView.DataSource = _customer.GetAllCustomers();
             CustomerDataGridView.ClearSelection();
-            CustomerDataGridView.Rows[0].Selected = false;
         }
 
         public CustomerNavigationPage(User user)
@@ -31,18 +27,17 @@ namespace Scheduling_Desktop_UI_App
             _user = user;
             CustomerDataGridView.DataSource = _customer.GetAllCustomers();
             CustomerDataGridView.ClearSelection();
-            CustomerDataGridView.Rows[0].Selected = false;
         }
 
         public CustomerNavigationPage(User user, Customer customer)
         {
-            //Refresh page
+            //Initialize page
             InitializeComponent();
             _user = user;
             _customer = customer;
+
             CustomerDataGridView.DataSource = _customer.GetAllCustomers();
             CustomerDataGridView.ClearSelection();
-            CustomerDataGridView.Rows[0].Selected = false;
         }
 
         private void NavigationFormButton_Click(object sender, EventArgs e)
@@ -53,6 +48,41 @@ namespace Scheduling_Desktop_UI_App
         }
         private void CustomerNavigationPage_Load(object sender, EventArgs e)
         {
+            /////////////////////////////Load CustomerDataGridView//////////////////////////////////
+            MySqlDataAdapter custAdapter = new MySqlDataAdapter();
+            DataTable custDt = new DataTable();
+
+            //Console.WriteLine("Customer: " + _customer.CustomerId);
+            //Call Populate Data Grid View Method
+            custAdapter = GetAllCustomers();
+
+            //Fill DataTable with customerAdapter information
+            custAdapter.Fill(custDt);
+
+            //Assign data table to the data grid view
+            CustomerDataGridView.DataSource = custDt;
+
+            //Allow Active column to be editable
+            CustomerDataGridView.Columns["active"].ReadOnly = false;
+
+            //Refresh CustomerDataGridView
+            CustomerDataGridView.Refresh();            
+            
+            // Disable editing on all other columns
+            foreach (DataGridViewColumn column in CustomerDataGridView.Columns)
+
+            {
+
+                if (column.Name != "active")
+
+                {
+
+                    column.ReadOnly = true;
+
+                }
+
+            }
+            //////////////////////////////End CustomerDataGridView/////////////////////////////////
         }
 
         private void AddCustomerButton_Click(object sender, EventArgs e)
@@ -82,7 +112,52 @@ namespace Scheduling_Desktop_UI_App
 
         private void DeleteCustomerButton_Click(object sender, EventArgs e)
         {
-            _customer.DeleteCustomer(_customer);
+            int value;
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this customer?", "Delete Customer", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                //Make sure a row is selected from CustomerDataGridView
+                if (CustomerDataGridView.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Please select a row to delete");
+                    return;
+                }
+                else
+                {
+                    //Check to see if the customer has any appointments that need to be deleted first.
+                    //Delete customer
+                    _customer.CustomerId = Convert.ToInt32(CustomerDataGridView.CurrentRow.Cells[0].Value);
+                    try
+                    {
+                        //Check to see if the customer has any appointments
+                        if (_customer.HasAppointments(_customer.CustomerId))
+                        {
+                            MessageBox.Show("This customer has appointments and cannot be deleted.");
+                            return;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                        value = _customer.DeleteCustomer(_customer.CustomerId);
+                    //Refresh data grid view
+                    MySqlDataAdapter adapter = new MySqlDataAdapter();
+                    DataTable dt = new DataTable();
+                    adapter = _customer.GetAllCustomers();
+                    adapter.Fill(dt);
+                    CustomerDataGridView.DataSource = dt;
+                    if (value == 1)
+                    {
+                        MessageBox.Show("Customer deleted successfully");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Customer not deleted");
+                    }
+
+                }
+            }//End Delete Customer Method
 
         }
 
@@ -131,8 +206,16 @@ namespace Scheduling_Desktop_UI_App
 
         private void CustomerProfileButton_Click(object sender, EventArgs e)
         {
-            
-         
+            //Make sure that a row has been selected
+            if (_customer.CustomerId == 0)
+            {
+                MessageBox.Show("Please select a customer to view their profile.");
+                return;
+            }
+            //Sending the customer object to the customer profile page
+            CustomerProfilePage customerProfilePage = new CustomerProfilePage(_user, _customer.CustomerId);
+            customerProfilePage.Show();
+            this.Hide();
         }
         private void AppointmentNavigationPageButton_Click(object sender, EventArgs e)
         {
@@ -145,6 +228,37 @@ namespace Scheduling_Desktop_UI_App
             AppointmentNavigationPage appointmentNavigationPage = new AppointmentNavigationPage(_user, _customer);
             appointmentNavigationPage.Show();
             this.Hide();
+        }
+        public MySqlDataAdapter GetAllCustomers()
+        {
+            //Create connection object
+            MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
+            //Create data adapter object
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            //Create query string
+            string getAllCustomersQuery = "SELECT * FROM customer";
+            //Create command
+            MySqlCommand cmd = new MySqlCommand(getAllCustomersQuery, conn);
+            //Open connection
+            conn.Open();
+            cmd.CommandText = getAllCustomersQuery;
+            conn.Close();
+            //Assign command to adapter
+            adapter.SelectCommand = cmd;
+            return adapter;
+        }
+
+        private void SelectCustomerButton_Click(object sender, EventArgs e)
+        {
+            //Make sure a row is selected from CustomerDataGridView
+            if (CustomerDataGridView.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a row to update");
+                return;
+            }
+
+            /////////////Assign CustomerId value from data grid view to customer object////////////
+            _customer.CustomerId = Convert.ToInt32(CustomerDataGridView.CurrentRow.Cells[0].Value);
         }
     }
 }

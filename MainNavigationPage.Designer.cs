@@ -101,6 +101,7 @@
             this.Controls.Add(this.MainNavigationGroupBox);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainNavigationPage";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main Navigation";
             this.Load += new System.EventHandler(this.MainNavigationPage_Load);
             this.MainNavigationGroupBox.ResumeLayout(false);

@@ -117,6 +117,7 @@
             this.ClientSize = new System.Drawing.Size(859, 512);
             this.Controls.Add(this.UserListGroupBox);
             this.Name = "UserListViewPage";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UserListViewPage";
             this.Load += new System.EventHandler(this.UserListViewPage_Load);
             this.UserListGroupBox.ResumeLayout(false);

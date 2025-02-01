@@ -23,20 +23,53 @@ namespace Scheduling_Desktop_UI_App.Classes
         public string LastUpdateBy { get; set; }
 
         //Insert Address
-        public Address InsertAddress(Address address)
+        public int InsertAddress(Address address)
         {
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
                 {
+                    //Check the mysql db and see if address trying to be inserted is the same as address already in mysql
+                    string checkAddressQuery = "SELECT addressId FROM address WHERE address = @address";
+                    MySqlCommand cmdCheck = new MySqlCommand(checkAddressQuery, conn);
+                    cmdCheck.Parameters.AddWithValue("@address", address.Address1);
+                    
                     //Open Connection
+                    Console.WriteLine("Opening Insert Address Connection");
+                    Console.WriteLine("Checking address Name");
                     conn.Open();
+                    MySqlDataReader reader = cmdCheck.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        //If address already exists, return the addressId
+                        while (reader.Read())
+                        {
+                            address.AddressId = reader.GetInt32("addressId");
+                        }
+                        Console.WriteLine("Closing Insert Address Connection. Address already exists in database.");
+                        conn.Close();
+                        return address.AddressId;
+                    }
+                    //Closing check query reader connection
+                    conn.Close();
+                    Console.WriteLine("Address not in system yet.");
+                    
 
                     //Create Query to insert information
                     string insertAddressQuery = "INSERT INTO address (address, address2, cityId, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES (@address, @address2, @cityId, @postalCode, @phone, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
 
                     //Create Command
                     MySqlCommand cmd = new MySqlCommand(insertAddressQuery, conn);
+
+                    Console.WriteLine("Address1: " + address.Address1);
+                    Console.WriteLine("Address2: " + address.Address2);
+                    Console.WriteLine("CityId: " + address.CityId);
+                    Console.WriteLine("PostalCode: " + address.PostalCode);
+                    Console.WriteLine("Phone: " + address.Phone);
+                    Console.WriteLine("CreateDate: " + address.CreateDate);
+                    Console.WriteLine("CreatedBy: " + address.CreatedBy);
+                    Console.WriteLine("LastUpdate: " + address.LastUpdate);
+                    Console.WriteLine("LastUpdateBy: " + address.LastUpdateBy);
 
                     //Add Parameters
                     cmd.Parameters.AddWithValue("@address", address.Address1);
@@ -49,6 +82,21 @@ namespace Scheduling_Desktop_UI_App.Classes
                     cmd.Parameters.AddWithValue("@lastUpdate", address.LastUpdate);
                     cmd.Parameters.AddWithValue("@lastUpdateBy", address.LastUpdateBy);
 
+                    //Run query
+                    conn.Open();
+                    int added = cmd.ExecuteNonQuery();
+                    conn.Close();
+
+
+                    if (added != 0)
+                    {
+                        Console.WriteLine("Address has been inserted.");
+                    } else
+                    {
+                        Console.WriteLine("Address was not inserted.");
+                    }
+                    
+
                     //Create query to return AddressId
                     string getAddressIdQuery = "SELECT addressId FROM address WHERE address = @address";
 
@@ -59,32 +107,31 @@ namespace Scheduling_Desktop_UI_App.Classes
                     cmd2.Parameters.AddWithValue("@address", address.Address1);
 
                     //Execute command to run query to retrieve AddressId
+                    conn.Open();
                     address.AddressId = Convert.ToInt32(cmd2.ExecuteScalar());
-
-                    //Close connection
                     conn.Close();
-
+                    Console.WriteLine("Insert Address Connection Closed. Address has been inserted");
+                    
                     //Return AddressId
-                    return address;
+                    return address.AddressId;
                 }
             }catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);
                 Console.WriteLine("Error inserting address");
-                return null;
+                return 0;
             }
         }
 
         //Update Address
-        public void UpdateAddress(Address address)
+        public int UpdateAddress(Address address)
         {
+            int value;
             try
             {
                 using(MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
                 {
-                    //Open Connection
-                    conn.Open();
                     //Create Query to update information
                     string updateAddressQuery = "UPDATE address SET address = @address, address2 = @address2, cityId = @cityId, postalCode = @postalCode, phone = @phone, lastUpdate = @lastUpdate, lastUpdateBy = @lastUpdateBy WHERE addressId = @addressId";
                     //Create Command
@@ -98,16 +145,19 @@ namespace Scheduling_Desktop_UI_App.Classes
                     cmd.Parameters.AddWithValue("@phone", address.Phone);
                     cmd.Parameters.AddWithValue("@lastUpdate", address.LastUpdate);
                     cmd.Parameters.AddWithValue("@lastUpdateBy", address.LastUpdateBy);
-                    //Execute Command
-                    cmd.ExecuteNonQuery();
-                    //Close Connection
+
+                    //Open connection, execute query, close connection
+                    conn.Open();
+                    value = cmd.ExecuteNonQuery();
                     conn.Close();
+                    return value;
                 }
         }catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);
                 Console.WriteLine("Error inserting address");
+                return 0;
             }
         }
 
@@ -118,10 +168,13 @@ namespace Scheduling_Desktop_UI_App.Classes
             {
                 using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
                 {
-                    conn.Open();
+                    
                     string deleteAddressQuery = "DELETE FROM address WHERE addressId = @addressId";
                     MySqlCommand cmd = new MySqlCommand(deleteAddressQuery, conn);
                     cmd.Parameters.AddWithValue("@addressId", address.AddressId);
+
+                    //Open connection, execute query, close connection
+                    conn.Open();
                     cmd.ExecuteNonQuery();
                     conn.Close();
                 }
@@ -141,12 +194,12 @@ namespace Scheduling_Desktop_UI_App.Classes
             {
                 using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
                 {
-                    conn.Open();
+                    Address address = new Address();
                     string getAddressQuery = "SELECT * FROM address WHERE addressId = @addressId";
                     MySqlCommand cmd = new MySqlCommand(getAddressQuery, conn);
                     cmd.Parameters.AddWithValue("@addressId", addressId);
+                    conn.Open();
                     MySqlDataReader reader = cmd.ExecuteReader();
-                    Address address = new Address();
                     while (reader.Read())
                     {
                         address.AddressId = reader.GetInt32("addressId");
