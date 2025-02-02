@@ -184,7 +184,6 @@ namespace Scheduling_Desktop_UI_App.Classes
                     }
                     //Close connection
                     conn.Close();
-                    Console.WriteLine("Customer found: " + customer.LastUpdateBy);
                     return customer;
                 }
             }

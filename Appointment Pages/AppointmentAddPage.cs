@@ -42,32 +42,6 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
             CustomerDataGridView.ClearSelection();
         }
 
-        public AppointmentAddPage(User user, Appointment appointment, Customer customer)
-        {
-            InitializeComponent();
-            _user = user;
-            _customer = customer;
-            _appointment = appointment;
-
-            try
-            {
-                //Assign object attributes to read only fields
-                UserIdTextBox.Text = _user.UserId.ToString();
-                if(_customer != null)
-                {
-                    CustomerIdTextBox.Text = _customer.CustomerId.ToString();
-                }
-                
-                if(_appointment != null)
-                {
-                    AppointmentIdTextBox.Text = _appointment.AppointmentId.ToString();
-                }
-            }catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
         private void AddAppointmentPage_Load(object sender, EventArgs e)
         {
             //Assign object attributes to read only fields
@@ -118,9 +92,7 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
                 if (column.Name != "active")
 
                 {
-
                     column.ReadOnly = true;
-
                 }
 
                 //////////////////////////////End CustomerDataGridView/////////////////////////////////
@@ -135,62 +107,6 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
             this.Hide();
         }
 
-        private void SubmitButton_Click(object sender, EventArgs e)
-        {
-            //Make sure all of the textboxes are filled out
-            if (string.IsNullOrWhiteSpace(TitleTextBox.Text) || string.IsNullOrWhiteSpace(DescriptionTextBox.Text) || string.IsNullOrWhiteSpace(LocationTextBox.Text) || string.IsNullOrWhiteSpace(ContactTextBox.Text) || string.IsNullOrWhiteSpace(AppointmentTypeComboBox.Text) || string.IsNullOrWhiteSpace(StartTimeComboBox.Text) || string.IsNullOrWhiteSpace(EndTimeTextBox.Text))
-            {
-                MessageBox.Show("Please fill out all fields.");
-                return;
-            }
-
-            //Assign textboxes to _appointment attributes
-            _appointment.AppointmentId = Convert.ToInt32(AppointmentIdTextBox.Text);
-            _appointment.UserId = Convert.ToInt32(UserIdTextBox.Text);
-            _appointment.CustomerId = Convert.ToInt32(CustomerIdTextBox.Text);
-            _appointment.Title = TitleTextBox.Text;
-            _appointment.Description = DescriptionTextBox.Text;
-            _appointment.Location = LocationTextBox.Text;
-            _appointment.Contact = ContactTextBox.Text;
-            _appointment.Type = AppointmentTypeComboBox.Text;
-
-            ///////Appointment Start and End Times/////////////
-            //Calculate based on timezone and dst
-            _appointmentStart = Convert.ToDateTime(StartTimeComboBox.Text);
-            _appointmentEnd = _appointmentStart.AddHours(1);
-            _appointmentStart = TimeZoneInfo.ConvertTimeToUtc(_appointmentStart, TimeZoneInfo.Local);
-            _appointmentEnd = TimeZoneInfo.ConvertTimeToUtc(_appointmentEnd, TimeZoneInfo.Local);
-            string startTime = _daySelected.ToString("yyyy-MM-dd") + " " + _appointmentStart.ToString("hh:mm:ss tt");
-            string endTime = _daySelected.ToString("yyyy-MM-dd") + " " + _appointmentEnd.ToString("hh:mm:ss tt");
-            Console.WriteLine("Starttime: " + startTime);
-            Console.WriteLine("Endtime: " + endTime);
-            _appointment.Start =  Convert.ToDateTime(startTime);
-            _appointment.End = Convert.ToDateTime(endTime);
-            Console.WriteLine(_appointment.Start);
-            Console.WriteLine(_appointment.End);
-            ///////End Appointment Start and End Times///////
-            _appointment.CreateDate = DateTime.Now;
-            _appointment.CreatedBy = _user.UserName;
-            _appointment.LastUpdate = DateTime.Now;
-            _appointment.LastUpdateBy = _user.UserName;
-
-            //Otherwise, call insert address method
-            _appointment.AppointmentId = _appointment.InsertAppointment(_appointment);
-            if (_appointment.AppointmentId == 0)
-            {
-                MessageBox.Show("Appointment was not added.");
-            }
-            else
-            {
-                //Return to Appointment Navigation Page
-                MessageBox.Show("Appointment was added.");
-                AppointmentNavigationPage appointmentNavigationPage = new AppointmentNavigationPage(_user);
-                appointmentNavigationPage.Show();
-                this.Hide();
-            }
-
-        }
-
         private void AppointmentTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Assign appointment type to _appointment
@@ -199,13 +115,21 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
 
         private void StartTimeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Console.WriteLine("Start Time combo box changed" + _daySelected);
             //Set start time  to create a datetime object And account for timezone and dst
             _appointmentStart = Convert.ToDateTime(StartTimeComboBox.Text);
-            
+            StartTimeComboBox.Text = _appointmentStart.ToString("hh:mm:ss tt");
 
             //Set end appointment time to one hour after appointmentTime accounting for timezone and dst
             _appointmentEnd = _appointmentStart.AddHours(1);
-            EndTimeTextBox.Text = _appointmentEnd.ToString("hh:mm:ss");
+            EndTimeComboBox.Text = _appointmentEnd.ToString("hh:mm:ss tt");
+            //Console.WriteLine("Appointment End: " + _appointmentEnd);
+
+            string startTime = _daySelected.ToString("yyyy-MM-dd") + " " + _appointmentStart.ToString("hh:mm:ss tt");
+            string endTime = _daySelected.ToString("yyyy-MM-dd") + " " + _appointmentEnd.ToString("hh:mm:ss tt");
+            
+            Console.WriteLine("Start time: " + startTime);
+            Console.WriteLine("End time: " + endTime);
         }
 
         private void EndTimeTextBox_TextChanged(object sender, EventArgs e)
@@ -224,6 +148,7 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
             {
                 //Assign _daySelected to the selected date
                 _daySelected = AppointmentCalendar.SelectionRange.Start;
+                Console.WriteLine(_daySelected);
             }
             AppointmentsDataGridView.DataSource = _appointment.GetAppointmentsByDate(_daySelected);
         }
@@ -278,13 +203,8 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
             return appointmentId + 1;
         }
 
-        private void CustomerDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-        }
-
         private void CustomerSelectButton_Click(object sender, EventArgs e)
         {
-            
             CustomerIdTextBox.Text = CustomerDataGridView.CurrentRow.Cells[0].Value.ToString();
         }
 
@@ -323,9 +243,81 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
                 //Delete the appointment from the database
                 _appointment.DeleteAppointment(appointmentId);
                 //Refresh the AppointmentDataGridView
-                AppointmentsDataGridView.DataSource = _appointment.PopulateAppointmentDataGridViewWithDateAndName(_daySelected);
+                AppointmentsDataGridView.DataSource = _appointment.GetAppointmentsByCustomerId(_customer.CustomerId);
                 AppointmentsDataGridView.Refresh();
             }
+        }
+
+        private void CustomerDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// ///////////////////////////Submit Button Click Event///////////////////////////
+        /// </summary>
+        /// ///////////////////////////////////////////////////////////////////////////////
+        private void SubmitButton_Click(object sender, EventArgs e)
+        {
+            //Make sure all of the textboxes are filled out
+            if (string.IsNullOrWhiteSpace(TitleTextBox.Text) || string.IsNullOrWhiteSpace(DescriptionTextBox.Text) || string.IsNullOrWhiteSpace(LocationTextBox.Text) || string.IsNullOrWhiteSpace(ContactTextBox.Text) || string.IsNullOrWhiteSpace(AppointmentTypeComboBox.Text) || string.IsNullOrWhiteSpace(StartTimeComboBox.Text) || string.IsNullOrWhiteSpace(EndTimeComboBox.Text))
+            {
+                MessageBox.Show("Please fill out all fields.");
+                return;
+            }
+
+            //Assign textboxes to _appointment attributes
+            _appointment.AppointmentId = Convert.ToInt32(AppointmentIdTextBox.Text);
+            _appointment.UserId = Convert.ToInt32(UserIdTextBox.Text);
+            _appointment.CustomerId = Convert.ToInt32(CustomerIdTextBox.Text);
+            _appointment.Title = TitleTextBox.Text;
+            _appointment.Description = DescriptionTextBox.Text;
+            _appointment.Location = LocationTextBox.Text;
+            _appointment.Contact = ContactTextBox.Text;
+            _appointment.Type = AppointmentTypeComboBox.Text;
+
+            ///////Appointment Start and End Times/////////////
+            //Calculate based on timezone and dst
+            _appointmentStart = Convert.ToDateTime(StartTimeComboBox.Text);
+            _appointmentStart = TimeZoneInfo.ConvertTimeToUtc(_appointmentStart, TimeZoneInfo.Local);
+            //Convert to my timezone
+
+            _appointmentEnd = Convert.ToDateTime(EndTimeComboBox.Text);
+            _appointmentEnd = TimeZoneInfo.ConvertTimeToUtc(_appointmentEnd, TimeZoneInfo.Local);
+
+            Console.WriteLine("TimeZoneInfo Appointment Start: " + _appointmentStart);
+            Console.WriteLine("TimeZoneInfo Appointment End: " + _appointmentEnd);
+
+            string startTime = _daySelected.ToString("yyyy-MM-dd") + " " + _appointmentStart.ToString("hh:mm:ss tt");
+            string endTime = _daySelected.ToString("yyyy-MM-dd") + " " + _appointmentEnd.ToString("hh:mm:ss tt");
+            Console.WriteLine("Starttime: " + startTime);
+            Console.WriteLine("Endtime: " + endTime);
+            _appointment.Start = Convert.ToDateTime(startTime);
+            _appointment.End = Convert.ToDateTime(endTime);
+            Console.WriteLine(_appointment.Start);
+            Console.WriteLine(_appointment.End);
+            ///////End Appointment Start and End Times///////
+            _appointment.CreateDate = DateTime.Now;
+            _appointment.CreatedBy = _user.UserName;
+            _appointment.LastUpdate = DateTime.Now;
+            _appointment.LastUpdateBy = _user.UserName;
+
+            //Otherwise, call insert address method
+            _appointment.AppointmentId = _appointment.InsertAppointment(_appointment);
+            if (_appointment.AppointmentId == 0)
+            {
+                MessageBox.Show("Appointment was not added.");
+            }
+            else
+            {
+                //Return to Appointment Navigation Page
+                MessageBox.Show("Appointment was added.");
+                AppointmentNavigationPage appointmentNavigationPage = new AppointmentNavigationPage(_user);
+                appointmentNavigationPage.Show();
+                this.Hide();
+            }
+
         }
     }
 }
