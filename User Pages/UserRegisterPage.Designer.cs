@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.UserGroupBox = new System.Windows.Forms.GroupBox();
+            this.ActiveLabel = new System.Windows.Forms.Label();
+            this.ActiveTextBox = new System.Windows.Forms.TextBox();
             this.UserIdLabel = new System.Windows.Forms.Label();
             this.ConfirmPasswordLabel = new System.Windows.Forms.Label();
             this.RegisterButton = new System.Windows.Forms.Button();
@@ -39,8 +41,6 @@
             this.UserNameTextBox = new System.Windows.Forms.TextBox();
             this.PasswordLabel = new System.Windows.Forms.Label();
             this.UserName = new System.Windows.Forms.Label();
-            this.ActiveLabel = new System.Windows.Forms.Label();
-            this.ActiveTextBox = new System.Windows.Forms.TextBox();
             this.UserGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,14 +59,35 @@
             this.UserGroupBox.Controls.Add(this.PasswordLabel);
             this.UserGroupBox.Controls.Add(this.UserName);
             this.UserGroupBox.Location = new System.Drawing.Point(47, 30);
-            this.UserGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.UserGroupBox.Margin = new System.Windows.Forms.Padding(2);
             this.UserGroupBox.Name = "UserGroupBox";
-            this.UserGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.UserGroupBox.Size = new System.Drawing.Size(399, 179);
+            this.UserGroupBox.Padding = new System.Windows.Forms.Padding(2);
+            this.UserGroupBox.Size = new System.Drawing.Size(399, 195);
             this.UserGroupBox.TabIndex = 0;
             this.UserGroupBox.TabStop = false;
             this.UserGroupBox.Text = "User";
             this.UserGroupBox.Enter += new System.EventHandler(this.UserGroupBox_Enter);
+            // 
+            // ActiveLabel
+            // 
+            this.ActiveLabel.AutoSize = true;
+            this.ActiveLabel.Location = new System.Drawing.Point(113, 135);
+            this.ActiveLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.ActiveLabel.Name = "ActiveLabel";
+            this.ActiveLabel.Size = new System.Drawing.Size(37, 13);
+            this.ActiveLabel.TabIndex = 18;
+            this.ActiveLabel.Text = "Active";
+            this.ActiveLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // ActiveTextBox
+            // 
+            this.ActiveTextBox.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.ActiveTextBox.Location = new System.Drawing.Point(155, 132);
+            this.ActiveTextBox.Name = "ActiveTextBox";
+            this.ActiveTextBox.Size = new System.Drawing.Size(157, 20);
+            this.ActiveTextBox.TabIndex = 17;
+            this.ActiveTextBox.Text = "1";
+            this.ActiveTextBox.TextChanged += new System.EventHandler(this.ActiveTextBox_TextChanged);
             // 
             // UserIdLabel
             // 
@@ -155,27 +176,6 @@
             this.UserName.TabIndex = 3;
             this.UserName.Text = "UserName";
             // 
-            // ActiveLabel
-            // 
-            this.ActiveLabel.AutoSize = true;
-            this.ActiveLabel.Location = new System.Drawing.Point(113, 135);
-            this.ActiveLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.ActiveLabel.Name = "ActiveLabel";
-            this.ActiveLabel.Size = new System.Drawing.Size(37, 13);
-            this.ActiveLabel.TabIndex = 18;
-            this.ActiveLabel.Text = "Active";
-            this.ActiveLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // ActiveTextBox
-            // 
-            this.ActiveTextBox.ForeColor = System.Drawing.SystemColors.InactiveCaption;
-            this.ActiveTextBox.Location = new System.Drawing.Point(155, 132);
-            this.ActiveTextBox.Name = "ActiveTextBox";
-            this.ActiveTextBox.Size = new System.Drawing.Size(157, 20);
-            this.ActiveTextBox.TabIndex = 17;
-            this.ActiveTextBox.Text = "1";
-            this.ActiveTextBox.TextChanged += new System.EventHandler(this.ActiveTextBox_TextChanged);
-            // 
             // UserRegisterPage
             // 
             this.AcceptButton = this.RegisterButton;
@@ -183,7 +183,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(491, 236);
             this.Controls.Add(this.UserGroupBox);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "UserRegisterPage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Register User";

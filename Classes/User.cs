@@ -166,51 +166,6 @@ namespace Scheduling_Desktop_UI_App.Classes
             }
         }
 
-        //Alert User
-        //Alert User when they are logged on and they have an appointment in 15 minutes
-        public void AlertUser(User user)
-        {
-            try
-            {
-                //Create connection object
-                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
-                {
-                    //Open connection
-                    conn.Open();
-                    //Create query to verify username and password
-                    string alertQuery = "SELECT COUNT(*) FROM appointment WHERE userId = @userId AND start BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 15 MINUTE)";
-                    //Create a command object
-                    MySqlCommand cmd = new MySqlCommand(alertQuery, conn);
-                    //Add parameters
-                    cmd.Parameters.AddWithValue("@userId", user.UserId);
-                    int count;
-                    count = Convert.ToInt32(cmd.ExecuteScalar());
-                    //if the query returns a result, the user is authenticated
-                    if (count > 0)
-                    {
-                        //User is authenticated
-                        //Close connection
-                        conn.Close();
-                        //Return true
-                        MessageBox.Show("You have an appointment in 15 minutes.");
-                    }
-                    else
-                    {
-                        //Close connection
-                        conn.Close();
-                        ///Return false
-                        MessageBox.Show("You have no appointments in the next 15 minutes.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.StackTrace);
-                Console.WriteLine("Error alerting user");
-            }
-        }//End UserAlertMethod
-
         //Get next userId
         public int GetNextUserId()
         {
@@ -290,7 +245,7 @@ namespace Scheduling_Desktop_UI_App.Classes
         }//End GetAllUsers Method
 
         //Insert User Method
-        public void InsertUser(User user)
+        public bool InsertUser(User user)
         {
             try
             {
@@ -308,7 +263,7 @@ namespace Scheduling_Desktop_UI_App.Classes
                         //User already exists
                         MessageBox.Show("User already exists.");
                         conn.Close();
-                        return;
+                        return false;
                     }
                     string insertUserQuery = "INSERT INTO user (userId, userName, password, active, createDate, createdBy, lastUpdate, lastUpdateBy) VALUES (@userId, @userName, @password, @active, @createDate, @createdBy, @lastUpdate, @lastUpdateBy)";
                     MySqlCommand cmd = new MySqlCommand(insertUserQuery, conn);
@@ -322,6 +277,7 @@ namespace Scheduling_Desktop_UI_App.Classes
                     cmd.Parameters.AddWithValue("@lastUpdateBy", user.LastUpdateBy);
                     cmd.ExecuteNonQuery();
                     conn.Close();
+                    return true;
                 }
             }
             catch (Exception ex)
@@ -329,6 +285,7 @@ namespace Scheduling_Desktop_UI_App.Classes
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);
                 Console.WriteLine("Error inserting user");
+                return false;
             }
         }//End InsertUser Method
 

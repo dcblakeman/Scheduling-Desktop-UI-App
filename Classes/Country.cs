@@ -193,6 +193,44 @@ namespace Scheduling_Desktop_UI_App.Classes
                 Console.WriteLine("Error getting Country");
                 return null;
             }
+        } // End of Get Country Method
+
+        //Convert time to UTC
+        public DateTime ConvertToUTC(DateTime time)
+        {
+            DateTime utcTime = new DateTime();
+            try
+            {
+                utcTime = time.ToUniversalTime();
+                return utcTime;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("Error converting time to UTC");
+                return utcTime;
+            }
         }
+
+        //Convert UTC time to Local Time
+        public DateTime ConvertToLocalTime(DateTime time)
+        {
+            DateTime localTime = new DateTime();
+            try
+            {
+                localTime = time.ToLocalTime();
+                return localTime;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("Error converting UTC time to Local Time");
+                return localTime;
+            }
+        }
+
+
     }
 }

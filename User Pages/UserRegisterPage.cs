@@ -81,7 +81,17 @@ namespace Scheduling_Desktop_UI_App
                 newUser.LastUpdate = DateTime.Now;
                 newUser.LastUpdateBy = newUser.UserName;
             }
-            newUser.InsertUser(newUser);
+
+            
+            //Check to see if userName is already in use
+            if (!newUser.InsertUser(newUser))
+            {
+                MessageBox.Show("Username already in use. Please choose a different username.");
+                return;
+            } else
+            {
+                MessageBox.Show("User added successfully!");
+            }
 
             //Return to Login Form
             LoginPage loginForm = new LoginPage();

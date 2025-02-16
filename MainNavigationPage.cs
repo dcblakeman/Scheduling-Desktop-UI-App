@@ -60,7 +60,14 @@ namespace Scheduling_Desktop_UI_App
 
         private void MainNavigationPage_Load(object sender, EventArgs e)
         {
-
+            //Check to see if the user has any appointments in 15 minutes
+            Appointment appointment = new Appointment();
+            List<Appointment> appointments = appointment.GetAppointmentsIn15Minutes(_user.UserId);
+            if (appointments.Count > 0)
+            {
+                //If there are appointments in 15 minutes, show a message box
+                MessageBox.Show("You have an appointment in 15 minutes!");
+            }
         }
 
         private void LogoutButton_Click(object sender, EventArgs e)

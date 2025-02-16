@@ -95,6 +95,9 @@ namespace Scheduling_Desktop_UI_App
             {
                 MessageBox.Show($"Initial Location: Latitude {coordinate.Latitude}, Longitude {coordinate.Longitude}");
             }
+
+            //Test TimeZone things
+            getTimeZoneFromUTCTime();
         }
         private void RegisterButton_Click(object sender, EventArgs e)
         {
@@ -174,6 +177,26 @@ namespace Scheduling_Desktop_UI_App
             UserListViewPage userListViewPage = new UserListViewPage();
             userListViewPage.Show();
             this.Hide();
+        }
+
+        //Testing timezone stuff
+        public void getTimeZoneFromUTCTime()
+        {
+            DateTime time = DateTime.Now;
+            TimeZoneInfo localZone = TimeZoneInfo.Local;
+            Console.WriteLine("Local Time Zone: " + localZone.DisplayName);
+            Console.WriteLine("Local Time: " + time);
+            Console.WriteLine("Local Time Zone ID: " + localZone.Id);
+            Console.WriteLine("Local Time Zone Base UTC Offset: " + localZone.BaseUtcOffset);
+            Console.WriteLine("Local Time Zone Daylight Name: " + localZone.DaylightName);
+            Console.WriteLine("Local Time Zone Standard Name: " + localZone.StandardName);
+            Console.WriteLine("Local Time Zone Supports Daylight Savings Time: " + localZone.SupportsDaylightSavingTime);
+            Console.WriteLine("Local Time Zone UTC Offset: " + localZone.GetUtcOffset(time));
+            Console.WriteLine("Local Time Zone Is Daylight Savings Time: " + localZone.IsDaylightSavingTime(time));
+            Console.WriteLine("Local Time Zone Is Ambiguous Time: " + localZone.IsAmbiguousTime(time));
+            Console.WriteLine("Local Time Zone Is Invalid Time: " + localZone.IsInvalidTime(time));
+            Console.WriteLine("UTC Zone: " + localZone.GetUtcOffset(time).TotalHours);
+
         }
     }
 }
