@@ -152,7 +152,7 @@ namespace Scheduling_Desktop_UI_App
                 // Log the login time
                 DateTime loginTime = DateTime.Now;
                 // Create a log entry
-                string logEntry = $"{loginTime:yyyy-MM-dd HH:mm:ss} - {_user.UserName}";
+                string logEntry = $"{loginTime:yyyy-MM-dd HH:mm:ss tt zzz} - {_user.UserName}";
                 // Write the log entry to the log file
                 File.AppendAllText(logFilePath, logEntry + Environment.NewLine);
 
@@ -196,6 +196,7 @@ namespace Scheduling_Desktop_UI_App
             Console.WriteLine("Local Time Zone Is Ambiguous Time: " + localZone.IsAmbiguousTime(time));
             Console.WriteLine("Local Time Zone Is Invalid Time: " + localZone.IsInvalidTime(time));
             Console.WriteLine("UTC Zone: " + localZone.GetUtcOffset(time).TotalHours);
+            Console.WriteLine("Display time zone appreviation: " + time);
 
         }
     }

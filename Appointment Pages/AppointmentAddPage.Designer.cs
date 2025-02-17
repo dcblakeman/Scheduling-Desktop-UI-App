@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.AppointmentIdLabel = new System.Windows.Forms.Label();
             this.CustomerIdLabel = new System.Windows.Forms.Label();
             this.UserIdLabel = new System.Windows.Forms.Label();
@@ -42,6 +42,7 @@
             this.StartTimeLabel = new System.Windows.Forms.Label();
             this.EndTimeLabel = new System.Windows.Forms.Label();
             this.AddAppointmentGroupBox = new System.Windows.Forms.GroupBox();
+            this.LocationComboBox = new System.Windows.Forms.ComboBox();
             this.AppointmentCalendarGroupBox = new System.Windows.Forms.GroupBox();
             this.AppointmentCalendar = new System.Windows.Forms.MonthCalendar();
             this.StartTimeComboBox = new System.Windows.Forms.ComboBox();
@@ -62,7 +63,6 @@
             this.CustomerDataGridView = new System.Windows.Forms.DataGridView();
             this.CustomerGroupBox = new System.Windows.Forms.GroupBox();
             this.CustomerSelectButton = new System.Windows.Forms.Button();
-            this.LocationComboBox = new System.Windows.Forms.ComboBox();
             this.AddAppointmentGroupBox.SuspendLayout();
             this.AppointmentCalendarGroupBox.SuspendLayout();
             this.AppointmentsGroupBox.SuspendLayout();
@@ -197,21 +197,34 @@
             this.AddAppointmentGroupBox.Controls.Add(this.ContactLabel);
             this.AddAppointmentGroupBox.Controls.Add(this.LocationLabel);
             this.AddAppointmentGroupBox.Location = new System.Drawing.Point(53, 44);
-            this.AddAppointmentGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AddAppointmentGroupBox.Margin = new System.Windows.Forms.Padding(2);
             this.AddAppointmentGroupBox.Name = "AddAppointmentGroupBox";
-            this.AddAppointmentGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AddAppointmentGroupBox.Padding = new System.Windows.Forms.Padding(2);
             this.AddAppointmentGroupBox.Size = new System.Drawing.Size(361, 538);
             this.AddAppointmentGroupBox.TabIndex = 1;
             this.AddAppointmentGroupBox.TabStop = false;
             this.AddAppointmentGroupBox.Text = "Appointment Details";
             // 
+            // LocationComboBox
+            // 
+            this.LocationComboBox.FormattingEnabled = true;
+            this.LocationComboBox.Items.AddRange(new object[] {
+            "Phoenix",
+            "New York",
+            "London"});
+            this.LocationComboBox.Location = new System.Drawing.Point(115, 146);
+            this.LocationComboBox.Name = "LocationComboBox";
+            this.LocationComboBox.Size = new System.Drawing.Size(234, 21);
+            this.LocationComboBox.TabIndex = 61;
+            this.LocationComboBox.SelectedIndexChanged += new System.EventHandler(this.LocationComboBox_SelectedIndexChanged);
+            // 
             // AppointmentCalendarGroupBox
             // 
             this.AppointmentCalendarGroupBox.Controls.Add(this.AppointmentCalendar);
             this.AppointmentCalendarGroupBox.Location = new System.Drawing.Point(113, 250);
-            this.AppointmentCalendarGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AppointmentCalendarGroupBox.Margin = new System.Windows.Forms.Padding(2);
             this.AppointmentCalendarGroupBox.Name = "AppointmentCalendarGroupBox";
-            this.AppointmentCalendarGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AppointmentCalendarGroupBox.Padding = new System.Windows.Forms.Padding(2);
             this.AppointmentCalendarGroupBox.Size = new System.Drawing.Size(242, 187);
             this.AppointmentCalendarGroupBox.TabIndex = 60;
             this.AppointmentCalendarGroupBox.TabStop = false;
@@ -237,7 +250,7 @@
             "03:00:00 PM",
             "04:00:00 PM"});
             this.StartTimeComboBox.Location = new System.Drawing.Point(123, 441);
-            this.StartTimeComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.StartTimeComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.StartTimeComboBox.Name = "StartTimeComboBox";
             this.StartTimeComboBox.Size = new System.Drawing.Size(235, 21);
             this.StartTimeComboBox.TabIndex = 6;
@@ -246,7 +259,7 @@
             // EndTimeComboBox
             // 
             this.EndTimeComboBox.Location = new System.Drawing.Point(122, 464);
-            this.EndTimeComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.EndTimeComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.EndTimeComboBox.Name = "EndTimeComboBox";
             this.EndTimeComboBox.ReadOnly = true;
             this.EndTimeComboBox.Size = new System.Drawing.Size(235, 20);
@@ -264,7 +277,7 @@
             "Virtual Visit",
             "Other"});
             this.AppointmentTypeComboBox.Location = new System.Drawing.Point(115, 193);
-            this.AppointmentTypeComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AppointmentTypeComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.AppointmentTypeComboBox.Name = "AppointmentTypeComboBox";
             this.AppointmentTypeComboBox.Size = new System.Drawing.Size(235, 21);
             this.AppointmentTypeComboBox.TabIndex = 5;
@@ -362,9 +375,9 @@
             this.AppointmentsGroupBox.Controls.Add(this.DeleteAppointmentButton);
             this.AppointmentsGroupBox.Controls.Add(this.AppointmentsDataGridView);
             this.AppointmentsGroupBox.Location = new System.Drawing.Point(417, 44);
-            this.AppointmentsGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AppointmentsGroupBox.Margin = new System.Windows.Forms.Padding(2);
             this.AppointmentsGroupBox.Name = "AppointmentsGroupBox";
-            this.AppointmentsGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AppointmentsGroupBox.Padding = new System.Windows.Forms.Padding(2);
             this.AppointmentsGroupBox.Size = new System.Drawing.Size(875, 298);
             this.AppointmentsGroupBox.TabIndex = 11;
             this.AppointmentsGroupBox.TabStop = false;
@@ -386,35 +399,35 @@
             this.AppointmentsDataGridView.AllowUserToDeleteRows = false;
             this.AppointmentsDataGridView.AllowUserToResizeColumns = false;
             this.AppointmentsDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.AppointmentsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.AppointmentsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.AppointmentsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.AppointmentsDataGridView.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.AppointmentsDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             this.AppointmentsDataGridView.Location = new System.Drawing.Point(13, 16);
             this.AppointmentsDataGridView.MultiSelect = false;
             this.AppointmentsDataGridView.Name = "AppointmentsDataGridView";
             this.AppointmentsDataGridView.ReadOnly = true;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.AppointmentsDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.AppointmentsDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.AppointmentsDataGridView.RowHeadersVisible = false;
             this.AppointmentsDataGridView.RowHeadersWidth = 62;
             this.AppointmentsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -445,9 +458,9 @@
             this.CustomerGroupBox.Controls.Add(this.CustomerDataGridView);
             this.CustomerGroupBox.Controls.Add(this.CustomerProfileButton);
             this.CustomerGroupBox.Location = new System.Drawing.Point(417, 346);
-            this.CustomerGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CustomerGroupBox.Margin = new System.Windows.Forms.Padding(2);
             this.CustomerGroupBox.Name = "CustomerGroupBox";
-            this.CustomerGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CustomerGroupBox.Padding = new System.Windows.Forms.Padding(2);
             this.CustomerGroupBox.Size = new System.Drawing.Size(875, 235);
             this.CustomerGroupBox.TabIndex = 10;
             this.CustomerGroupBox.TabStop = false;
@@ -456,26 +469,13 @@
             // CustomerSelectButton
             // 
             this.CustomerSelectButton.Location = new System.Drawing.Point(13, 186);
-            this.CustomerSelectButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CustomerSelectButton.Margin = new System.Windows.Forms.Padding(2);
             this.CustomerSelectButton.Name = "CustomerSelectButton";
             this.CustomerSelectButton.Size = new System.Drawing.Size(114, 30);
             this.CustomerSelectButton.TabIndex = 11;
             this.CustomerSelectButton.Text = "Select";
             this.CustomerSelectButton.UseVisualStyleBackColor = true;
             this.CustomerSelectButton.Click += new System.EventHandler(this.CustomerSelectButton_Click);
-            // 
-            // LocationComboBox
-            // 
-            this.LocationComboBox.FormattingEnabled = true;
-            this.LocationComboBox.Items.AddRange(new object[] {
-            "Phoenix",
-            "New York",
-            "London"});
-            this.LocationComboBox.Location = new System.Drawing.Point(115, 146);
-            this.LocationComboBox.Name = "LocationComboBox";
-            this.LocationComboBox.Size = new System.Drawing.Size(234, 21);
-            this.LocationComboBox.TabIndex = 61;
-            this.LocationComboBox.SelectedIndexChanged += new System.EventHandler(this.LocationComboBox_SelectedIndexChanged);
             // 
             // AppointmentAddPage
             // 
