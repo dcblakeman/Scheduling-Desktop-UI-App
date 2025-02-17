@@ -326,19 +326,19 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
 
 
             /////////////////For Loop to Assign Times to Lists/////////////
-            for (int hour = 9; hour < 16; hour++)
+            for (int hour = 9; hour < 17; hour++)
             {
-                //Converting Section
+                //Getting time zone datetime objects
                 easternTime = new DateTime(2025, 02, 15, hour, 0, 0);
                 mountainTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(easternTime, "Eastern Standard Time", "US Mountain Standard Time");
                 greenwichTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(easternTime, "Eastern Standard Time", "GMT Standard Time");
 
-                //Format string section
+                //Assigning the datetime objects to string with a customized time
                 easternTimeString = easternTime.ToString("T", dtfi);
                 mountainTimeString = mountainTime.ToString("T", dtfi);
                 greenwichTimeString = greenwichTime.ToString("T", dtfi);
 
-                //Add to list Section
+                //Add the time string to it's respective list 
                 easternTimes.Add(easternTimeString);
                 mountainTimes.Add(mountainTimeString);
                 greenwichTimes.Add(greenwichTimeString);
