@@ -45,7 +45,7 @@
             this.CustomerDataGridView = new System.Windows.Forms.DataGridView();
             this.CustomerProfile = new System.Windows.Forms.Button();
             this.DeleteCustomerButton = new System.Windows.Forms.Button();
-            this.updateCustomerButton = new System.Windows.Forms.Button();
+            this.UpdateCustomerButton = new System.Windows.Forms.Button();
             this.SelectCustomerButton = new System.Windows.Forms.Button();
             this.AddCustomerButton = new System.Windows.Forms.Button();
             this.AppointmentNavigationGroupBox.SuspendLayout();
@@ -199,7 +199,7 @@
             this.CustomerNavigationGroupBox.Controls.Add(this.CustomerDataGridView);
             this.CustomerNavigationGroupBox.Controls.Add(this.CustomerProfile);
             this.CustomerNavigationGroupBox.Controls.Add(this.DeleteCustomerButton);
-            this.CustomerNavigationGroupBox.Controls.Add(this.updateCustomerButton);
+            this.CustomerNavigationGroupBox.Controls.Add(this.UpdateCustomerButton);
             this.CustomerNavigationGroupBox.Controls.Add(this.SelectCustomerButton);
             this.CustomerNavigationGroupBox.Controls.Add(this.AddCustomerButton);
             this.CustomerNavigationGroupBox.Location = new System.Drawing.Point(466, 38);
@@ -249,14 +249,15 @@
             this.DeleteCustomerButton.UseVisualStyleBackColor = true;
             this.DeleteCustomerButton.Click += new System.EventHandler(this.DeleteCustomerButton_Click);
             // 
-            // updateCustomerButton
+            // UpdateCustomerButton
             // 
-            this.updateCustomerButton.Location = new System.Drawing.Point(4, 87);
-            this.updateCustomerButton.Name = "updateCustomerButton";
-            this.updateCustomerButton.Size = new System.Drawing.Size(115, 23);
-            this.updateCustomerButton.TabIndex = 8;
-            this.updateCustomerButton.Text = "Update Customer";
-            this.updateCustomerButton.UseVisualStyleBackColor = true;
+            this.UpdateCustomerButton.Location = new System.Drawing.Point(4, 87);
+            this.UpdateCustomerButton.Name = "UpdateCustomerButton";
+            this.UpdateCustomerButton.Size = new System.Drawing.Size(115, 23);
+            this.UpdateCustomerButton.TabIndex = 8;
+            this.UpdateCustomerButton.Text = "Update Customer";
+            this.UpdateCustomerButton.UseVisualStyleBackColor = true;
+            this.UpdateCustomerButton.Click += new System.EventHandler(this.UpdateCustomerButton_Click);
             // 
             // SelectCustomerButton
             // 
@@ -276,6 +277,7 @@
             this.AddCustomerButton.TabIndex = 7;
             this.AddCustomerButton.Text = "Add Customer";
             this.AddCustomerButton.UseVisualStyleBackColor = true;
+            this.AddCustomerButton.Click += new System.EventHandler(this.AddCustomerButton_Click);
             // 
             // AppointmentNavigationPage
             // 
@@ -315,7 +317,7 @@
         private System.Windows.Forms.DataGridView CustomerDataGridView;
         private System.Windows.Forms.Button CustomerProfile;
         private System.Windows.Forms.Button DeleteCustomerButton;
-        private System.Windows.Forms.Button updateCustomerButton;
+        private System.Windows.Forms.Button UpdateCustomerButton;
         private System.Windows.Forms.Button AddCustomerButton;
         private System.Windows.Forms.Button SelectCustomerButton;
         private System.Windows.Forms.Button QuitButton;

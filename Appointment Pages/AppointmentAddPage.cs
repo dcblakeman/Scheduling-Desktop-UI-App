@@ -30,8 +30,7 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
         private DateTime _appointmentEnd = new DateTime();
         private DateTime _daySelected = DateTime.Today;
         List<String> _timesList = new List<String>();
-        String _location;
-        String _timeZone;
+        TimeZoneInfo _timeZone;
 
         public AppointmentAddPage(User user, Customer customer)
         {
@@ -58,12 +57,24 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
 
         private void AddAppointmentPage_Load(object sender, EventArgs e)
         {
-            //Assigned the starttimecombobox to a source
-            StartTimeComboBox.DataSource = new BindingSource(_timesList, null);
-
             //Assign object attributes to read only fields
             AppointmentIdTextBox.Text = GetNextAppointmentId().ToString();
             UserIdTextBox.Text = _user.UserId.ToString();
+            CustomerIdTextBox.Text = _customer.CustomerId.ToString();
+
+            _timeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            Console.WriteLine("TimeZone: " + _timeZone.StandardName);
+            //Assign _daySelected to the selected date
+            //_daySelected = AppointmentCalendar.SelectionRange.Start;
+            _timesList = GetTimeZoneTimes(_timeZone);
+            Console.WriteLine("Day Selected: " + _daySelected);
+
+            //Populate the appointmentDataGridView with appointments for the selected day for that user
+            //AppointmentsDataGridView.DataSource = GetTakenAppointmentTimes(_daySelected);
+
+            //Take start time from appointmentDataGridView and remove it from the combobox list by pulling value from start column
+            //Looping through datagridview start column and grabbing times
+            //2: Remove those times from the start time combobox list
 
             /////////////////////////////////Populate AppointmentDataGridView////////////////////////
             MySqlDataAdapter adapter = new MySqlDataAdapter();
@@ -71,7 +82,20 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
             adapter = _appointment.GetAppointmentsByDate(_daySelected);
             adapter.Fill(dt);
             AppointmentsDataGridView.DataSource = dt;
-            AppointmentsDataGridView.Refresh();
+
+            //Then remove those times from the times list
+            foreach (DataGridViewRow row in AppointmentsDataGridView.Rows)
+            {
+                if (row.Cells[1].Value != null)
+                {
+                    _timesList.Remove(row.Cells[9].Value.ToString());
+                }
+            }
+
+            //Assign the times list to the start field
+            StartTimeComboBox.DataSource = new BindingSource(_timesList, null);
+
+
             /////////////////////////////////End AppointmentDataGridView/////////////////////////////
 
             /////////////////////////////Load CustomerDataGridView//////////////////////////////////
@@ -104,8 +128,6 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
             _appointment.Type = AppointmentTypeComboBox.Text;
         }
 
-        
-
         private void EndTimeTextBox_TextChanged(object sender, EventArgs e)
         {
 
@@ -113,24 +135,25 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
 
         private void AppointmentCalendar_DateChanged(object sender, DateRangeEventArgs e)
         {
-            //Make sure the user can only pick from Monday through Friday
-            if (AppointmentCalendar.SelectionRange.Start.DayOfWeek == DayOfWeek.Saturday || AppointmentCalendar.SelectionRange.Start.DayOfWeek == DayOfWeek.Sunday)
-            {
-                MessageBox.Show("Please select a Monday through Friday.");
-                AppointmentCalendar.SetSelectionRange(DateTime.Today, DateTime.Today);
-            }
-            else
-            {
-                //Assign _daySelected to the selected date
-                _daySelected = AppointmentCalendar.SelectionRange.Start;
-                Console.WriteLine(_daySelected);
-            }
-            AppointmentsDataGridView.DataSource = _appointment.GetAppointmentsByDate(_daySelected);
-        }
+            //Assign _daySelected to the selected date
+            _daySelected = AppointmentCalendar.SelectionRange.Start;
+            _timesList = GetTimeZoneTimes(_timeZone);
 
-        private void AppointmentsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
+            foreach (DataGridViewRow row in AppointmentsDataGridView.Rows)
+            {
+                if (row.Cells[1].Value != null)
+                {
+                    _timesList.Remove(row.Cells[9].Value.ToString());
+                }
+            }
 
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            DataTable dt = new DataTable();
+            adapter = _appointment.GetAppointmentsByDate(_daySelected);
+            adapter.Fill(dt);
+            AppointmentsDataGridView.DataSource = dt;
+            //Populate start time combo box with available times
+            StartTimeComboBox.DataSource = new BindingSource(_timesList, null);
         }
 
         private void CustomerProfileButton_Click(object sender, EventArgs e)
@@ -240,6 +263,12 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
                 return;
             }
 
+            if (AppointmentCalendar.SelectionRange.Start.DayOfWeek == DayOfWeek.Saturday || AppointmentCalendar.SelectionRange.Start.DayOfWeek == DayOfWeek.Sunday)
+            {
+                MessageBox.Show("Please select a Monday through Friday.");
+                return;
+            }
+
             //TimeZoneInfo customerTimeZone = TimeZoneInfo.FindSystemTimeZoneById("US Mountain Standard Time");
 
             //Assign textboxes to _appointment attributes
@@ -253,17 +282,20 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
             _appointment.Type = AppointmentTypeComboBox.Text;
 
             ///////Appointment Start and End Times/////////////
-            //Calculate based on timezone and dst
-            _appointmentStart = Convert.ToDateTime(StartTimeComboBox.Text);
-            _appointmentEnd = Convert.ToDateTime(EndTimeComboBox.Text);
-            _appointmentEnd = TimeZoneInfo.ConvertTimeToUtc(_appointmentEnd, TimeZoneInfo.Local);
+            //Split up the Start Time using substring
+            Console.WriteLine(StartTimeComboBox.Text.Substring(0, 10));
+            _appointmentStart = Convert.ToDateTime(StartTimeComboBox.Text.Substring(0, 11));
+            _appointmentEnd = Convert.ToDateTime(EndTimeComboBox.Text.Substring(0, 11));
 
             string startTime = _daySelected.ToString("yyyy-MM-dd") + " " + _appointmentStart.ToString("hh:mm:ss tt");
             string endTime = _daySelected.ToString("yyyy-MM-dd") + " " + _appointmentEnd.ToString("hh:mm:ss tt");
+            
             Console.WriteLine("Starttime: " + startTime);
             Console.WriteLine("Endtime: " + endTime);
+            
             _appointment.Start = Convert.ToDateTime(startTime);
             _appointment.End = Convert.ToDateTime(endTime);
+
             Console.WriteLine(_appointment.Start);
             Console.WriteLine(_appointment.End);
 
@@ -291,32 +323,48 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
 
         }//End Submit Button Method
 
+        /// <summary>
+        /// /////////////////////////////LocationComboBox//////////////////////////////
+        //////////////////
         private void LocationComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Create custom date format
-            CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
-            DateTimeFormatInfo dtfi = culture.DateTimeFormat;
-            dtfi.TimeSeparator = ":";
+            //Time Zone Abbreviation Conditional
+            if (LocationComboBox.Text == "Phoenix")
+            {
+                if(_daySelected.IsDaylightSavingTime())
+                {
+                    _timeZone = TimeZoneInfo.FindSystemTimeZoneById("US Mountain Standard Time");
+                    Console.WriteLine("Daylight Time Zone: " + _timeZone.Id);
+                }
+                else
+                {
+                    _timeZone = TimeZoneInfo.FindSystemTimeZoneById("US Mountain Standard Time");
+                    Console.WriteLine("Standard Time Zone: " + _timeZone.Id);
+                }
 
-            //DetermineEndTimeAndTimeZone(dtfi);
+                Console.WriteLine("TimeZone: " + _timeZone.StandardName);
+                Console.WriteLine("TimeZone: " + _timeZone.DisplayName);
+                Console.WriteLine("TimeZone: " + _timeZone.ToString());
+                Console.WriteLine("TimeZone: " + _timeZone.DisplayName);
+                Console.WriteLine("TimeZone: " + _timeZone.DisplayName);
+                Console.WriteLine("TimeZone: " + _timeZone.DisplayName);
+                Console.WriteLine("TimeZone: " + _timeZone.DisplayName);
+
+            }
+            else if (LocationComboBox.Text == "London")
+            {
+                _timeZone = TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time");
+            }
+            else
+            {
+                _timeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            }
 
             //Called GetTimeZoneTimes to get appoiontment times
-            _timesList = GetTimeZoneTimes(LocationComboBox.Text);
+            _timesList = GetTimeZoneTimes(_timeZone);
 
             //Assigned the starttimecombobox to a source
-            StartTimeComboBox.DataSource = new BindingSource(_timesList, null);
-
-            //Time Zone Abbreviation Conditional
-            if(LocationComboBox.Text == "Phoenix")
-            {
-                _timeZone = "MT";
-            } else if(LocationComboBox.Text =="London")
-            {
-                _timeZone = "GMT";
-            } else
-            {
-                _timeZone = "EST";
-            }
+            StartTimeComboBox.DataSource = _timesList;
 
             //Derive eastern and local endtime for endtimetext box
             String[] times = StartTimeComboBox.Text.Split('/');
@@ -325,15 +373,18 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
 
             //Grab substring to parse to datetime object
             DateTime endEasternDateTime = DateTime.Parse(times[0].Substring(0, 11)).AddHours(1);
-            DateTime endLocalDateTime = DateTime.Parse(times[1].Substring(0, 11)).AddHours(1);
+            DateTime endLocalDateTime = DateTime.Parse(times[1].Substring(1, 11).Trim()).AddHours(1);
 
             //Assign both times to the endtimecombobox
-            EndTimeComboBox.Text = endEasternDateTime.ToString("T", dtfi).Trim() + " EST / " + endLocalDateTime.ToString("T", dtfi) + " " + _timeZone;
+            //EndTimeComboBox.Text = endEasternDateTime.ToString("hh:mm:ss tt") + " EST / " + endLocalDateTime.ToString("hh:mm:ss tt") + " " + _timeZone.StandardName ;
 
         } // End LocationComboBox Event Handler
 
-        public List<String> GetTimeZoneTimes(string city)
+        public List<String> GetTimeZoneTimes(TimeZoneInfo timeZone)
         {
+            Console.WriteLine("TimeZone: " +  timeZone);
+            Console.WriteLine("DateSelected: " + _daySelected);
+            
             ///////////////////////Format Times Block////////////////////////
             CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
             DateTimeFormatInfo dtfi = culture.DateTimeFormat;
@@ -354,19 +405,23 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
             List<String> easternAndMountainList = new List<String>();
             List<String> easternAndGreenwichList = new List<String>();
 
-
-            /////////////////For Loop to Assign Times to Lists/////////////
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            /////////////////For Loop to Assign Times to Lists////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////////////////
             for (int hour = 9; hour < 17; hour++)
             {
                 //Getting time zone datetime objects
-                DateTime easternTime = new DateTime(2025, 02, 15, hour, 0, 0);
+                DateTime easternTime = new DateTime(_daySelected.Year, _daySelected.Month, _daySelected.Day, hour, 0, 0);
+                Console.WriteLine("Eastern Time: " + easternTime);
                 DateTime mountainTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(easternTime, "Eastern Standard Time", "US Mountain Standard Time");
                 DateTime greenwichTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(easternTime, "Eastern Standard Time", "GMT Standard Time");
+                //DateTime mountainTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(easternTime, "Eastern Standard Time", timeZoneString);
+                //DateTime greenwichTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(easternTime, "Eastern Standard Time", timeZoneString);
 
-                //Assigning the datetime objects to string with a customized time
-                easternTimeString = easternTime.ToString("T", dtfi);
-                mountainTimeString = mountainTime.ToString("T", dtfi);
-                greenwichTimeString = greenwichTime.ToString("T", dtfi);
+                //Convert the datetime objects to string
+                easternTimeString = easternTime.ToString("hh:mm:ss tt");
+                mountainTimeString = mountainTime.ToString("hh:mm:ss tt");
+                greenwichTimeString = greenwichTime.ToString("hh:mm:ss tt");
 
                 //Add the time string to it's respective list 
                 easternTimes.Add(easternTimeString);
@@ -374,36 +429,30 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
                 greenwichTimes.Add(greenwichTimeString);
 
                 //Combine and add to respective lists
-                easternAndMountainList.Add(easternTimeString + " EST / " + mountainTimeString + " MT");
+                easternAndMountainList.Add(easternTimeString + " EST / " + mountainTimeString + " MST");
                 easternAndGreenwichList.Add(easternTimeString + " EST / " + greenwichTimeString + " GMT");
                 easternAndEasternList.Add(easternTimeString + " EST / " + easternTimeString + " EST");
             }
 
+            Console.WriteLine("Time Zone: " + _timeZone);
             //////////////////////Switch Block for location////////////////////////////
-            switch (city)
+            if(_timeZone.ToString() == "(UTC-07:00) Arizona")
             {
-                case "Phoenix":
-                    return easternAndMountainList;
-                case "London":
-                    return easternAndGreenwichList;
-                default:
-                    return easternAndEasternList;
+                return easternAndMountainList;
+            }
+            else if (_timeZone.ToString() == "(UTC+00:00) Dublin, Edinburgh, Lisbon, London")
+            {
+                return easternAndGreenwichList;
+            }
+            else
+            {
+                return easternAndEasternList;
             }
         }
         private void StartTimeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Create custom date format
-            CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
-            DateTimeFormatInfo dtfi = culture.DateTimeFormat;
-            dtfi.TimeSeparator = ":";
-
-            //DetermineEndTimeAndTimeZone(dtfi);
-
-            //Called GetTimeZoneTimes to get appoiontment times
-            //_timesList = GetTimeZoneTimes(LocationComboBox.Text);
-
             //Assigned the starttimecombobox to a source
-            //StartTimeComboBox.DataSource = new BindingSource(_timesList, null);
+            StartTimeComboBox.DataSource = _timesList;
 
             //Derive eastern and local endtime for endtimetext box
             String[] times = StartTimeComboBox.Text.Split('/');
@@ -412,43 +461,27 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
 
             //Grab substring to parse to datetime object
             DateTime endEasternDateTime = DateTime.Parse(times[0].Substring(0, 11)).AddHours(1);
-            Console.WriteLine("Times[1]: " + times[1]);
-            DateTime endLocalDateTime = DateTime.Parse(times[1].Substring(0, 11)).AddHours(1);
+            DateTime endLocalDateTime = DateTime.Parse(times[1].Substring(1, 11).Trim()).AddHours(1);
 
             //Assign both times to the endtimecombobox
-            EndTimeComboBox.Text = endEasternDateTime.ToString("T", dtfi).Trim() + " EST / " + endLocalDateTime.ToString("T", dtfi) + " " + _timeZone;
+            EndTimeComboBox.Text = endEasternDateTime.ToString("hh:mm:ss tt") + " EST / " + endLocalDateTime.ToString("hh:mm:ss tt") + " MST";
         }
-        private void DetermineEndTimeAndTimeZone(DateTimeFormatInfo dtfi)
+
+        private MySqlDataAdapter GetTakenAppointmentTimes(DateTime daySelected)
         {
-            String timeZone;
-
-            //Time Zone Abbreviation Conditional
-            if (LocationComboBox.Text == "Phoenix")
-            {
-                timeZone = "MT";
-            }
-            else if (LocationComboBox.Text == "London")
-            {
-                timeZone = "GMT";
-            }
-            else
-            {
-                timeZone = "EST";
-            }
-
-            //Derive eastern and local endtime for endtimetext box
-            String[] times = StartTimeComboBox.Text.Split('/');
-            Console.WriteLine(StartTimeComboBox.Text);
-            Console.WriteLine(times[0] + " " + times[1]);
-
-            //Grab substring to parse to datetime object
-            DateTime endEasternDateTime = DateTime.Parse(times[0].Substring(0, 11)).AddHours(1);
-            DateTime endLocalDateTime = DateTime.Parse(times[1].Substring(0, 11)).AddHours(1);
-
-            //Assign both times to the endtimecombobox
-            EndTimeComboBox.Text = endEasternDateTime.ToString("T", dtfi).Trim() + " EST / " + endLocalDateTime.ToString("T", dtfi) + " " + timeZone;
+            // When a date is clicked, populate the appointment times combobox with any appointments that have been made on that day by a specific user
+            MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            string getAppointmentTimesQuery = "SELECT * FROM appointment WHERE start = @start AND userId = @userId";
+            MySqlCommand cmd = new MySqlCommand(getAppointmentTimesQuery, conn);
+            cmd.Parameters.AddWithValue("@start", daySelected);
+            cmd.Parameters.AddWithValue("@userId", _user.UserId);
+            conn.Open();
+            cmd.CommandText = getAppointmentTimesQuery;
+            conn.Close();
+            adapter.SelectCommand = cmd;
+            return adapter;
+            //Also, set the dropdown list to the remaining appointment times available.
         }
-
-
     }//End of add appointment page form class
 }//End of namespace

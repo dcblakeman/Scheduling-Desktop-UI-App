@@ -20,7 +20,7 @@ namespace Scheduling_Desktop_UI_App.User_Pages
             InitializeComponent();
             //Call GetAllUsers method
             //Set datagridview data source to list of users
-            ListUsersDataGridView.DataSource = _user.GetAllUsers();
+            ListUsersDataGridView.DataSource = _user.GetAllUsersList();
         }
 
         private void ListUsersCancelButton_Click(object sender, EventArgs e)

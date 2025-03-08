@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using Scheduling_Desktop_UI_App.Appointment_Navigation_Pages;
 using Scheduling_Desktop_UI_App.Classes;
+using Scheduling_Desktop_UI_App.Customer_mainNavigationPages;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -333,5 +334,25 @@ namespace Scheduling_Desktop_UI_App
                 }
             }//End Delete Customer Block
         }//End Delete Customer Event
+
+        private void AddCustomerButton_Click(object sender, EventArgs e)
+        {
+            CustomerAddPage addCustomerPage = new CustomerAddPage(_user);
+            addCustomerPage.Show();
+            this.Hide();
+        }
+
+        private void UpdateCustomerButton_Click(object sender, EventArgs e)
+        {
+            if (_customer.CustomerId == 0)
+            {
+                MessageBox.Show("Please select a customer to update.");
+                return;
+            }
+            //Pass customer object to updatecustomerpage
+            CustomerUpdatePage updateCustomerPage = new CustomerUpdatePage(_customer, _user);
+            updateCustomerPage.Show();
+            this.Hide();
+        }
     }
 }

@@ -66,13 +66,35 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
         }
         private void SubmitButton_Click(object sender, EventArgs e)
         {
+            //Make sure none of the fields are blank
+            if (string.IsNullOrWhiteSpace(CustomerNameTextBox.Text) || string.IsNullOrWhiteSpace(AddressTextBox1.Text) || string.IsNullOrWhiteSpace(CityTextBox.Text) || string.IsNullOrWhiteSpace(PostalCodeTextBox.Text) || string.IsNullOrWhiteSpace(PhoneNumberTextBox.Text) || string.IsNullOrWhiteSpace(CountryTextBox.Text))
+            {
+                MessageBox.Show("Please fill in all fields");
+                return;
+            }
+            //Regex for phone number
+            if (!System.Text.RegularExpressions.Regex.IsMatch(PhoneNumberTextBox.Text, @"^\d{3}-\d{3}-\d{4}$"))
+            {
+                PhoneNumberTextBox.ForeColor = Color.Red;
+                MessageBox.Show("Please enter a valid phone number in the format 999-999-9999");
+                return;
+            }
+
+            //Regex for postal code
+            if (!System.Text.RegularExpressions.Regex.IsMatch(PostalCodeTextBox.Text, @"^\d{5}$"))
+            {
+                PostalCodeTextBox.ForeColor = Color.Red;
+                MessageBox.Show("Please enter a valid postal code in the format 99999");
+                return;
+            }
+
             Console.WriteLine("Submit Button Clicked");
             try
             {
                 //Create country object
                 _country = new Country
                 {
-                    CountryName = CountryTextBox.Text,
+                    CountryName = CountryTextBox.Text.Trim(),
                     CreateDate = DateTime.Now,
                     CreatedBy = _user.UserName,
                     LastUpdate = DateTime.Now,
@@ -84,7 +106,7 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
 
                 _city = new City
                 {
-                    CityName = CityTextBox.Text,
+                    CityName = CityTextBox.Text.Trim(),
                     CountryId = _country.CountryId,
                     CreateDate = DateTime.Now,
                     CreatedBy = _user.UserName,
@@ -99,11 +121,11 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
                 //Create Address Object
                 _address = new Address
                 {
-                    Address1 = AddressTextBox1.Text,
-                    Address2 = Address2TextBox.Text,
+                    Address1 = AddressTextBox1.Text.Trim(),
+                    Address2 = Address2TextBox.Text.Trim(),
                     CityId = _city.CityId,
-                    PostalCode = PostalCodeTextBox.Text,
-                    Phone = PhoneNumberTextBox.Text,
+                    PostalCode = PostalCodeTextBox.Text.Trim(),
+                    Phone = PhoneNumberTextBox.Text.Trim(),
                     CreateDate = DateTime.Now,
                     CreatedBy = _user.UserName,
                     LastUpdate = DateTime.Now,
@@ -116,7 +138,7 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
                 //Create Customer Object
                 _customer = new Customer
                 {
-                    CustomerName = CustomerNameTextBox.Text,
+                    CustomerName = CustomerNameTextBox.Text.Trim(),
                     AddressId = _address.AddressId,
                     Active = 1,
                     CreateDate = DateTime.Now,
@@ -168,7 +190,7 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
                 if (!System.Text.RegularExpressions.Regex.IsMatch(PhoneNumberTextBox.Text, @"^\d{3}-\d{3}-\d{4}$"))
                 {
                     PhoneNumberTextBox.ForeColor = Color.Red;
-
+                    MessageBox.Show("Please enter a valid phone number in the format 999-999-9999");
                 }
                 else
                 {
@@ -195,16 +217,6 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
         private void Address2TextBox_TextChanged(object sender, EventArgs e)
         {
             Address2TextBox.ForeColor = Color.Black;
-        }
-
-        private void CustomerIdTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void AddCustomerGroupBox_Enter(object sender, EventArgs e)
-        {
-
         }
         private void PostalCodeTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -278,11 +290,6 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
                 PhoneNumberTextBox.Text = "";
                 PhoneNumberTextBox.ForeColor = Color.Black;
             }
-        }
-
-        private void AddCustomerGroupBox_Enter_1(object sender, EventArgs e)
-        {
-
         }
     }
 }

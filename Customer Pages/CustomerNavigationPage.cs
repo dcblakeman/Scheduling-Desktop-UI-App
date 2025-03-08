@@ -219,15 +219,21 @@ namespace Scheduling_Desktop_UI_App
         }
         private void AppointmentNavigationPageButton_Click(object sender, EventArgs e)
         {
-            if(_customer.CustomerId == 0)
+            if(_customer.CustomerId != 0)
             {
-                MessageBox.Show("Please select a customer to schedule an appointment.");
-                return;
+                //Go to AppointmentNavigationPage
+                AppointmentNavigationPage appointmentNavigationPage = new AppointmentNavigationPage(_user, _customer);
+                appointmentNavigationPage.Show();
+                this.Hide();
+            } else
+            {
+                //Go to AppointmentNavigationPage
+                AppointmentNavigationPage appointmentNavigationPage = new AppointmentNavigationPage(_user);
+                appointmentNavigationPage.Show();
+                this.Hide();
             }
-            //Go to AppointmentNavigationPage
-            AppointmentNavigationPage appointmentNavigationPage = new AppointmentNavigationPage(_user, _customer);
-            appointmentNavigationPage.Show();
-            this.Hide();
+            
+            
         }
         public MySqlDataAdapter GetAllCustomers()
         {

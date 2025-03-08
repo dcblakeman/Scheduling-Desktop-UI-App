@@ -392,5 +392,60 @@ namespace Scheduling_Desktop_UI_App.Classes
                 return null;
             }
         }//End Get Appointments in 15 minutes method
+
+        //Get all appointments and return as list
+        public List<Appointment> GetAllAppointmentsList()
+        {
+            List<Appointment> appointments = new List<Appointment>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
+                {
+                    //Open connection
+                    conn.Open();
+                    //Create query string
+                    string selectAppointmentQuery = "SELECT * FROM appointment";
+                    //Create command
+                    MySqlCommand cmd = new MySqlCommand(selectAppointmentQuery, conn);
+                    //Create data reader
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        //Read data
+                        while (reader.Read())
+                        {
+                            appointments.Add(new Appointment
+                            {
+                                AppointmentId = reader.GetInt32("appointmentId"),
+                                CustomerId = reader.GetInt32("customerId"),
+                                UserId = reader.GetInt32("userId"),
+                                Title = reader.GetString("title"),
+                                Description = reader.GetString("description"),
+                                Location = reader.GetString("location"),
+                                Contact = reader.GetString("contact"),
+                                Type = reader.GetString("type"),
+                                Url = reader.GetString("url"),
+                                Start = reader.GetDateTime("start"),
+                                End = reader.GetDateTime("end"),
+                                CreateDate = reader.GetDateTime("createDate"),
+                                CreatedBy = reader.GetString("createdBy"),
+                                LastUpdate = reader.GetDateTime("lastUpdate"),
+                                LastUpdateBy = reader.GetString("lastUpdateBy")
+                            });
+                        }
+                    }
+                    //Close connection
+                    conn.Close();
+                    return appointments;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("Error getting all appointments");
+                return null;
+            }
+        }//End GetAllAppointments Method
+
     }
 }

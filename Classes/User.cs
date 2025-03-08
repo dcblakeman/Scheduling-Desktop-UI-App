@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Linq;
@@ -200,7 +201,7 @@ namespace Scheduling_Desktop_UI_App.Classes
         }//End GetNextUserId Method
 
         //Get all users
-        public List<User> GetAllUsers()
+        public List<User> GetAllUsersList()
         {
             List<User> users = new List<User>();
             try
@@ -314,6 +315,42 @@ namespace Scheduling_Desktop_UI_App.Classes
                 return 0;
             }
         }//End DeleteUser Method
+
+        public SortedDictionary<User, Appointment> GetUsersAppointments()
+        {
+            SortedDictionary<User, Appointment> keyValuePairs = new SortedDictionary<User, Appointment>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
+                {
+                    conn.Open();
+                    string getKeyValuePairsQuery = "SELECT user.userName, appointment.start, appointment.end, appointment.type FROM appointment JOIN user ON appointment.userId = user.userId";
+                    MySqlCommand cmd = new MySqlCommand(getKeyValuePairsQuery, conn);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            User user = new User();
+                            Appointment appointment = new Appointment();
+                            user.UserName = reader.GetString("userName");
+                            appointment.Start = reader.GetDateTime("start");
+                            appointment.End = reader.GetDateTime("end");
+                            appointment.Type = reader.GetString("type");
+                            keyValuePairs.Add(user, appointment);
+                        }
+                    }
+                    conn.Close();
+                    return keyValuePairs;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("Error getting key value pairs");
+                return null;
+            }
+        }//End GetKeyValuePairs Method
 
     }
 }

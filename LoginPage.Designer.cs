@@ -32,12 +32,12 @@
             this.QuitButton = new System.Windows.Forms.Button();
             this.GenerateReportsButton = new System.Windows.Forms.Button();
             this.PasswordTextBox = new System.Windows.Forms.TextBox();
+            this.registerButton = new System.Windows.Forms.Button();
             this.UserNameTextBox = new System.Windows.Forms.TextBox();
+            this.UserListViewButton = new System.Windows.Forms.Button();
             this.LoginButton = new System.Windows.Forms.Button();
             this.Password_Label = new System.Windows.Forms.Label();
             this.UserName = new System.Windows.Forms.Label();
-            this.UserListViewButton = new System.Windows.Forms.Button();
-            this.registerButton = new System.Windows.Forms.Button();
             this.LoginGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,9 +53,9 @@
             this.LoginGroupBox.Controls.Add(this.Password_Label);
             this.LoginGroupBox.Controls.Add(this.UserName);
             this.LoginGroupBox.Location = new System.Drawing.Point(20, 8);
-            this.LoginGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.LoginGroupBox.Margin = new System.Windows.Forms.Padding(2);
             this.LoginGroupBox.Name = "LoginGroupBox";
-            this.LoginGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.LoginGroupBox.Padding = new System.Windows.Forms.Padding(2);
             this.LoginGroupBox.Size = new System.Drawing.Size(313, 190);
             this.LoginGroupBox.TabIndex = 0;
             this.LoginGroupBox.TabStop = false;
@@ -74,7 +74,7 @@
             // GenerateReportsButton
             // 
             this.GenerateReportsButton.Location = new System.Drawing.Point(185, 110);
-            this.GenerateReportsButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GenerateReportsButton.Margin = new System.Windows.Forms.Padding(2);
             this.GenerateReportsButton.Name = "GenerateReportsButton";
             this.GenerateReportsButton.Size = new System.Drawing.Size(63, 37);
             this.GenerateReportsButton.TabIndex = 16;
@@ -88,7 +88,16 @@
             this.PasswordTextBox.Name = "PasswordTextBox";
             this.PasswordTextBox.Size = new System.Drawing.Size(133, 20);
             this.PasswordTextBox.TabIndex = 8;
-            this.PasswordTextBox.Text = "test";
+            // 
+            // registerButton
+            // 
+            this.registerButton.Location = new System.Drawing.Point(49, 110);
+            this.registerButton.Name = "registerButton";
+            this.registerButton.Size = new System.Drawing.Size(63, 37);
+            this.registerButton.TabIndex = 13;
+            this.registerButton.Text = "Register User";
+            this.registerButton.UseVisualStyleBackColor = true;
+            this.registerButton.Click += new System.EventHandler(this.RegisterButton_Click);
             // 
             // UserNameTextBox
             // 
@@ -96,8 +105,17 @@
             this.UserNameTextBox.Name = "UserNameTextBox";
             this.UserNameTextBox.Size = new System.Drawing.Size(133, 20);
             this.UserNameTextBox.TabIndex = 6;
-            this.UserNameTextBox.Text = "test";
             this.UserNameTextBox.TextChanged += new System.EventHandler(this.UserNameTextBox_TextChanged);
+            // 
+            // UserListViewButton
+            // 
+            this.UserListViewButton.Location = new System.Drawing.Point(49, 154);
+            this.UserListViewButton.Name = "UserListViewButton";
+            this.UserListViewButton.Size = new System.Drawing.Size(199, 25);
+            this.UserListViewButton.TabIndex = 14;
+            this.UserListViewButton.Text = "User List View";
+            this.UserListViewButton.UseVisualStyleBackColor = true;
+            this.UserListViewButton.Click += new System.EventHandler(this.UserListViewButton_Click);
             // 
             // LoginButton
             // 
@@ -126,26 +144,6 @@
             this.UserName.Size = new System.Drawing.Size(60, 13);
             this.UserName.TabIndex = 5;
             this.UserName.Text = "UserName:";
-            // 
-            // UserListViewButton
-            // 
-            this.UserListViewButton.Location = new System.Drawing.Point(49, 154);
-            this.UserListViewButton.Name = "UserListViewButton";
-            this.UserListViewButton.Size = new System.Drawing.Size(199, 25);
-            this.UserListViewButton.TabIndex = 14;
-            this.UserListViewButton.Text = "User List View";
-            this.UserListViewButton.UseVisualStyleBackColor = true;
-            this.UserListViewButton.Click += new System.EventHandler(this.UserListViewButton_Click);
-            // 
-            // registerButton
-            // 
-            this.registerButton.Location = new System.Drawing.Point(49, 110);
-            this.registerButton.Name = "registerButton";
-            this.registerButton.Size = new System.Drawing.Size(63, 37);
-            this.registerButton.TabIndex = 13;
-            this.registerButton.Text = "Register User";
-            this.registerButton.UseVisualStyleBackColor = true;
-            this.registerButton.Click += new System.EventHandler(this.RegisterButton_Click);
             // 
             // LoginPage
             // 

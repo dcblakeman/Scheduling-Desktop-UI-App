@@ -85,7 +85,6 @@
             this.AddCustomerGroupBox.TabIndex = 4;
             this.AddCustomerGroupBox.TabStop = false;
             this.AddCustomerGroupBox.Text = "Add Customer";
-            this.AddCustomerGroupBox.Enter += new System.EventHandler(this.AddCustomerGroupBox_Enter_1);
             // 
             // CustomerIdTextBox
             // 

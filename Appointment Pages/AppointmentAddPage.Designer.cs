@@ -240,15 +240,6 @@
             // StartTimeComboBox
             // 
             this.StartTimeComboBox.FormattingEnabled = true;
-            this.StartTimeComboBox.Items.AddRange(new object[] {
-            "09:00:00 AM",
-            "10:00:00 AM",
-            "11:00:00 AM",
-            "12:00:00 PM",
-            "01:00:00 PM",
-            "02:00:00 PM",
-            "03:00:00 PM",
-            "04:00:00 PM"});
             this.StartTimeComboBox.Location = new System.Drawing.Point(123, 441);
             this.StartTimeComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.StartTimeComboBox.Name = "StartTimeComboBox";
@@ -399,6 +390,7 @@
             this.AppointmentsDataGridView.AllowUserToDeleteRows = false;
             this.AppointmentsDataGridView.AllowUserToResizeColumns = false;
             this.AppointmentsDataGridView.AllowUserToResizeRows = false;
+            this.AppointmentsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -433,7 +425,6 @@
             this.AppointmentsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.AppointmentsDataGridView.Size = new System.Drawing.Size(847, 239);
             this.AppointmentsDataGridView.TabIndex = 51;
-            this.AppointmentsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.AppointmentsDataGridView_CellContentClick);
             // 
             // CustomerDataGridView
             // 

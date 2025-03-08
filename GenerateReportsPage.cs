@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Scheduling_Desktop_UI_App.Classes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,91 +27,121 @@ namespace Scheduling_Desktop_UI_App
             loginForm.Show();
             this.Hide();
         }
-
-        private void AppointmentTypeCountButton_Click(object sender, EventArgs e)
-        {
-            //Generate Appointment Type Count Report
-            //Refresh data grid view
-            ReportsDataGridView.DataSource = null;
-            try
-            {
-                //Get all appointments for this month from mysql db
-                //Create Connection
-                MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
-                conn.Open();
-
-                //Create query to get all appointments for this month
-                string query = "SELECT type AS Type, COUNT(type) AS Type_Count FROM appointment WHERE MONTH(start) = MONTH(CURRENT_DATE()) GROUP BY type";
-
-                //Create command
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-
-                //Create data adapter
-                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-                ReportsDataGridView.DataSource = dt;
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-        }
-
         private void ReportsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
-
-        private void UsersSchedulesButton_Click(object sender, EventArgs e)
+        //Use lambda function to get all active customers
+        private List<Customer> GetAllActiveCustomersFromList()
         {
-            //Generate User Schedule Report
-            ReportsDataGridView.DataSource = null;
-            try
-            {
-                //Create Connection
-                MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
-                conn.Open();
-                //Create query to get all appointments for this month
-                string query = "SELECT user.userName AS User, appointment.start AS Start, appointment.end AS End, appointment.type AS Type FROM appointment JOIN user ON appointment.userId = user.userId";
-                //Create command
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                //Create data adapter
-                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-                ReportsDataGridView.DataSource = dt;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            //Create Customer object
+            Customer customer = new Customer();
+
+            //Create Customer List Object
+            List<Customer> customerList = new List<Customer>();
+
+            //Retrieve customers from database and assign them to customerList
+            customerList = customer.GetAllCustomersList();
+            //Get all active customers
+            List<Customer> activeCustomers = customerList.FindAll(c => c.Active == 1);
+
+            return activeCustomers;
         }
 
         private void ActiveCustomersCountButton_Click(object sender, EventArgs e)
         {
-            //Generate Active Customers Report
-            ReportsDataGridView.DataSource = null;
-            try
+            //Loop through activeCustomers list and count total active customers then assign them to a column
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Active_Customers_Count", typeof(int));
+            DataRow row = dt.NewRow();
+            row["Active_Customers_Count"] = GetAllActiveCustomersFromList().Count;
+            dt.Rows.Add(row);
+
+            //Display active customers in data grid view
+            //Add Column with Total Count of Active Customers
+            ReportsDataGridView.DataSource = dt;
+        }
+
+        //Get users and their appointments for the month from dictionary using lambda expression
+        private Dictionary<string, List<Appointment>> GetUsersAndAppointments()
+        {
+            //Create User object
+            User user = new User();
+            //Create User List Object
+            List<User> userList = new List<User>();
+            //Retrieve users from database and assign them to userList
+            userList = user.GetAllUsersList();
+            //Create Appointment object
+            Appointment appointment = new Appointment();
+            //Create Appointment List Object
+            List<Appointment> appointmentList = new List<Appointment>();
+            //Retrieve appointments from database and assign them to appointmentList
+            appointmentList = appointment.GetAllAppointmentsList();
+            //Create Dictionary to store users and their appointments
+            Dictionary<string, List<Appointment>> userAppointments = new Dictionary<string, List<Appointment>>();
+            //Loop through userList and appointmentList to get users and their appointments
+            foreach (User u in userList)
             {
-                //Create Connection
-                MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString);
-                conn.Open();
-                //Create query to get all appointments for this month
-                string query = "SELECT COUNT(*) AS Active_Count FROM customer WHERE active = 1";
-                //Create command
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                //Create data adapter
-                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-                ReportsDataGridView.DataSource = dt;
+                List<Appointment> userAppointmentsList = appointmentList.FindAll(a => a.UserId == u.UserId);
+                userAppointments.Add(u.UserName, userAppointmentsList);
             }
-            catch (Exception ex)
+            return userAppointments;
+        }
+
+        private void UsersSchedulesButton_Click(object sender, EventArgs e)
+        {
+            //Assign users and their appointments to a data table
+            DataTable dt = new DataTable();
+            dt.Columns.Add("User", typeof(string));
+            dt.Columns.Add("Start", typeof(DateTime));
+            dt.Columns.Add("End", typeof(DateTime));
+            dt.Columns.Add("Type", typeof(string));
+            //Get users and their appointments
+            Dictionary<string, List<Appointment>> userAppointments = GetUsersAndAppointments();
+            //Loop through userAppointments and assign them to the data table
+            foreach (KeyValuePair<string, List<Appointment>> kvp in userAppointments)
             {
-                Console.WriteLine(ex.Message);
+                foreach (Appointment a in kvp.Value)
+                {
+                    DataRow row = dt.NewRow();
+                    row["User"] = kvp.Key;
+                    row["Start"] = a.Start;
+                    row["End"] = a.End;
+                    row["Type"] = a.Type;
+                    dt.Rows.Add(row);
+                }
             }
+            //Display users and their appointments in data grid view
+            ReportsDataGridView.DataSource = dt;
+        }
+
+        private void AppointmentTypeCountButton_Click(object sender, EventArgs e)
+        {
+            //Count different appointment types from appointment list using lambda expression
+            //Create Appointment object
+            Appointment appointment = new Appointment();
+            //Create Appointment List Object
+            List<Appointment> appointmentList = new List<Appointment>();
+            //Retrieve appointments from database and assign them to appointmentList
+            appointmentList = appointment.GetAllAppointmentsList();
+            //Create a dictionary to store appointment types and their counts
+            Dictionary<string, int> appointmentTypeCountDictionary = new Dictionary<string, int>();
+
+            //Turn the dictionary into a list
+            appointmentList.ForEach(List => appointmentTypeCountDictionary[List.Type] = appointmentTypeCountDictionary.ContainsKey(List.Type) ? appointmentTypeCountDictionary[List.Type] + 1 : 1);
+
+            //Assign dictionary to datagridview
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Type", typeof(string));
+            dt.Columns.Add("Type_Count", typeof(int));
+            foreach (KeyValuePair<string, int> kvp in appointmentTypeCountDictionary)
+            {
+                DataRow row = dt.NewRow();
+                row["Type"] = kvp.Key;
+                row["Type_Count"] = kvp.Value;
+                dt.Rows.Add(row);
+            }
+            ReportsDataGridView.DataSource = dt;
         }
     }
 }

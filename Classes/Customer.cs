@@ -247,6 +247,48 @@ namespace Scheduling_Desktop_UI_App.Classes
             return adapter;
         }
 
+        //Get all customers and return them in a list
+        public List<Customer> GetAllCustomersList()
+        {
+            List<Customer> customers = new List<Customer>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["JavaConnection"].ConnectionString))
+                {
+                    //Create query string
+                    string getAllCustomersQuery = "SELECT * FROM customer";
+                    //Create command
+                    MySqlCommand cmd = new MySqlCommand(getAllCustomersQuery, conn);
+                    //Open connection, execute reader, close connection
+                    conn.Open();
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    //Read data
+                    while (reader.Read())
+                    {
+                        Customer customer = new Customer();
+                        customer.CustomerId = reader.GetInt32("customerId");
+                        customer.CustomerName = reader.GetString("customerName");
+                        customer.AddressId = reader.GetInt32("addressId");
+                        customer.Active = reader.GetInt32("active");
+                        customer.CreateDate = reader.GetDateTime("createDate");
+                        customer.CreatedBy = reader.GetString("createdBy");
+                        customer.LastUpdate = reader.GetDateTime("lastUpdate");
+                        customer.LastUpdateBy = reader.GetString("lastUpdateBy");
+                        customers.Add(customer);
+                    }
+                    //Close connection
+                    conn.Close();
+                    return customers;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("Error getting all customers");
+                return null;
+            }
+        }
         internal bool HasAppointments(int customerId)
         {
             //Check to see if customer has any appointments in mysql

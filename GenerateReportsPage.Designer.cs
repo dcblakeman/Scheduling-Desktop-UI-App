@@ -50,9 +50,9 @@
             this.MonthlyReportsButtonsGroupBox.Controls.Add(this.UsersSchedulesButton);
             this.MonthlyReportsButtonsGroupBox.Controls.Add(this.AppointmentTypeCountButton);
             this.MonthlyReportsButtonsGroupBox.Location = new System.Drawing.Point(75, 29);
-            this.MonthlyReportsButtonsGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MonthlyReportsButtonsGroupBox.Margin = new System.Windows.Forms.Padding(2);
             this.MonthlyReportsButtonsGroupBox.Name = "MonthlyReportsButtonsGroupBox";
-            this.MonthlyReportsButtonsGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MonthlyReportsButtonsGroupBox.Padding = new System.Windows.Forms.Padding(2);
             this.MonthlyReportsButtonsGroupBox.Size = new System.Drawing.Size(204, 177);
             this.MonthlyReportsButtonsGroupBox.TabIndex = 0;
             this.MonthlyReportsButtonsGroupBox.TabStop = false;
@@ -61,7 +61,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(19, 62);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(0, 0);
             this.button2.TabIndex = 1;
@@ -71,7 +71,7 @@
             // GenerateReportsCancelButton
             // 
             this.GenerateReportsCancelButton.Location = new System.Drawing.Point(27, 136);
-            this.GenerateReportsCancelButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GenerateReportsCancelButton.Margin = new System.Windows.Forms.Padding(2);
             this.GenerateReportsCancelButton.Name = "GenerateReportsCancelButton";
             this.GenerateReportsCancelButton.Size = new System.Drawing.Size(152, 25);
             this.GenerateReportsCancelButton.TabIndex = 0;
@@ -82,7 +82,7 @@
             // ActiveCustomersCountButton
             // 
             this.ActiveCustomersCountButton.Location = new System.Drawing.Point(27, 99);
-            this.ActiveCustomersCountButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ActiveCustomersCountButton.Margin = new System.Windows.Forms.Padding(2);
             this.ActiveCustomersCountButton.Name = "ActiveCustomersCountButton";
             this.ActiveCustomersCountButton.Size = new System.Drawing.Size(152, 25);
             this.ActiveCustomersCountButton.TabIndex = 0;
@@ -93,7 +93,7 @@
             // UsersSchedulesButton
             // 
             this.UsersSchedulesButton.Location = new System.Drawing.Point(27, 62);
-            this.UsersSchedulesButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.UsersSchedulesButton.Margin = new System.Windows.Forms.Padding(2);
             this.UsersSchedulesButton.Name = "UsersSchedulesButton";
             this.UsersSchedulesButton.Size = new System.Drawing.Size(152, 25);
             this.UsersSchedulesButton.TabIndex = 0;
@@ -104,7 +104,7 @@
             // AppointmentTypeCountButton
             // 
             this.AppointmentTypeCountButton.Location = new System.Drawing.Point(27, 27);
-            this.AppointmentTypeCountButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AppointmentTypeCountButton.Margin = new System.Windows.Forms.Padding(2);
             this.AppointmentTypeCountButton.Name = "AppointmentTypeCountButton";
             this.AppointmentTypeCountButton.Size = new System.Drawing.Size(152, 25);
             this.AppointmentTypeCountButton.TabIndex = 0;
@@ -116,9 +116,9 @@
             // 
             this.ReportResultsGroupBox.Controls.Add(this.ReportsDataGridView);
             this.ReportResultsGroupBox.Location = new System.Drawing.Point(313, 29);
-            this.ReportResultsGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ReportResultsGroupBox.Margin = new System.Windows.Forms.Padding(2);
             this.ReportResultsGroupBox.Name = "ReportResultsGroupBox";
-            this.ReportResultsGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ReportResultsGroupBox.Padding = new System.Windows.Forms.Padding(2);
             this.ReportResultsGroupBox.Size = new System.Drawing.Size(413, 177);
             this.ReportResultsGroupBox.TabIndex = 1;
             this.ReportResultsGroupBox.TabStop = false;
@@ -128,9 +128,10 @@
             // 
             this.ReportsDataGridView.AllowUserToAddRows = false;
             this.ReportsDataGridView.AllowUserToDeleteRows = false;
+            this.ReportsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.ReportsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ReportsDataGridView.Location = new System.Drawing.Point(16, 27);
-            this.ReportsDataGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ReportsDataGridView.Margin = new System.Windows.Forms.Padding(2);
             this.ReportsDataGridView.Name = "ReportsDataGridView";
             this.ReportsDataGridView.ReadOnly = true;
             this.ReportsDataGridView.RowHeadersVisible = false;
@@ -147,7 +148,7 @@
             this.ClientSize = new System.Drawing.Size(863, 235);
             this.Controls.Add(this.ReportResultsGroupBox);
             this.Controls.Add(this.MonthlyReportsButtonsGroupBox);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "GenerateReportsPage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Generate Reports";
