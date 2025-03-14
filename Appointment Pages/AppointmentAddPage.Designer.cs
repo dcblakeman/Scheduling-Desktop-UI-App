@@ -207,6 +207,7 @@
             // 
             // LocationComboBox
             // 
+            this.LocationComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.LocationComboBox.FormattingEnabled = true;
             this.LocationComboBox.Items.AddRange(new object[] {
             "Phoenix",
@@ -239,13 +240,15 @@
             // 
             // StartTimeComboBox
             // 
+            this.StartTimeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.StartTimeComboBox.FormattingEnabled = true;
             this.StartTimeComboBox.Location = new System.Drawing.Point(123, 441);
             this.StartTimeComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.StartTimeComboBox.Name = "StartTimeComboBox";
             this.StartTimeComboBox.Size = new System.Drawing.Size(235, 21);
             this.StartTimeComboBox.TabIndex = 6;
-            this.StartTimeComboBox.SelectedIndexChanged += new System.EventHandler(this.StartTimeComboBox_SelectedIndexChanged);
+            //this.StartTimeComboBox.SelectedIndexChanged += new System.EventHandler(this.StartTimeComboBox_SelectedIndexChanged);
+            this.StartTimeComboBox.DropDownClosed += new System.EventHandler(this.StartTimeComboBox_DropDownClosed);
             // 
             // EndTimeComboBox
             // 
@@ -255,7 +258,6 @@
             this.EndTimeComboBox.ReadOnly = true;
             this.EndTimeComboBox.Size = new System.Drawing.Size(235, 20);
             this.EndTimeComboBox.TabIndex = 7;
-            this.EndTimeComboBox.TextChanged += new System.EventHandler(this.EndTimeTextBox_TextChanged);
             // 
             // AppointmentTypeComboBox
             // 
@@ -441,7 +443,6 @@
             this.CustomerDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.CustomerDataGridView.Size = new System.Drawing.Size(847, 163);
             this.CustomerDataGridView.TabIndex = 12;
-            this.CustomerDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CustomerDataGridView_CellContentClick);
             // 
             // CustomerGroupBox
             // 
@@ -479,7 +480,7 @@
             this.Name = "AppointmentAddPage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add Appointment Page";
-            this.Load += new System.EventHandler(this.AddAppointmentPage_Load);
+            this.Load += new System.EventHandler(this.AppointmentAddPage_Load);
             this.AddAppointmentGroupBox.ResumeLayout(false);
             this.AddAppointmentGroupBox.PerformLayout();
             this.AppointmentCalendarGroupBox.ResumeLayout(false);

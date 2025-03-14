@@ -38,10 +38,13 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
 
         private void PhoneNumberTextBox_Leave(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(PhoneNumberTextBox.Text))
+            if (!System.Text.RegularExpressions.Regex.IsMatch(PhoneNumberTextBox.Text, @"^\d{3}-\d{3}-\d{4}$"))
             {
-                PhoneNumberTextBox.Text = "999-999-9999";
-                PhoneNumberTextBox.ForeColor = Color.Gray;
+                PhoneNumberTextBox.ForeColor = Color.Red;
+                MessageBox.Show("Please enter a valid phone number in the format 999-999-9999");
+            } else
+            {
+                PhoneNumberTextBox.ForeColor = Color.Black;
             }
         }
         private void ZipCodeTextBox_Enter(object sender, EventArgs e)
@@ -64,6 +67,12 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
                 PostalCodeTextBox.ForeColor = Color.Black;
             }
         }
+
+        /// <summary>
+        /// //////////////////////////////////////Submit Button Event///////////////////////////////////
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SubmitButton_Click(object sender, EventArgs e)
         {
             //Make sure none of the fields are blank
@@ -159,7 +168,11 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-        }
+        }/// <summary>
+        /// /////////////////////////End Submit Button Event///////////////////////////////////////
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CancelButton_Click(object sender, EventArgs e)
         {
             //Return to Customer Navigation Page
@@ -183,20 +196,17 @@ namespace Scheduling_Desktop_UI_App.Customer_mainNavigationPages
                     PhoneNumberTextBox.Text += "-";
                     PhoneNumberTextBox.SelectionStart = PhoneNumberTextBox.Text.Length;
                 }
-                //Stop user input after 12 characters have been entered
-                PhoneNumberTextBox.MaxLength = 12;
-
-                //Regex for phone number
+                //Limit input to only numbers
                 if (!System.Text.RegularExpressions.Regex.IsMatch(PhoneNumberTextBox.Text, @"^\d{3}-\d{3}-\d{4}$"))
                 {
                     PhoneNumberTextBox.ForeColor = Color.Red;
-                    MessageBox.Show("Please enter a valid phone number in the format 999-999-9999");
                 }
                 else
                 {
                     PhoneNumberTextBox.ForeColor = Color.Black;
                 }
-
+                //Stop user input after 12 characters have been entered
+                PhoneNumberTextBox.MaxLength = 12;
             }
             catch (StackOverflowException ex)
             {

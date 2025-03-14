@@ -135,19 +135,20 @@ namespace Scheduling_Desktop_UI_App
                     AppointmentsDataGridView.DataSource = dt;
                 }
 
+                if(value == 0)
+                {
+                    MessageBox.Show("No appointment selected");
+                } else
+                {
+                    MessageBox.Show("Appointment deleted successfully");
+                }
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
         }
-
-        private void AppointmentsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-
         private void MainNavigationPageButton_Click(object sender, EventArgs e)
         {
             //Go to main nagivation page

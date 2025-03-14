@@ -173,7 +173,6 @@
             this.AppointmentsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.AppointmentsDataGridView.Size = new System.Drawing.Size(974, 188);
             this.AppointmentsDataGridView.TabIndex = 51;
-            this.AppointmentsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.AppointmentsDataGridView_CellContentClick);
             // 
             // AppointmentCalendar
             // 

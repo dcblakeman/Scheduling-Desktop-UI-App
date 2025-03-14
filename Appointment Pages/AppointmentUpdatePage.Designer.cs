@@ -28,23 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AppointmentUpdatePage));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.AppointmentsGroupBox = new System.Windows.Forms.GroupBox();
             this.AppointmentsDataGridView = new System.Windows.Forms.DataGridView();
             this.AppointmentCalendarGroupBox = new System.Windows.Forms.GroupBox();
             this.AppointmentCalendar = new System.Windows.Forms.MonthCalendar();
             this.AppointmentDetailsGroupBox = new System.Windows.Forms.GroupBox();
+            this.LocationComboBox = new System.Windows.Forms.ComboBox();
             this.StartTimeComboBox = new System.Windows.Forms.ComboBox();
-            this.EndTimeTextBox = new System.Windows.Forms.TextBox();
+            this.EndTimeComboBox = new System.Windows.Forms.TextBox();
             this.AppointmentTypeComboBox = new System.Windows.Forms.ComboBox();
             this.CustomerProfileButton = new System.Windows.Forms.Button();
             this.UpdateAppointmentCancelButton = new System.Windows.Forms.Button();
             this.SubmitButton = new System.Windows.Forms.Button();
             this.ContactTextBox = new System.Windows.Forms.TextBox();
-            this.LocationTextBox = new System.Windows.Forms.TextBox();
             this.DescriptionTextBox = new System.Windows.Forms.TextBox();
             this.TitleTextBox = new System.Windows.Forms.TextBox();
             this.UserIdTextBox = new System.Windows.Forms.TextBox();
@@ -78,37 +78,36 @@
             this.AppointmentsDataGridView.AllowUserToDeleteRows = false;
             this.AppointmentsDataGridView.AllowUserToResizeColumns = false;
             this.AppointmentsDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.AppointmentsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.AppointmentsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.AppointmentsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.AppointmentsDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.AppointmentsDataGridView.DefaultCellStyle = dataGridViewCellStyle8;
             resources.ApplyResources(this.AppointmentsDataGridView, "AppointmentsDataGridView");
             this.AppointmentsDataGridView.MultiSelect = false;
             this.AppointmentsDataGridView.Name = "AppointmentsDataGridView";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.AppointmentsDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.AppointmentsDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.AppointmentsDataGridView.RowHeadersVisible = false;
             this.AppointmentsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.AppointmentsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.AppointmentsDataGridView_CellContentClick);
             // 
             // AppointmentCalendarGroupBox
             // 
@@ -125,14 +124,14 @@
             // 
             // AppointmentDetailsGroupBox
             // 
+            this.AppointmentDetailsGroupBox.Controls.Add(this.LocationComboBox);
             this.AppointmentDetailsGroupBox.Controls.Add(this.StartTimeComboBox);
-            this.AppointmentDetailsGroupBox.Controls.Add(this.EndTimeTextBox);
+            this.AppointmentDetailsGroupBox.Controls.Add(this.EndTimeComboBox);
             this.AppointmentDetailsGroupBox.Controls.Add(this.AppointmentTypeComboBox);
             this.AppointmentDetailsGroupBox.Controls.Add(this.CustomerProfileButton);
             this.AppointmentDetailsGroupBox.Controls.Add(this.UpdateAppointmentCancelButton);
             this.AppointmentDetailsGroupBox.Controls.Add(this.SubmitButton);
             this.AppointmentDetailsGroupBox.Controls.Add(this.ContactTextBox);
-            this.AppointmentDetailsGroupBox.Controls.Add(this.LocationTextBox);
             this.AppointmentDetailsGroupBox.Controls.Add(this.DescriptionTextBox);
             this.AppointmentDetailsGroupBox.Controls.Add(this.TitleTextBox);
             this.AppointmentDetailsGroupBox.Controls.Add(this.UserIdTextBox);
@@ -151,32 +150,36 @@
             resources.ApplyResources(this.AppointmentDetailsGroupBox, "AppointmentDetailsGroupBox");
             this.AppointmentDetailsGroupBox.Name = "AppointmentDetailsGroupBox";
             this.AppointmentDetailsGroupBox.TabStop = false;
-            this.AppointmentDetailsGroupBox.Enter += new System.EventHandler(this.AddAppointmentGroupBox_Enter);
+            // 
+            // LocationComboBox
+            // 
+            this.LocationComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.LocationComboBox.FormattingEnabled = true;
+            this.LocationComboBox.Items.AddRange(new object[] {
+            resources.GetString("LocationComboBox.Items"),
+            resources.GetString("LocationComboBox.Items1"),
+            resources.GetString("LocationComboBox.Items2")});
+            resources.ApplyResources(this.LocationComboBox, "LocationComboBox");
+            this.LocationComboBox.Name = "LocationComboBox";
+            this.LocationComboBox.DropDownClosed += new System.EventHandler(this.LocationComboBox_DropDownClosed);
             // 
             // StartTimeComboBox
             // 
+            this.StartTimeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.StartTimeComboBox.FormattingEnabled = true;
-            this.StartTimeComboBox.Items.AddRange(new object[] {
-            resources.GetString("StartTimeComboBox.Items"),
-            resources.GetString("StartTimeComboBox.Items1"),
-            resources.GetString("StartTimeComboBox.Items2"),
-            resources.GetString("StartTimeComboBox.Items3"),
-            resources.GetString("StartTimeComboBox.Items4"),
-            resources.GetString("StartTimeComboBox.Items5"),
-            resources.GetString("StartTimeComboBox.Items6"),
-            resources.GetString("StartTimeComboBox.Items7")});
             resources.ApplyResources(this.StartTimeComboBox, "StartTimeComboBox");
             this.StartTimeComboBox.Name = "StartTimeComboBox";
-            this.StartTimeComboBox.SelectedIndexChanged += new System.EventHandler(this.StartTimeComboBox_SelectedIndexChanged);
+            this.StartTimeComboBox.DropDownClosed += new System.EventHandler(this.StartTimeComboBox_DropDownClosed);
             // 
-            // EndTimeTextBox
+            // EndTimeComboBox
             // 
-            resources.ApplyResources(this.EndTimeTextBox, "EndTimeTextBox");
-            this.EndTimeTextBox.Name = "EndTimeTextBox";
-            this.EndTimeTextBox.ReadOnly = true;
+            resources.ApplyResources(this.EndTimeComboBox, "EndTimeComboBox");
+            this.EndTimeComboBox.Name = "EndTimeComboBox";
+            this.EndTimeComboBox.ReadOnly = true;
             // 
             // AppointmentTypeComboBox
             // 
+            this.AppointmentTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.AppointmentTypeComboBox.FormattingEnabled = true;
             this.AppointmentTypeComboBox.Items.AddRange(new object[] {
             resources.GetString("AppointmentTypeComboBox.Items"),
@@ -212,11 +215,6 @@
             // 
             resources.ApplyResources(this.ContactTextBox, "ContactTextBox");
             this.ContactTextBox.Name = "ContactTextBox";
-            // 
-            // LocationTextBox
-            // 
-            resources.ApplyResources(this.LocationTextBox, "LocationTextBox");
-            this.LocationTextBox.Name = "LocationTextBox";
             // 
             // DescriptionTextBox
             // 
@@ -321,13 +319,12 @@
         private System.Windows.Forms.MonthCalendar AppointmentCalendar;
         private System.Windows.Forms.GroupBox AppointmentDetailsGroupBox;
         private System.Windows.Forms.ComboBox StartTimeComboBox;
-        private System.Windows.Forms.TextBox EndTimeTextBox;
+        private System.Windows.Forms.TextBox EndTimeComboBox;
         private System.Windows.Forms.ComboBox AppointmentTypeComboBox;
         private System.Windows.Forms.Button CustomerProfileButton;
         private System.Windows.Forms.Button UpdateAppointmentCancelButton;
         private System.Windows.Forms.Button SubmitButton;
         private System.Windows.Forms.TextBox ContactTextBox;
-        private System.Windows.Forms.TextBox LocationTextBox;
         private System.Windows.Forms.TextBox DescriptionTextBox;
         private System.Windows.Forms.TextBox TitleTextBox;
         private System.Windows.Forms.TextBox UserIdTextBox;
@@ -343,5 +340,6 @@
         private System.Windows.Forms.Label DescriptionLabel;
         private System.Windows.Forms.Label ContactLabel;
         private System.Windows.Forms.Label LocationLabel;
+        private System.Windows.Forms.ComboBox LocationComboBox;
     }
 }

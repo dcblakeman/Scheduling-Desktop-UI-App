@@ -117,11 +117,54 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="&gt;&gt;AppointmentsDataGridView.Name" xml:space="preserve">
+    <value>AppointmentsDataGridView</value>
+  </data>
+  <data name="&gt;&gt;AppointmentsDataGridView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AppointmentsDataGridView.Parent" xml:space="preserve">
+    <value>AppointmentsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;AppointmentsDataGridView.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="AppointmentsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>687, 46</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="AppointmentsGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="AppointmentsGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="AppointmentsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>493, 343</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="AppointmentsGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="AppointmentsGroupBox.Text" xml:space="preserve">
+    <value>Appointments</value>
+  </data>
+  <data name="&gt;&gt;AppointmentsGroupBox.Name" xml:space="preserve">
+    <value>AppointmentsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;AppointmentsGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AppointmentsGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;AppointmentsGroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="AppointmentsDataGridView.Location" type="System.Drawing.Point, System.Drawing">
     <value>13, 16</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="AppointmentsDataGridView.RowHeadersWidth" type="System.Int32, mscorlib">
     <value>62</value>
   </data>
@@ -142,43 +185,6 @@
   </data>
   <data name="&gt;&gt;AppointmentsDataGridView.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="AppointmentsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>687, 46</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="AppointmentsGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="AppointmentsGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="AppointmentsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>493, 343</value>
-  </data>
-  <data name="AppointmentsGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="AppointmentsGroupBox.Text" xml:space="preserve">
-    <value>Appointments</value>
-  </data>
-  <data name="&gt;&gt;AppointmentsGroupBox.Name" xml:space="preserve">
-    <value>AppointmentsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;AppointmentsGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AppointmentsGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;AppointmentsGroupBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="AppointmentCalendar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 16</value>
-  </data>
-  <data name="AppointmentCalendar.TabIndex" type="System.Int32, mscorlib">
-    <value>51</value>
   </data>
   <data name="&gt;&gt;AppointmentCalendar.Name" xml:space="preserve">
     <value>AppointmentCalendar</value>
@@ -222,29 +228,53 @@
   <data name="&gt;&gt;AppointmentCalendarGroupBox.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="StartTimeComboBox.Items" xml:space="preserve">
-    <value>09:00:00</value>
+  <data name="AppointmentCalendar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 16</value>
   </data>
-  <data name="StartTimeComboBox.Items1" xml:space="preserve">
-    <value>10:00:00</value>
+  <data name="AppointmentCalendar.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
   </data>
-  <data name="StartTimeComboBox.Items2" xml:space="preserve">
-    <value>11:00:00</value>
+  <data name="&gt;&gt;AppointmentCalendar.Name" xml:space="preserve">
+    <value>AppointmentCalendar</value>
   </data>
-  <data name="StartTimeComboBox.Items3" xml:space="preserve">
-    <value>12:00:00</value>
+  <data name="&gt;&gt;AppointmentCalendar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MonthCalendar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="StartTimeComboBox.Items4" xml:space="preserve">
-    <value>1:00:00</value>
+  <data name="&gt;&gt;AppointmentCalendar.Parent" xml:space="preserve">
+    <value>AppointmentCalendarGroupBox</value>
   </data>
-  <data name="StartTimeComboBox.Items5" xml:space="preserve">
-    <value>02:00:00</value>
+  <data name="&gt;&gt;AppointmentCalendar.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="StartTimeComboBox.Items6" xml:space="preserve">
-    <value>03:00:00</value>
+  <data name="LocationComboBox.Items" xml:space="preserve">
+    <value>Phoenix</value>
   </data>
-  <data name="StartTimeComboBox.Items7" xml:space="preserve">
-    <value>04:00:00</value>
+  <data name="LocationComboBox.Items1" xml:space="preserve">
+    <value>New York</value>
+  </data>
+  <data name="LocationComboBox.Items2" xml:space="preserve">
+    <value>London</value>
+  </data>
+  <data name="LocationComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>114, 150</value>
+  </data>
+  <data name="LocationComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>234, 21</value>
+  </data>
+  <data name="LocationComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>62</value>
+  </data>
+  <data name="&gt;&gt;LocationComboBox.Name" xml:space="preserve">
+    <value>LocationComboBox</value>
+  </data>
+  <data name="&gt;&gt;LocationComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LocationComboBox.Parent" xml:space="preserve">
+    <value>AppointmentDetailsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;LocationComboBox.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="StartTimeComboBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>115, 231</value>
@@ -268,31 +298,31 @@
     <value>AppointmentDetailsGroupBox</value>
   </data>
   <data name="&gt;&gt;StartTimeComboBox.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
-  <data name="EndTimeTextBox.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="EndTimeComboBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>115, 259</value>
   </data>
-  <data name="EndTimeTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="EndTimeComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
-  <data name="EndTimeTextBox.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="EndTimeComboBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>235, 20</value>
   </data>
-  <data name="EndTimeTextBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="EndTimeComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>58</value>
   </data>
-  <data name="&gt;&gt;EndTimeTextBox.Name" xml:space="preserve">
-    <value>EndTimeTextBox</value>
+  <data name="&gt;&gt;EndTimeComboBox.Name" xml:space="preserve">
+    <value>EndTimeComboBox</value>
   </data>
-  <data name="&gt;&gt;EndTimeTextBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;EndTimeComboBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;EndTimeTextBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;EndTimeComboBox.Parent" xml:space="preserve">
     <value>AppointmentDetailsGroupBox</value>
   </data>
-  <data name="&gt;&gt;EndTimeTextBox.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;EndTimeComboBox.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="AppointmentTypeComboBox.Items" xml:space="preserve">
     <value>Initial Evaluation</value>
@@ -331,7 +361,7 @@
     <value>AppointmentDetailsGroupBox</value>
   </data>
   <data name="&gt;&gt;AppointmentTypeComboBox.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="CustomerProfileButton.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
@@ -361,7 +391,7 @@
     <value>AppointmentDetailsGroupBox</value>
   </data>
   <data name="&gt;&gt;CustomerProfileButton.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="UpdateAppointmentCancelButton.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
@@ -391,7 +421,7 @@
     <value>AppointmentDetailsGroupBox</value>
   </data>
   <data name="&gt;&gt;UpdateAppointmentCancelButton.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="SubmitButton.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
@@ -421,7 +451,7 @@
     <value>AppointmentDetailsGroupBox</value>
   </data>
   <data name="&gt;&gt;SubmitButton.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="ContactTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>114, 176</value>
@@ -445,30 +475,6 @@
     <value>AppointmentDetailsGroupBox</value>
   </data>
   <data name="&gt;&gt;ContactTextBox.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="LocationTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 150</value>
-  </data>
-  <data name="LocationTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 0, 5, 0</value>
-  </data>
-  <data name="LocationTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>234, 20</value>
-  </data>
-  <data name="LocationTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;LocationTextBox.Name" xml:space="preserve">
-    <value>LocationTextBox</value>
-  </data>
-  <data name="&gt;&gt;LocationTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;LocationTextBox.Parent" xml:space="preserve">
-    <value>AppointmentDetailsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;LocationTextBox.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
   <data name="DescriptionTextBox.Location" type="System.Drawing.Point, System.Drawing">
