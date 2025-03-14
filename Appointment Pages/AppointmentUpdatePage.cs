@@ -277,10 +277,6 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
             List<String> easternAndMountainList = new List<String>();
             List<String> easternAndGreenwichList = new List<String>();
 
-            if (_daySelected.IsDaylightSavingTime())
-            {
-
-            }
                 ///////////////////////////////////////////////////////////////////////////////////////////////
                 /////////////////For Loop to Assign Times to Lists////////////////////////////////////////////
                 /////////////////////////////////////////////////////////////////////////////////////////////

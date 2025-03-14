@@ -292,9 +292,9 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
         }
         public List<String> GetTimeZoneTimes(TimeZoneInfo timeZone)
         {
-            Console.WriteLine("TimeZone: " +  timeZone);
+            Console.WriteLine("TimeZone: " + timeZone);
             Console.WriteLine("DateSelected: " + _daySelected);
-            
+
             ///////////////////////Format Times Block////////////////////////
             CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
             DateTimeFormatInfo dtfi = culture.DateTimeFormat;
@@ -304,7 +304,7 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
             String easternTimeString;
             String mountainTimeString;
             String greenwichTimeString;
-  
+
             ///////////////////////Time Zone Times Lists///////////////////
             List<String> easternTimes = new List<String>();
             List<String> mountainTimes = new List<String>();
@@ -322,11 +322,12 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
             {
                 //Getting time zone datetime objects
                 DateTime easternTime = new DateTime(_daySelected.Year, _daySelected.Month, _daySelected.Day, hour, 0, 0);
-                Console.WriteLine("Eastern Time: " + easternTime);
                 DateTime mountainTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(easternTime, "Eastern Standard Time", "US Mountain Standard Time");
                 DateTime greenwichTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(easternTime, "Eastern Standard Time", "GMT Standard Time");
-                //DateTime mountainTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(easternTime, "Eastern Standard Time", timeZoneString);
-                //DateTime greenwichTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(easternTime, "Eastern Standard Time", timeZoneString);
+                if (mountainTime.IsDaylightSavingTime())
+                {
+                    mountainTime = mountainTime.AddHours(1);
+                }
 
                 //Convert the datetime objects to string
                 easternTimeString = easternTime.ToString("hh:mm:ss tt");
@@ -346,7 +347,7 @@ namespace Scheduling_Desktop_UI_App.Appointment_Navigation_Pages
 
             Console.WriteLine("Time Zone: " + _timeZone);
             //////////////////////Switch Block for location////////////////////////////
-            if(_timeZone.ToString() == "(UTC-07:00) Arizona")
+            if (_timeZone.ToString() == "(UTC-07:00) Arizona")
             {
                 return easternAndMountainList;
             }
